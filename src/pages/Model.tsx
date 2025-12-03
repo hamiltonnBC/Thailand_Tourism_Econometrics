@@ -7,10 +7,10 @@
 import { useState } from 'react'
 import { Box, HStack, Text, Code, VStack } from '@chakra-ui/react'
 
-type ModelTab = 'methodology' | 'specification' | 'constraints'
+type ModelTab = 'development' | 'specification' | 'diagnostics' | 'limitations'
 
 export function Model() {
-  const [activeSubTab, setActiveSubTab] = useState<ModelTab>('methodology')
+  const [activeSubTab, setActiveSubTab] = useState<ModelTab>('development')
 
   return (
     <Box>
@@ -24,20 +24,20 @@ export function Model() {
           px={5}
           py={3}
           cursor="pointer"
-          fontWeight={activeSubTab === 'methodology' ? 'semibold' : 'medium'}
+          fontWeight={activeSubTab === 'development' ? 'semibold' : 'medium'}
           fontSize="sm"
-          color={activeSubTab === 'methodology' ? '#1e293b' : '#64748b'}
+          color={activeSubTab === 'development' ? '#1e293b' : '#64748b'}
           borderBottom="3px"
-          borderColor={activeSubTab === 'methodology' ? '#1e293b' : 'transparent'}
+          borderColor={activeSubTab === 'development' ? '#1e293b' : 'transparent'}
           mb="-2px"
           _hover={{
             color: '#1e293b',
             bg: '#f8fafc',
           }}
           transition="all 0.2s"
-          onClick={() => setActiveSubTab('methodology')}
+          onClick={() => setActiveSubTab('development')}
         >
-          Methodology
+          Model Development
         </Box>
         <Box
           px={5}
@@ -56,90 +56,205 @@ export function Model() {
           transition="all 0.2s"
           onClick={() => setActiveSubTab('specification')}
         >
-          Model Specification
+          Final Specification
         </Box>
         <Box
           px={5}
           py={3}
           cursor="pointer"
-          fontWeight={activeSubTab === 'constraints' ? 'semibold' : 'medium'}
+          fontWeight={activeSubTab === 'diagnostics' ? 'semibold' : 'medium'}
           fontSize="sm"
-          color={activeSubTab === 'constraints' ? '#1e293b' : '#64748b'}
+          color={activeSubTab === 'diagnostics' ? '#1e293b' : '#64748b'}
           borderBottom="3px"
-          borderColor={activeSubTab === 'constraints' ? '#1e293b' : 'transparent'}
+          borderColor={activeSubTab === 'diagnostics' ? '#1e293b' : 'transparent'}
           mb="-2px"
           _hover={{
             color: '#1e293b',
             bg: '#f8fafc',
           }}
           transition="all 0.2s"
-          onClick={() => setActiveSubTab('constraints')}
+          onClick={() => setActiveSubTab('diagnostics')}
         >
-          Constraints & Tests
+          Diagnostic Tests
+        </Box>
+        <Box
+          px={5}
+          py={3}
+          cursor="pointer"
+          fontWeight={activeSubTab === 'limitations' ? 'semibold' : 'medium'}
+          fontSize="sm"
+          color={activeSubTab === 'limitations' ? '#1e293b' : '#64748b'}
+          borderBottom="3px"
+          borderColor={activeSubTab === 'limitations' ? '#1e293b' : 'transparent'}
+          mb="-2px"
+          _hover={{
+            color: '#1e293b',
+            bg: '#f8fafc',
+          }}
+          transition="all 0.2s"
+          onClick={() => setActiveSubTab('limitations')}
+        >
+          Limitations
         </Box>
       </HStack>
 
       {/* Content area */}
       <Box color="#1e293b" lineHeight="1.8">
-        {activeSubTab === 'methodology' && (
+        {activeSubTab === 'development' && (
           <VStack align="stretch" gap={6}>
             <Box>
               <Text fontSize="2xl" fontWeight="semibold" mb={4}>
-                Research Approach
+                The Iterative Journey
               </Text>
               <Text color="#64748b" mb={4}>
-                To empirically investigate the determinants of Chinese outbound tourism and quantify the asymmetric 
-                recovery rates between Thailand and its regional competitors, we constructed an unbalanced panel dataset 
-                covering the period 2005–2024.
-              </Text>
-              <Text color="#64748b" mb={4}>
-                Existing econometric literature using panel data on Southeast Asian tourism has predominantly focused on 
-                the 'Tourism-Led Growth Hypothesis' (TLGH). For instance, Yunitaningtyas et al. (2019) employed panel 
-                data analysis across ASEAN member countries to demonstrate that tourism receipts are a statistically 
-                significant driver of national economic development and GDP growth.
-              </Text>
-              <Text color="#64748b">
-                However, there remains a critical gap in understanding post-pandemic determinants of international demand, 
-                and there is a lack of quantified rationale for the observed drop in Chinese tourism to Thailand.
+                Developing our econometric model was not a linear process—it was an iterative journey of exploration, 
+                testing, and refinement. We tried multiple approaches, ran countless diagnostic tests, and learned from 
+                each iteration. This section documents that journey.
               </Text>
             </Box>
 
             <Box>
-              <Text fontSize="2xl" fontWeight="semibold" mb={4}>
-                Our Contribution
+              <Text fontSize="xl" fontWeight="semibold" mb={4}>
+                Phase 1: Initial Exploration
+              </Text>
+              <Text color="#64748b" mb={3}>
+                We began by exploring various modeling approaches mentioned in the literature:
+              </Text>
+              <Box as="ul" pl={6} color="#64748b" mb={4}>
+                <Box as="li" mb={2}>
+                  <strong>Simple OLS Regression:</strong> Our first attempt used basic linear regression, but we quickly 
+                  discovered issues with heteroskedasticity and autocorrelation across countries.
+                </Box>
+                <Box as="li" mb={2}>
+                  <strong>Time Series Models:</strong> We explored ARIMA and other time series approaches, but these 
+                  couldn't capture the cross-country variation we needed.
+                </Box>
+                <Box as="li" mb={2}>
+                  <strong>Gradient Boosting Trees:</strong> We experimented with machine learning approaches, but they 
+                  lacked the interpretability we needed for policy recommendations.
+                </Box>
+              </Box>
+            </Box>
+
+            <Box>
+              <Text fontSize="xl" fontWeight="semibold" mb={4}>
+                Phase 2: Panel Data Discovery
               </Text>
               <Text color="#64748b" mb={4}>
-                While the decline in Chinese tourism is well-documented, current literature relies on qualitative surveys 
-                and year-over-year comparisons. Our study uses a <strong>Panel Data Fixed Effects approach</strong> to 
-                isolate the specific magnitude of the differences from Chinese tourism to Thailand vs. other destinations, 
-                while controlling for the confounding variable of China's economic slowdown.
+                After reviewing tourism econometrics literature, particularly Yunitaningtyas et al. (2019), we realized 
+                that panel data methods were ideal for our research question. We had:
               </Text>
+              <Box as="ul" pl={6} color="#64748b" mb={4}>
+                <Box as="li" mb={2}>Multiple countries (cross-sectional dimension)</Box>
+                <Box as="li" mb={2}>Multiple years (time dimension)</Box>
+                <Box as="li" mb={2}>Country-specific effects we needed to control for</Box>
+                <Box as="li">Time-varying shocks affecting all countries</Box>
+              </Box>
               <Text color="#64748b">
-                We estimate the specific 'Thailand Penalty' relative to regional competitors, along with other high tourism 
-                locations. We chose the locations based on data availability, regional competition, and the number of Chinese 
-                outbound tourists to these locations.
+                This led us to explore Fixed Effects vs. Random Effects models.
               </Text>
             </Box>
 
             <Box>
-              <Text fontSize="2xl" fontWeight="semibold" mb={4}>
-                Model Selection
+              <Text fontSize="xl" fontWeight="semibold" mb={4}>
+                Phase 3: Model Specification Trials
+              </Text>
+              <Text color="#64748b" mb={3}>
+                We ran multiple model specifications, each teaching us something new:
+              </Text>
+              <Box bg="#f8fafc" p={4} borderRadius="md" border="1px" borderColor="#e2e8f0" mb={4}>
+                <VStack align="stretch" gap={3}>
+                  <Box>
+                    <Text fontWeight="semibold" mb={2}>Version 1: Basic Gravity Model</Text>
+                    <Text color="#64748b" fontSize="sm">
+                      Included distance, GDP, and population. Problem: Distance is time-invariant and gets absorbed by 
+                      country fixed effects.
+                    </Text>
+                  </Box>
+                  <Box>
+                    <Text fontWeight="semibold" mb={2}>Version 2: Adding Economic Variables</Text>
+                    <Text color="#64748b" fontSize="sm">
+                      Added exchange rates and CPI. Better, but still missing the safety dimension that literature 
+                      emphasized.
+                    </Text>
+                  </Box>
+                  <Box>
+                    <Text fontWeight="semibold" mb={2}>Version 3: Safety Index Integration</Text>
+                    <Text color="#64748b" fontSize="sm">
+                      Incorporated Global Peace Index. Improved model fit, but we debated whether to use objective or 
+                      perceived safety metrics.
+                    </Text>
+                  </Box>
+                  <Box>
+                    <Text fontWeight="semibold" mb={2}>Version 4: GDP vs. Year Fixed Effects</Text>
+                    <Text color="#64748b" fontSize="sm">
+                      Tested two approaches: one with Chinese GDP explicitly, another with year fixed effects. The latter 
+                      better captured global shocks like COVID-19.
+                    </Text>
+                  </Box>
+                </VStack>
+              </Box>
+            </Box>
+
+            <Box>
+              <Text fontSize="xl" fontWeight="semibold" mb={4}>
+                Phase 4: Variable Transformations
               </Text>
               <Text color="#64748b" mb={4}>
-                We utilize a <strong>Gravity-style specification</strong>. While traditional gravity models rely on distance, 
-                our use of Country Fixed Effects controls for time-invariant geographic costs (Morley, Rosselló, & 
-                Santana-Gallego, 2014).
+                We learned that raw values created problems due to scale differences between countries. We experimented with:
+              </Text>
+              <Box as="ul" pl={6} color="#64748b" mb={4}>
+                <Box as="li" mb={2}>
+                  <strong>Log transformations:</strong> Allowed us to interpret coefficients as percentage changes and 
+                  smoothed outliers
+                </Box>
+                <Box as="li" mb={2}>
+                  <strong>Standardization:</strong> Tested z-scores but found logs more interpretable
+                </Box>
+                <Box as="li">
+                  <strong>Index creation:</strong> Built CPI indices with 2010 as base year for consistency
+                </Box>
+              </Box>
+            </Box>
+
+            <Box>
+              <Text fontSize="xl" fontWeight="semibold" mb={4}>
+                Phase 5: The "Thailand Penalty" Variable
               </Text>
               <Text color="#64748b" mb={4}>
-                The selection of the Fixed Effects (FE) estimator is supported by empirical precedents in ASEAN tourism 
-                literature. Yunitaningtyas et al. (2019) demonstrated through the Chow and Hausman tests that the Fixed 
-                Effects model is superior to Random Effects for this region. They argue that ASEAN countries exhibit 
-                significant unobserved heterogeneity that must be controlled for via individual intercepts.
+                A breakthrough came when we realized we could create an interaction term (Thailand × Post-2023) to 
+                directly measure the asymmetric recovery. This Difference-in-Differences approach allowed us to:
               </Text>
-              <Text color="#64748b">
-                Following this methodological standard, we apply the Hausman test to confirm the appropriateness of FE 
-                for our demand model.
+              <Box as="ul" pl={6} color="#64748b">
+                <Box as="li" mb={2}>Isolate Thailand's specific effect</Box>
+                <Box as="li" mb={2}>Control for global trends affecting all countries</Box>
+                <Box as="li">Quantify the exact magnitude of the penalty</Box>
+              </Box>
+            </Box>
+
+            <Box>
+              <Text fontSize="xl" fontWeight="semibold" mb={4}>
+                Key Lessons Learned
               </Text>
+              <Box bg="#f1f5f9" p={4} borderRadius="md" border="1px" borderColor="#cbd5e1">
+                <VStack align="stretch" gap={2}>
+                  <Text color="#64748b">
+                    ✓ Panel data methods are powerful for tourism research with multiple countries and years
+                  </Text>
+                  <Text color="#64748b">
+                    ✓ Fixed Effects control for unobserved heterogeneity better than Random Effects for our data
+                  </Text>
+                  <Text color="#64748b">
+                    ✓ Log transformations improve interpretability and handle scale differences
+                  </Text>
+                  <Text color="#64748b">
+                    ✓ Interaction terms can isolate specific treatment effects
+                  </Text>
+                  <Text color="#64748b">
+                    ✓ Every model specification teaches you something, even the "failed" ones
+                  </Text>
+                </VStack>
+              </Box>
             </Box>
           </VStack>
         )}
@@ -235,7 +350,7 @@ export function Model() {
           </VStack>
         )}
 
-        {activeSubTab === 'constraints' && (
+        {activeSubTab === 'diagnostics' && (
           <VStack align="stretch" gap={6}>
             <Box>
               <Text fontSize="2xl" fontWeight="semibold" mb={4}>
@@ -323,6 +438,290 @@ export function Model() {
                 causes political instability (rather than the reverse), this could bias our estimates. Future iterations 
                 may employ a lagged variable approach (t-1) to address this concern.
               </Text>
+            </Box>
+          </VStack>
+        )}
+
+        {activeSubTab === 'diagnostics' && (
+          <VStack align="stretch" gap={6}>
+            <Box>
+              <Text fontSize="2xl" fontWeight="semibold" mb={4}>
+                Diagnostic Testing Journey
+              </Text>
+              <Text color="#64748b" mb={4}>
+                For every model iteration, we ran a battery of diagnostic tests. This wasn't just checking boxes—each 
+                test revealed something about our data and helped us refine our approach.
+              </Text>
+            </Box>
+
+            <Box>
+              <Text fontSize="xl" fontWeight="semibold" mb={4}>
+                Hausman Test: Fixed vs. Random Effects
+              </Text>
+              <Text color="#64748b" mb={3}>
+                <strong>Purpose:</strong> Determine whether Fixed Effects or Random Effects is the appropriate estimator.
+              </Text>
+              <Text color="#64748b" mb={3}>
+                <strong>Hypothesis:</strong>
+              </Text>
+              <Box pl={4} mb={3}>
+                <Text color="#64748b">H₀: Random Effects is consistent (preferred)</Text>
+                <Text color="#64748b">H₁: Fixed Effects is required</Text>
+              </Box>
+              <Box bg="#f8fafc" p={4} borderRadius="md" border="1px" borderColor="#e2e8f0" mb={4}>
+                <Text fontWeight="semibold" mb={2}>Result:</Text>
+                <Text color="#64748b">
+                  Prob &gt; chi2 = 0.000. We reject the null hypothesis and proceed with Fixed Effects. This confirms 
+                  that country-specific effects are correlated with our regressors, making FE the appropriate choice.
+                </Text>
+              </Box>
+            </Box>
+
+            <Box>
+              <Text fontSize="xl" fontWeight="semibold" mb={4}>
+                Modified Wald Test for Heteroskedasticity
+              </Text>
+              <Text color="#64748b" mb={3}>
+                <strong>Purpose:</strong> Test for groupwise heteroskedasticity across panel groups (countries).
+              </Text>
+              <Text color="#64748b" mb={4}>
+                Heteroskedasticity means the variance of errors differs across countries. This is common in tourism 
+                data where large countries (like Japan) have more volatile tourist flows than smaller ones.
+              </Text>
+              <Box bg="#f8fafc" p={4} borderRadius="md" border="1px" borderColor="#e2e8f0" mb={4}>
+                <Text fontWeight="semibold" mb={2}>What we found:</Text>
+                <Text color="#64748b">
+                  Evidence of heteroskedasticity across countries. We addressed this by using robust standard errors 
+                  in our final specification.
+                </Text>
+              </Box>
+            </Box>
+
+            <Box>
+              <Text fontSize="xl" fontWeight="semibold" mb={4}>
+                Wooldridge Test for Autocorrelation
+              </Text>
+              <Text color="#64748b" mb={3}>
+                <strong>Purpose:</strong> Test for first-order autocorrelation in panel data.
+              </Text>
+              <Text color="#64748b" mb={4}>
+                Autocorrelation means errors in one year are correlated with errors in the next year. This is 
+                particularly relevant for tourism, where a bad year often leads to another bad year.
+              </Text>
+              <Box bg="#f8fafc" p={4} borderRadius="md" border="1px" borderColor="#e2e8f0" mb={4}>
+                <Text fontWeight="semibold" mb={2}>What we found:</Text>
+                <Text color="#64748b">
+                  Some evidence of autocorrelation. We considered AR(1) corrections but found that year fixed effects 
+                  adequately captured temporal patterns.
+                </Text>
+              </Box>
+            </Box>
+
+            <Box>
+              <Text fontSize="xl" fontWeight="semibold" mb={4}>
+                Parallel Trends Validation
+              </Text>
+              <Text color="#64748b" mb={4}>
+                For our Difference-in-Differences approach to work, we need to validate the parallel trends assumption: 
+                that Thailand and control countries followed similar trends before 2023.
+              </Text>
+              <VStack align="stretch" gap={4}>
+                <Box>
+                  <Text fontWeight="semibold" mb={2}>Visual Inspection</Text>
+                  <Text color="#64748b">
+                    We plotted pre-treatment trends (2010-2019) for Thailand vs. control group average. The trends 
+                    moved together, supporting our parallel trends assumption.
+                  </Text>
+                </Box>
+                <Box>
+                  <Text fontWeight="semibold" mb={2}>Spatial Placebo Test</Text>
+                  <Text color="#64748b" mb={3}>
+                    We re-estimated the model assigning a false treatment to Vietnam (a control country with similar 
+                    characteristics to Thailand).
+                  </Text>
+                  <Box bg="#f8fafc" p={4} borderRadius="md" border="1px" borderColor="#e2e8f0">
+                    <Text fontWeight="semibold" mb={2}>Result:</Text>
+                    <Text color="#64748b">
+                      The coefficient for (Vietnam × Post2023) was statistically indistinguishable from zero. This 
+                      supports our claim that the penalty is unique to Thailand, not a regional phenomenon.
+                    </Text>
+                  </Box>
+                </Box>
+              </VStack>
+            </Box>
+
+            <Box>
+              <Text fontSize="xl" fontWeight="semibold" mb={4}>
+                Multicollinearity Check
+              </Text>
+              <Text color="#64748b" mb={4}>
+                We calculated Variance Inflation Factors (VIF) for all regressors to ensure they weren't too highly 
+                correlated with each other.
+              </Text>
+              <Box bg="#f8fafc" p={4} borderRadius="md" border="1px" borderColor="#e2e8f0">
+                <Text fontWeight="semibold" mb={2}>Result:</Text>
+                <Text color="#64748b">
+                  All VIF values were below 5, indicating acceptable levels of multicollinearity. The highest VIF was 
+                  for GDP and exchange rate (as expected), but still within acceptable bounds.
+                </Text>
+              </Box>
+            </Box>
+
+            <Box>
+              <Text fontSize="xl" fontWeight="semibold" mb={4}>
+                Goodness of Fit
+              </Text>
+              <Text color="#64748b" mb={4}>
+                We examined R² and adjusted R² to assess how well our model explains variation in tourist arrivals.
+              </Text>
+              <Box bg="#f8fafc" p={4} borderRadius="md" border="1px" borderColor="#e2e8f0">
+                <Text fontWeight="semibold" mb={2}>Results:</Text>
+                <Text color="#64748b">
+                  Within R² (variation explained within countries over time) was substantial, indicating our 
+                  time-varying variables effectively explain changes in tourism flows.
+                </Text>
+              </Box>
+            </Box>
+          </VStack>
+        )}
+
+        {activeSubTab === 'limitations' && (
+          <VStack align="stretch" gap={6}>
+            <Box>
+              <Text fontSize="2xl" fontWeight="semibold" mb={4}>
+                Honest Assessment of Limitations
+              </Text>
+              <Text color="#64748b" mb={4}>
+                Every econometric model has limitations. Being transparent about these doesn't weaken our research—it 
+                strengthens it by showing we understand the boundaries of what we can claim.
+              </Text>
+            </Box>
+
+            <Box>
+              <Text fontSize="xl" fontWeight="semibold" mb={4}>
+                1. Endogeneity Concerns
+              </Text>
+              <Text color="#64748b" mb={3}>
+                <strong>The Issue:</strong> Our safety variable might be endogenous. Does low tourism cause political 
+                instability, or does instability cause low tourism? The causality could run both ways.
+              </Text>
+              <Text color="#64748b" mb={3}>
+                <strong>What we considered:</strong>
+              </Text>
+              <Box as="ul" pl={6} color="#64748b" mb={3}>
+                <Box as="li" mb={2}>Using lagged safety variables (t-1) to address reverse causality</Box>
+                <Box as="li" mb={2}>Instrumental variable approaches (but struggled to find valid instruments)</Box>
+                <Box as="li">Acknowledging this as a limitation rather than claiming perfect causality</Box>
+              </Box>
+              <Text color="#64748b">
+                <strong>Our stance:</strong> We interpret our safety coefficient as an association, not pure causation. 
+                Future research with better instruments could strengthen causal claims.
+              </Text>
+            </Box>
+
+            <Box>
+              <Text fontSize="xl" fontWeight="semibold" mb={4}>
+                2. Perceived vs. Objective Safety
+              </Text>
+              <Text color="#64748b" mb={4}>
+                We use the Global Peace Index (objective safety), but what really matters is perceived safety among 
+                Chinese tourists. These can diverge significantly—a country might be objectively safe but perceived as 
+                dangerous due to media coverage or social media narratives.
+              </Text>
+              <Text color="#64748b" mb={3}>
+                <strong>What we tried:</strong> We attempted to construct a "Safety Perception Score" from Dragon Trail 
+                International surveys, but data availability was limited (only bi-annual reports).
+              </Text>
+              <Text color="#64748b">
+                <strong>Future work:</strong> Sentiment analysis of Chinese social media (Weibo, Douyin) could provide 
+                real-time perceived safety metrics.
+              </Text>
+            </Box>
+
+            <Box>
+              <Text fontSize="xl" fontWeight="semibold" mb={4}>
+                3. Unbalanced Panel
+              </Text>
+              <Text color="#64748b" mb={4}>
+                Not all countries have complete data for all years. While Fixed Effects handles this appropriately, 
+                missing data reduces our statistical power and could introduce bias if missingness is non-random.
+              </Text>
+              <Text color="#64748b">
+                <strong>Mitigation:</strong> We checked whether missing data patterns were correlated with our outcome 
+                variable and found no systematic relationship.
+              </Text>
+            </Box>
+
+            <Box>
+              <Text fontSize="xl" fontWeight="semibold" mb={4}>
+                4. Year Fixed Effects Absorption
+              </Text>
+              <Text color="#64748b" mb={4}>
+                Including year fixed effects absorbs China's GDP and other time-varying factors that affect all 
+                countries equally. This is intentional—we want to focus on destination-specific variation—but it means 
+                we can't separately identify the effect of China's economic growth.
+              </Text>
+              <Text color="#64748b">
+                <strong>Trade-off:</strong> We ran both specifications (with and without year FE) to show robustness. 
+                The Thailand penalty persists in both.
+              </Text>
+            </Box>
+
+            <Box>
+              <Text fontSize="xl" fontWeight="semibold" mb={4}>
+                5. Omitted Variable Bias
+              </Text>
+              <Text color="#64748b" mb={4}>
+                There are likely important variables we couldn't include due to data limitations:
+              </Text>
+              <Box as="ul" pl={6} color="#64748b" mb={4}>
+                <Box as="li" mb={2}>Social media sentiment and viral content</Box>
+                <Box as="li" mb={2}>Airline capacity and flight availability</Box>
+                <Box as="li" mb={2}>Marketing expenditures by tourism boards</Box>
+                <Box as="li">Competitor countries' promotional activities</Box>
+              </Box>
+              <Text color="#64748b">
+                <strong>Mitigation:</strong> Country fixed effects capture time-invariant omitted variables, and year 
+                fixed effects capture common shocks. But time-varying, country-specific omitted variables remain a concern.
+              </Text>
+            </Box>
+
+            <Box>
+              <Text fontSize="xl" fontWeight="semibold" mb={4}>
+                6. External Validity
+              </Text>
+              <Text color="#64748b" mb={4}>
+                Our findings are specific to Chinese outbound tourism in the post-pandemic period. We should be cautious 
+                about generalizing to:
+              </Text>
+              <Box as="ul" pl={6} color="#64748b" mb={4}>
+                <Box as="li" mb={2}>Other source markets (European, American tourists)</Box>
+                <Box as="li" mb={2}>Different time periods (pre-pandemic dynamics)</Box>
+                <Box as="li">Other destination regions (outside our sample)</Box>
+              </Box>
+            </Box>
+
+            <Box bg="#f1f5f9" p={5} borderRadius="md" border="1px" borderColor="#cbd5e1">
+              <Text fontSize="lg" fontWeight="semibold" mb={3}>
+                Why Our Model Still Has Value
+              </Text>
+              <Text color="#64748b" mb={3}>
+                Despite these limitations, our model makes important contributions:
+              </Text>
+              <Box as="ul" pl={6} color="#64748b">
+                <Box as="li" mb={2}>
+                  First quantitative estimate of the "Thailand Penalty" using rigorous panel methods
+                </Box>
+                <Box as="li" mb={2}>
+                  Controls for confounding factors that qualitative studies miss
+                </Box>
+                <Box as="li" mb={2}>
+                  Provides actionable insights for policy despite imperfect data
+                </Box>
+                <Box as="li">
+                  Establishes a methodological framework for future research to build upon
+                </Box>
+              </Box>
             </Box>
           </VStack>
         )}

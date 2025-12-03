@@ -6,6 +6,7 @@
 
 import { useState } from 'react'
 import { Box, HStack, Text } from '@chakra-ui/react'
+import { ChinaArrivalsChart } from '../components/ChinaArrivalsChart'
 
 type DataExplorationTab = 'visualizations' | 'notes'
 
@@ -64,12 +65,7 @@ export function DataExploration() {
       <Box color="#1e293b" lineHeight="1.8">
         {activeSubTab === 'visualizations' && (
           <Box>
-            <Text fontSize="2xl" fontWeight="semibold" mb={4}>
-              Data Visualizations
-            </Text>
-            <Text color="#64748b" mb={4}>
-              Visualizations coming soon...
-            </Text>
+            <ChinaArrivalsChart />
           </Box>
         )}
         {activeSubTab === 'notes' && (
