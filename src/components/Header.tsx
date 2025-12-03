@@ -23,7 +23,7 @@ export function Header() {
           letterSpacing="tight"
           mb={2}
         >
-          Econometrics Dashboard
+            Econometrics at Mahidol University
         </Heading>
         <Text 
           fontSize="lg" 

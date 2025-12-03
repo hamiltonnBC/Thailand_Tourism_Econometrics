@@ -6,6 +6,7 @@
 
 import { useState } from 'react'
 import { Box, HStack, Text, Code, VStack } from '@chakra-ui/react'
+import { RegressionModelCard } from '../components/RegressionModelCard'
 
 type ModelTab = 'development' | 'specification' | 'diagnostics' | 'limitations'
 
@@ -255,6 +256,171 @@ export function Model() {
                   </Text>
                 </VStack>
               </Box>
+            </Box>
+
+            {/* Regression Model Specifications */}
+            <Box>
+              <Text fontSize="2xl" fontWeight="semibold" mb={4}>
+                Model Specifications & Tests
+              </Text>
+              <Text color="#64748b" mb={6}>
+                Below are the key regression models we developed, along with the hypothesis tests that validate 
+                our approach. Each model builds on insights from the previous iterations.
+              </Text>
+
+              <VStack align="stretch" gap={6}>
+                {/* Model A: Baseline Gravity Model */}
+                <RegressionModelCard
+                  modelName="Model A: Baseline Gravity Model with Entity Fixed Effects"
+                  modelEquation="ln(Arrivals_it) = α_i + β₁(Peace_Index_it) + β₂ln(CPI_it) + β₃ln(GDP_China_t) + β₄ln(Exchange_Rate_it) + β₅(COVID_Dummy_t) + ε_it"
+                  description="This is our baseline specification using entity (country) fixed effects to control for time-invariant country characteristics. We include a COVID dummy variable to capture the pandemic's impact on tourism flows. The model uses nominal exchange rates and includes China's GDP to capture the income effect on outbound tourism demand. R² = 0.4261, N = 136 observations across 8 countries."
+                  keyFindings={[
+                    'Peace Index: β = 1.69, p = 0.059 (marginally significant at 10% level)',
+                    'CPI: β = 1.46, p = 0.035 → 1% increase in CPI leads to 1.46% increase in arrivals',
+                    'China GDP: β = 0.39, p = 0.177 (not significant)',
+                    'Exchange Rate: β = 1.00, p = 0.263 (not significant)',
+                    'COVID Dummy: β = -2.56, p < 0.001 → 92.3% decrease in arrivals during 2020-2021'
+                  ]}
+                  hypothesisTests={[
+                    {
+                      name: 'F-Test for Poolability',
+                      nullHypothesis: 'All country fixed effects are jointly zero (pooled OLS is sufficient)',
+                      pValue: 'F = 7.04, p < 0.001',
+                      result: 'Reject H₀',
+                      interpretation: 'Country fixed effects are necessary. Countries have significant unobserved heterogeneity that must be controlled for.'
+                    },
+                    {
+                      name: 'CPI Coefficient Test',
+                      nullHypothesis: 'β₂ (ln CPI) = 0',
+                      pValue: 't = 2.13, p = 0.035',
+                      result: 'Reject H₀',
+                      interpretation: 'CPI significantly affects arrivals. Higher prices are associated with more arrivals (possibly quality signal).'
+                    },
+                    {
+                      name: 'COVID Impact Test',
+                      nullHypothesis: 'β₅ (COVID Dummy) = 0',
+                      pValue: 't = -12.52, p < 0.001',
+                      result: 'Reject H₀',
+                      interpretation: 'COVID-19 had a massive negative impact, reducing arrivals by approximately 92% during 2020-2021.'
+                    }
+                  ]}
+                />
+
+                {/* Model C: Thailand Asymmetry */}
+                <RegressionModelCard
+                  modelName="Model C: Thailand Asymmetry Analysis"
+                  modelEquation="ln(Arrivals_it) = α_i + β₁(Peace_Index_it) + β₂ln(CPI_it) + β₃ln(GDP_China_t) + β₄ln(Exchange_Rate_it) + β₅(COVID_t) + β₆(Post_COVID_t) + β₇(Thailand × Post_COVID_it) + ε_it"
+                  description="This model introduces our key innovation: an interaction term (Thailand × Post-COVID) to capture Thailand's asymmetric recovery. This is a Difference-in-Differences approach that isolates Thailand's specific post-pandemic effect relative to other destinations. The coefficient β₇ directly measures the 'Thailand Bonus' (surprisingly positive!). R² = 0.5935, N = 136."
+                  keyFindings={[
+                    'Peace Index: β = 0.40, p = 0.578 (not significant in this specification)',
+                    'CPI: β = 3.23, p = 0.026 → 1% increase in CPI leads to 3.23% increase in arrivals',
+                    'China GDP: β = 1.09, p = 0.008 → 1% increase in China GDP leads to 1.09% increase in arrivals',
+                    'COVID Dummy: β = -3.42, p < 0.001 → 96.7% decrease during pandemic',
+                    'Post-COVID: β = -1.92, p < 0.001 → General recovery still 85% below pre-pandemic',
+                    'Thailand × Post-COVID: β = +0.30, p = 0.038 → Thailand recovers 34% FASTER than others!'
+                  ]}
+                  hypothesisTests={[
+                    {
+                      name: 'Thailand Effect Test',
+                      nullHypothesis: 'β₇ (Thailand × Post-COVID) = 0',
+                      pValue: 't = 2.10, p = 0.038',
+                      result: 'Reject H₀',
+                      interpretation: 'Thailand has a statistically significant POSITIVE asymmetric recovery! Contrary to expectations, Thailand is recovering faster than comparable destinations by approximately 34%.'
+                    },
+                    {
+                      name: 'China GDP Significance',
+                      nullHypothesis: 'β₃ (ln GDP China) = 0',
+                      pValue: 't = 2.72, p = 0.008',
+                      result: 'Reject H₀',
+                      interpretation: 'China\'s economic growth significantly drives outbound tourism. A 1% increase in China\'s GDP leads to a 1.09% increase in tourist arrivals.'
+                    },
+                    {
+                      name: 'Model Fit Improvement',
+                      nullHypothesis: 'Model C fits no better than Model A',
+                      pValue: 'R² = 0.594 vs 0.426',
+                      result: 'Reject H₀',
+                      interpretation: 'Adding the Thailand interaction and post-COVID variables substantially improves model fit, explaining 59% of within-country variation.'
+                    }
+                  ]}
+                />
+
+                {/* Model D: Real Exchange Rate */}
+                <RegressionModelCard
+                  modelName="Model D: Real Exchange Rate Specification"
+                  modelEquation="ln(Arrivals_it) = α_i + β₁(Peace_Index_it) + β₂ln(CPI_it) + β₃ln(GDP_China_t) + β₄ln(RER_it) + β₅(COVID_Dummy_t) + ε_it"
+                  description="This model replaces the nominal exchange rate with the Real Exchange Rate (RER), which adjusts for inflation differences between China and destination countries. RER provides a more accurate measure of relative price competitiveness. We normalize RER within each country to handle scale differences and make log transformations stable. R² = 0.4265, N = 136."
+                  keyFindings={[
+                    'Peace Index: β = 1.11, p = 0.207 (not significant)',
+                    'CPI: β = 1.86, p < 0.001 → 1% increase in CPI leads to 1.86% increase in arrivals',
+                    'China GDP: β = -0.19, p = 0.715 (not significant, absorbed by time effects)',
+                    'Real Exchange Rate: β = -0.97, p = 0.207 → 1% real appreciation reduces arrivals by 0.97%',
+                    'COVID Dummy: β = -2.53, p < 0.001 → 92% decrease during pandemic',
+                    'RER has expected negative sign (appreciation reduces arrivals) unlike nominal ER'
+                  ]}
+                  hypothesisTests={[
+                    {
+                      name: 'CPI Coefficient Test',
+                      nullHypothesis: 'β₂ (ln CPI) = 0',
+                      pValue: 't = 4.20, p < 0.001',
+                      result: 'Reject H₀',
+                      interpretation: 'CPI is highly significant. Higher prices are strongly associated with more arrivals, possibly indicating quality signaling or luxury tourism.'
+                    },
+                    {
+                      name: 'F-Test for Poolability',
+                      nullHypothesis: 'Country fixed effects are jointly zero',
+                      pValue: 'F = 7.07, p < 0.001',
+                      result: 'Reject H₀',
+                      interpretation: 'Country fixed effects remain necessary even with RER specification. Unobserved country characteristics matter.'
+                    },
+                    {
+                      name: 'RER vs Nominal ER',
+                      nullHypothesis: 'RER provides no improvement over nominal ER',
+                      pValue: 'Log-likelihood: -185.36 vs -185.40',
+                      result: 'Marginal improvement',
+                      interpretation: 'RER has theoretically correct sign (negative) and similar model fit. Both specifications are valid, but RER is theoretically preferred.'
+                    }
+                  ]}
+                />
+
+                {/* Model F: Thailand Asymmetry with RER */}
+                <RegressionModelCard
+                  modelName="Model F: Thailand Asymmetry with Real Exchange Rate"
+                  modelEquation="ln(Arrivals_it) = α_i + β₁(Peace_Index_it) + β₂ln(CPI_it) + β₃ln(GDP_China_t) + β₄ln(RER_it) + β₅(COVID_t) + β₆(Post_COVID_t) + β₇(Thailand × Post_COVID_it) + ε_it"
+                  description="This combines our best specifications: the Thailand asymmetry analysis with the theoretically superior Real Exchange Rate measure. This is our preferred model as it uses RER (which properly accounts for inflation) while testing for Thailand's specific recovery pattern. R² = 0.5877, N = 136."
+                  keyFindings={[
+                    'Peace Index: β = 0.30, p = 0.664 (not significant)',
+                    'CPI: β = 2.12, p = 0.014 → 1% increase in CPI leads to 2.12% increase in arrivals',
+                    'China GDP: β = 1.43, p = 0.003 → 1% increase in China GDP leads to 1.43% increase in arrivals',
+                    'Real Exchange Rate: β = 0.87, p = 0.295 (not significant in this specification)',
+                    'COVID Dummy: β = -3.47, p < 0.001 → 96.9% decrease during pandemic',
+                    'Post-COVID: β = -1.98, p < 0.001 → General recovery still 86% below baseline',
+                    'Thailand × Post-COVID: β = +0.30, p = 0.014 → Thailand recovers 35% FASTER!'
+                  ]}
+                  hypothesisTests={[
+                    {
+                      name: 'Thailand Recovery Test',
+                      nullHypothesis: 'β₇ (Thailand × Post-COVID) = 0',
+                      pValue: 't = 2.50, p = 0.014',
+                      result: 'Reject H₀',
+                      interpretation: 'Even with RER controls, Thailand shows a significant positive recovery effect. Thailand is recovering approximately 35% faster than comparable destinations in the post-COVID period.'
+                    },
+                    {
+                      name: 'China GDP Effect',
+                      nullHypothesis: 'β₃ (ln GDP China) = 0',
+                      pValue: 't = 3.05, p = 0.003',
+                      result: 'Reject H₀',
+                      interpretation: 'China\'s economic growth is a strong driver of outbound tourism. The elasticity of 1.43 suggests tourism is a luxury good (income elastic).'
+                    },
+                    {
+                      name: 'Overall Model Significance',
+                      nullHypothesis: 'All coefficients are jointly zero',
+                      pValue: 'F = 24.64, p < 0.001',
+                      result: 'Reject H₀',
+                      interpretation: 'The model as a whole is highly significant. The combination of economic factors, COVID effects, and Thailand-specific recovery explains 59% of variation.'
+                    }
+                  ]}
+                />
+              </VStack>
             </Box>
           </VStack>
         )}
