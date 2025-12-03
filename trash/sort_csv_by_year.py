@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Load the CSV
-df = pd.read_csv('final_regressions/Primary_Dataset_For_Panel_FINAL.csv')
+df = pd.read_csv('../final_regressions/Primary_Dataset_For_Panel_FINAL.csv')
 
 # Sort by Country and Year
 df_sorted = df.sort_values(['Country', 'Year'])

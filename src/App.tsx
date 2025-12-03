@@ -9,6 +9,9 @@ import { useState } from 'react'
 import { Box, Container } from '@chakra-ui/react'
 import { Header } from './components/Header'
 import { Navigation, type TabId } from './components/Navigation'
+import { Overview } from './pages/Overview'
+import { DataExploration } from './pages/DataExploration'
+import { Model } from './pages/Model'
 
 function App() {
   const [activeTab, setActiveTab] = useState<TabId>('overview')
@@ -31,30 +34,9 @@ function App() {
               p={10}
               minH="600px"
             >
-              {activeTab === 'overview' && (
-                <Box>
-                  <Box fontSize="3xl" fontWeight="bold" mb={4} color="#1e293b">
-                    Overview
-                  </Box>
-                  <Box color="#64748b" fontSize="md">Overview content coming soon...</Box>
-                </Box>
-              )}
-              {activeTab === 'data' && (
-                <Box>
-                  <Box fontSize="3xl" fontWeight="bold" mb={4} color="#1e293b">
-                    Data Exploration
-                  </Box>
-                  <Box color="#64748b" fontSize="md">Data exploration content coming soon...</Box>
-                </Box>
-              )}
-              {activeTab === 'model' && (
-                <Box>
-                  <Box fontSize="3xl" fontWeight="bold" mb={4} color="#1e293b">
-                    The Model
-                  </Box>
-                  <Box color="#64748b" fontSize="md">Model content coming soon...</Box>
-                </Box>
-              )}
+              {activeTab === 'overview' && <Overview />}
+              {activeTab === 'data' && <DataExploration />}
+              {activeTab === 'model' && <Model />}
               {activeTab === 'results' && (
                 <Box>
                   <Box fontSize="3xl" fontWeight="bold" mb={4} color="#1e293b">

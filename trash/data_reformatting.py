@@ -1,8 +1,8 @@
 import csv
 
 # Path to the filtered CSV file
-input_file = 'data/API_Data/P_Data_Extract_From_World_Development_Indicators/china_thailand_world_bank_data_filtered.csv'
-output_file = 'data/API_Data/P_Data_Extract_From_World_Development_Indicators/filtered_reformatted.csv'
+input_file = '../data/API_Data/P_Data_Extract_From_World_Development_Indicators/china_thailand_world_bank_data_filtered.csv'
+output_file = '../data/API_Data/P_Data_Extract_From_World_Development_Indicators/filtered_reformatted.csv'
 
 # Open and read the filtered CSV file
 with open(input_file, 'r', encoding='utf-8') as infile:

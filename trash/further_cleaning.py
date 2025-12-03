@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 # Read the reformatted CSV file
-csv_file = 'data/API_Data/P_Data_Extract_From_World_Development_Indicators/filtered_reformatted.csv'
+csv_file = '../data/API_Data/P_Data_Extract_From_World_Development_Indicators/filtered_reformatted.csv'
 df = pd.read_csv(csv_file)
 
 print("=" * 80)

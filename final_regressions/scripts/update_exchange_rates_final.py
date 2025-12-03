@@ -4,20 +4,20 @@ import numpy as np
 # ==========================================
 # 1. LOAD PRIMARY DATASET
 # ==========================================
-df_primary = pd.read_csv('Primary_Dataset_For_Panel_FINAL.csv')
+df_primary = pd.read_csv('../Primary_Dataset_For_Panel_FINAL.csv')
 
 # ==========================================
 # 2. LOAD EXCHANGE RATE DATA
 # ==========================================
 
 # Load CNY to USD (base rate)
-df_cny_usd = pd.read_csv('exchangeRates/chinese_yuan_to_usaAEXCHUS.csv')
+df_cny_usd = pd.read_csv('../exchangeRates/chinese_yuan_to_usaAEXCHUS.csv')
 df_cny_usd['Year'] = pd.to_datetime(df_cny_usd['observation_date']).dt.year
 df_cny_usd = df_cny_usd.rename(columns={'AEXCHUS': 'CNY_per_USD'})
 df_cny_usd = df_cny_usd[['Year', 'CNY_per_USD']]
 
 # Load destination currencies per USD (wide format)
-df_dest_rates = pd.read_csv('exchangeRates/exchange_data.csv')
+df_dest_rates = pd.read_csv('../exchangeRates/exchange_data.csv')
 
 # Melt the destination rates from wide to long format
 df_dest_long = df_dest_rates.melt(
@@ -68,7 +68,7 @@ df_merged = df_primary.merge(
 # ==========================================
 # 5. SAVE UPDATED DATASET
 # ==========================================
-output_filename = 'Primary_Dataset_For_Panel_FINAL.csv'
+output_filename = '../Primary_Dataset_For_Panel_FINAL.csv'
 df_merged.to_csv(output_filename, index=False)
 
 print(f"✓ Exchange rates updated successfully!")

@@ -1,8 +1,8 @@
 import csv
 
 # Path to the CSV file
-csv_file = 'data/API_Data/P_Data_Extract_From_World_Development_Indicators/china_thailand_world_bank_data.csv'
-output_file = 'data/API_Data/P_Data_Extract_From_World_Development_Indicators/china_thailand_world_bank_data_filtered.csv'
+csv_file = '../data/API_Data/P_Data_Extract_From_World_Development_Indicators/china_thailand_world_bank_data.csv'
+output_file = '../data/API_Data/P_Data_Extract_From_World_Development_Indicators/china_thailand_world_bank_data_filtered.csv'
 
 # Series codes to keep
 series_codes_to_keep = [
