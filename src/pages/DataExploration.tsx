@@ -7,6 +7,9 @@
 import { useState } from 'react'
 import { Box, HStack, Text } from '@chakra-ui/react'
 import { ChinaArrivalsChart } from '../components/ChinaArrivalsChart'
+import { RecoveryRateChart } from '../components/RecoveryRateChart'
+import { DataExplorer } from '../components/DataExplorer'
+import { ModelSpecifications } from '../components/ModelSpecifications'
 
 type DataExplorationTab = 'visualizations' | 'notes'
 
@@ -66,13 +69,28 @@ export function DataExploration() {
         {activeSubTab === 'visualizations' && (
           <Box>
             <ChinaArrivalsChart />
+            
+            {/* Recovery Rate Chart */}
+            <Box mt={16} pt={16} borderTop="3px" borderColor="#e2e8f0">
+              <RecoveryRateChart />
+            </Box>
           </Box>
         )}
         {activeSubTab === 'notes' && (
           <Box>
-            <Text fontSize="2xl" fontWeight="semibold" mb={4}>
-              Data Collection & Processing Notes
-            </Text>
+            {/* Data Explorer Component */}
+            <DataExplorer />
+
+            {/* Model Specifications */}
+            <Box mt={16} pt={16} borderTop="3px" borderColor="#e2e8f0">
+              <ModelSpecifications />
+            </Box>
+
+            {/* Original Data Notes */}
+            <Box mt={16} pt={16} borderTop="3px" borderColor="#e2e8f0">
+              <Text fontSize="2xl" fontWeight="semibold" mb={4}>
+                Data Collection & Processing Notes
+              </Text>
             
             <Text fontSize="xl" fontWeight="semibold" mb={3} mt={6}>
               Country Selection
@@ -148,6 +166,7 @@ export function DataExploration() {
               This is common in tourism research and is appropriately handled by our Fixed Effects estimator, which 
               accounts for missing observations without introducing bias.
             </Text>
+            </Box>
           </Box>
         )}
       </Box>

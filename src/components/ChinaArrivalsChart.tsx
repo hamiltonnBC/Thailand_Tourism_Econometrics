@@ -31,7 +31,14 @@ const COUNTRY_COLORS: Record<string, string> = {
   'Viet Nam': '#27ae60',
 }
 
-export function ChinaArrivalsChart() {
+interface ArrivalsChartProps {
+  title: string
+  description: string
+  useLog?: boolean
+  yAxisLabel?: string
+}
+
+function ArrivalsChart({ title, description, useLog = false, yAxisLabel }: ArrivalsChartProps) {
   const [data, setData] = useState<DataPoint[]>([])
   const [selectedCountries, setSelectedCountries] = useState<Set<string>>(new Set(Object.keys(COUNTRY_COLORS)))
   const [loading, setLoading] = useState(true)
@@ -113,7 +120,11 @@ export function ChinaArrivalsChart() {
         if (!yearMap.has(point.Year)) {
           yearMap.set(point.Year, { Year: point.Year })
         }
-        yearMap.get(point.Year)![point.Country] = point.arrivals_from_china
+        // Apply log transformation if requested
+        const value = useLog && point.arrivals_from_china > 0 
+          ? Math.log(point.arrivals_from_china) 
+          : point.arrivals_from_china
+        yearMap.get(point.Year)![point.Country] = value
       }
     })
     
@@ -128,11 +139,10 @@ export function ChinaArrivalsChart() {
     <VStack align="stretch" gap={6}>
       <Box>
         <Text fontSize="2xl" fontWeight="semibold" mb={4} color="#1e293b">
-          Tourist Arrivals from China by Destination Country
+          {title}
         </Text>
         <Text color="#64748b" mb={4}>
-          This interactive chart shows the number of Chinese tourists arriving at different destination countries over time.
-          Select or deselect countries to customize the view.
+          {description}
         </Text>
       </Box>
 
@@ -238,7 +248,11 @@ export function ChinaArrivalsChart() {
             <YAxis 
               stroke="#64748b"
               style={{ fontSize: '12px' }}
+              label={yAxisLabel ? { value: yAxisLabel, angle: -90, position: 'insideLeft', style: { fontSize: '12px', fill: '#64748b' } } : undefined}
               tickFormatter={(value) => {
+                if (useLog) {
+                  return value.toFixed(1)
+                }
                 if (value >= 1000000) return `${(value / 1000000).toFixed(1)}M`
                 if (value >= 1000) return `${(value / 1000).toFixed(0)}K`
                 return value.toString()
@@ -251,7 +265,12 @@ export function ChinaArrivalsChart() {
                 borderRadius: '6px',
                 fontSize: '12px'
               }}
-              formatter={(value: any) => value.toLocaleString()}
+              formatter={(value: any) => {
+                if (useLog) {
+                  return `ln(${Math.exp(value).toLocaleString(undefined, { maximumFractionDigits: 0 })}) = ${value.toFixed(2)}`
+                }
+                return value.toLocaleString()
+              }}
             />
             <Legend 
               wrapperStyle={{ fontSize: '12px' }}
@@ -269,6 +288,68 @@ export function ChinaArrivalsChart() {
             ))}
           </LineChart>
         </ResponsiveContainer>
+      </Box>
+    </VStack>
+  )
+}
+
+
+// Main export component with both linear and log charts
+export function ChinaArrivalsChart() {
+  return (
+    <VStack align="stretch" gap={12}>
+      {/* Linear Scale Chart */}
+      <ArrivalsChart
+        title="Tourist Arrivals from China by Destination Country"
+        description="This interactive chart shows the number of Chinese tourists arriving at different destination countries over time. Select or deselect countries to customize the view."
+      />
+
+      {/* Logarithmic Scale Chart */}
+      <Box borderTop="2px" borderColor="#e2e8f0" pt={12}>
+        <ArrivalsChart
+          title="Tourist Arrivals from China (Logarithmic Scale)"
+          description="The same data displayed on a logarithmic scale. This transformation is commonly used in econometric models to interpret coefficients as percentage changes and to handle the wide range of values across countries."
+          useLog={true}
+          yAxisLabel="ln(Arrivals)"
+        />
+        
+        {/* Justification */}
+        <Box mt={6} p={6} bg="#f8fafc" borderRadius="md" borderWidth="1px" borderColor="#e2e8f0">
+          <Text fontSize="lg" fontWeight="semibold" mb={3} color="#1e293b">
+            Why Use Logarithmic Transformation?
+          </Text>
+          <VStack align="stretch" gap={3} color="#64748b" fontSize="sm" lineHeight="1.8">
+            <Text>
+              <strong style={{ color: '#1e293b' }}>1. Percentage Interpretation:</strong> When we log-transform the dependent variable (arrivals), 
+              the regression coefficients can be interpreted as percentage changes rather than absolute changes. For example, 
+              a coefficient of 0.05 means a 5% increase in arrivals, which is more meaningful when comparing countries 
+              with vastly different tourism volumes.
+            </Text>
+            <Text>
+              <strong style={{ color: '#1e293b' }}>2. Handling Scale Differences:</strong> Our data spans several orders of magnitude—from 
+              thousands of arrivals (Maldives in early years) to millions (Thailand, Japan). The logarithmic transformation 
+              compresses this range, preventing countries with larger absolute numbers from dominating the regression and 
+              allowing us to model proportional relationships.
+            </Text>
+            <Text>
+              <strong style={{ color: '#1e293b' }}>3. Linearity in Parameters:</strong> Many economic relationships are multiplicative 
+              rather than additive. Taking logs converts multiplicative relationships into additive ones, which satisfies 
+              the linearity assumption required for OLS regression. This is particularly important for modeling growth rates 
+              and elasticities.
+            </Text>
+            <Text>
+              <strong style={{ color: '#1e293b' }}>4. Reducing Heteroskedasticity:</strong> Tourism data often exhibits increasing 
+              variance as the mean increases (larger countries have more volatile absolute changes). Log transformation 
+              stabilizes the variance across observations, improving the efficiency of our estimators and the validity 
+              of our standard errors.
+            </Text>
+            <Text>
+              <strong style={{ color: '#1e293b' }}>5. Smoothing Outliers:</strong> The log transformation reduces the influence 
+              of extreme values without removing them, making our model more robust to unusual observations while still 
+              capturing the underlying trends.
+            </Text>
+          </VStack>
+        </Box>
       </Box>
     </VStack>
   )

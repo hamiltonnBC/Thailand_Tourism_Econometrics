@@ -22,9 +22,10 @@ df = df[(df['Country'].isin(countries_to_include)) &
         (df['Year'] >= 2008) & 
         (df['Year'] <= 2024)]
 
+print('oof')
 # Drop rows with missing values in key variables
 df = df.dropna(subset=['arrivals_from_china', 'peace_index', 'cpi_index', 
-                       'gdp_china', 'exchange_rate'])
+                       'gdp_china', 'exchange_rate', 'RER'])
 
 print("=" * 80)
 print("MODEL 1: GRAVITY PANEL ANALYSIS (2008-2024)")
@@ -46,6 +47,7 @@ df['ln_arrivals'] = np.log(df['arrivals_from_china'])
 df['ln_cpi'] = np.log(df['cpi_index'])
 df['ln_gdp_china'] = np.log(df['gdp_china'])
 df['ln_exchange_rate'] = np.log(df['exchange_rate'])
+df['ln_rer'] = np.log(df['RER'])  # Real Exchange Rate
 # Peace index stays in levels (it's already an index)
 
 # B. Create COVID Dummy Variable
@@ -68,7 +70,7 @@ print("\n" + "=" * 80)
 print("VARIABLE SUMMARY STATISTICS")
 print("=" * 80)
 print(df[['ln_arrivals', 'peace_index', 'ln_cpi', 'ln_gdp_china', 
-          'ln_exchange_rate', 'covid_dummy', 'post_covid']].describe())
+          'ln_exchange_rate', 'ln_rer', 'covid_dummy', 'post_covid']].describe())
 
 # ==========================================
 # 4. SET UP PANEL DATA STRUCTURE
@@ -117,6 +119,48 @@ mod_c = PanelOLS(df['ln_arrivals'], exog_c, entity_effects=True, time_effects=Fa
 res_c = mod_c.fit(cov_type='clustered', cluster_entity=True)
 print(res_c)
 
+# MODEL D: RER Instead of Nominal Exchange Rate (Entity FE + COVID)
+print("\n" + "-" * 80)
+print("MODEL D: Real Exchange Rate (RER) - Entity FE + COVID Dummy")
+print("-" * 80)
+exog_vars_d = ['peace_index', 'ln_cpi', 'ln_gdp_china', 'ln_rer', 'covid_dummy']
+exog_d = sm.add_constant(df[exog_vars_d])
+mod_d = PanelOLS(df['ln_arrivals'], exog_d, entity_effects=True, time_effects=False)
+res_d = mod_d.fit(cov_type='clustered', cluster_entity=True)
+print(res_d)
+
+# MODEL E: RER with Time FE
+print("\n" + "-" * 80)
+print("MODEL E: Real Exchange Rate (RER) - Entity FE + Time FE")
+print("(Note: gdp_china excluded - absorbed by time FE)")
+print("-" * 80)
+exog_vars_e = ['peace_index', 'ln_cpi', 'ln_rer']
+exog_e = df[exog_vars_e]
+mod_e = PanelOLS(df['ln_arrivals'], exog_e, entity_effects=True, time_effects=True)
+res_e = mod_e.fit(cov_type='clustered', cluster_entity=True)
+print(res_e)
+
+# MODEL F: RER with Thailand Asymmetry
+print("\n" + "-" * 80)
+print("MODEL F: RER + Thailand Asymmetry Analysis")
+print("-" * 80)
+exog_vars_f = ['peace_index', 'ln_cpi', 'ln_gdp_china', 'ln_rer', 
+               'covid_dummy', 'post_covid', 'thailand_post_covid']
+exog_f = sm.add_constant(df[exog_vars_f])
+mod_f = PanelOLS(df['ln_arrivals'], exog_f, entity_effects=True, time_effects=False)
+res_f = mod_f.fit(cov_type='clustered', cluster_entity=True)
+print(res_f)
+
+# MODEL G: Both Nominal and Real Exchange Rates (Horse Race)
+print("\n" + "-" * 80)
+print("MODEL G: Nominal vs Real Exchange Rate Comparison (Entity FE + COVID)")
+print("-" * 80)
+exog_vars_g = ['peace_index', 'ln_cpi', 'ln_gdp_china', 'ln_exchange_rate', 'ln_rer', 'covid_dummy']
+exog_g = sm.add_constant(df[exog_vars_g])
+mod_g = PanelOLS(df['ln_arrivals'], exog_g, entity_effects=True, time_effects=False)
+res_g = mod_g.fit(cov_type='clustered', cluster_entity=True)
+print(res_g)
+
 # ==========================================
 # 6. INTERPRETATION & DIAGNOSTICS
 # ==========================================
@@ -138,14 +182,39 @@ print(f"Post-COVID Recovery (all countries): {params_c['post_covid']*100:.2f}% c
 print(f"Thailand-Specific Post-COVID Effect: {params_c['thailand_post_covid']*100:.2f}% ADDITIONAL change")
 print(f"Total Thailand Post-COVID Effect: {(params_c['post_covid'] + params_c['thailand_post_covid'])*100:.2f}%")
 
+print("\n--- MODEL D: Real Exchange Rate (RER) ---")
+params_d = res_d.params
+print(f"Peace Index: 1 unit increase → {params_d['peace_index']*100:.2f}% change in arrivals")
+print(f"CPI: 1% increase → {params_d['ln_cpi']:.3f}% change in arrivals")
+print(f"China GDP: 1% increase → {params_d['ln_gdp_china']:.3f}% change in arrivals")
+print(f"Real Exchange Rate (RER): 1% appreciation → {params_d['ln_rer']:.3f}% change in arrivals")
+print(f"COVID Impact: {params_d['covid_dummy']*100:.2f}% change during 2020-2021")
+
+print("\n--- MODEL F: RER + Thailand Asymmetry ---")
+params_f = res_f.params
+print(f"Real Exchange Rate (RER): 1% appreciation → {params_f['ln_rer']:.3f}% change in arrivals")
+print(f"Post-COVID Recovery (all countries): {params_f['post_covid']*100:.2f}% change")
+print(f"Thailand-Specific Post-COVID Effect: {params_f['thailand_post_covid']*100:.2f}% ADDITIONAL change")
+print(f"Total Thailand Post-COVID Effect: {(params_f['post_covid'] + params_f['thailand_post_covid'])*100:.2f}%")
+
+print("\n--- MODEL G: Nominal vs Real Exchange Rate ---")
+params_g = res_g.params
+print(f"Nominal Exchange Rate: 1% appreciation → {params_g['ln_exchange_rate']:.3f}% change in arrivals")
+print(f"Real Exchange Rate (RER): 1% appreciation → {params_g['ln_rer']:.3f}% change in arrivals")
+print("(Note: If one is significant and the other isn't, that tells us which measure matters more)")
+
 # Model Comparison
 print("\n" + "=" * 80)
 print("MODEL COMPARISON")
 print("=" * 80)
 comparison = pd.DataFrame({
-    'Model A (COVID Dummy)': [res_a.rsquared, res_a.rsquared_within, res_a.f_statistic.stat, res_a.nobs],
+    'Model A (Nominal ER)': [res_a.rsquared, res_a.rsquared_within, res_a.f_statistic.stat, res_a.nobs],
     'Model B (Time FE)': [res_b.rsquared, res_b.rsquared_within, res_b.f_statistic.stat, res_b.nobs],
-    'Model C (Thailand Asymmetry)': [res_c.rsquared, res_c.rsquared_within, res_c.f_statistic.stat, res_c.nobs]
+    'Model C (Thailand)': [res_c.rsquared, res_c.rsquared_within, res_c.f_statistic.stat, res_c.nobs],
+    'Model D (RER)': [res_d.rsquared, res_d.rsquared_within, res_d.f_statistic.stat, res_d.nobs],
+    'Model E (RER+Time FE)': [res_e.rsquared, res_e.rsquared_within, res_e.f_statistic.stat, res_e.nobs],
+    'Model F (RER+Thailand)': [res_f.rsquared, res_f.rsquared_within, res_f.f_statistic.stat, res_f.nobs],
+    'Model G (Both ERs)': [res_g.rsquared, res_g.rsquared_within, res_g.f_statistic.stat, res_g.nobs]
 }, index=['R-squared', 'R-squared Within', 'F-statistic', 'N Observations'])
 print(comparison)
 
@@ -157,20 +226,33 @@ with open('regression_results_model1.txt', 'w') as f:
     f.write("=" * 80 + "\n")
     f.write("GRAVITY PANEL REGRESSION RESULTS (2008-2024)\n")
     f.write("=" * 80 + "\n\n")
-    f.write("MODEL A: Entity FE + COVID Dummy\n")
+    f.write("MODEL A: Entity FE + COVID Dummy (Nominal ER)\n")
     f.write("-" * 80 + "\n")
     f.write(str(res_a) + "\n\n")
-    f.write("MODEL B: Entity FE + Time FE\n")
+    f.write("MODEL B: Entity FE + Time FE (Nominal ER)\n")
     f.write("-" * 80 + "\n")
     f.write(str(res_b) + "\n\n")
-    f.write("MODEL C: Thailand Asymmetry\n")
+    f.write("MODEL C: Thailand Asymmetry (Nominal ER)\n")
     f.write("-" * 80 + "\n")
-    f.write(str(res_c) + "\n")
+    f.write(str(res_c) + "\n\n")
+    f.write("MODEL D: Entity FE + COVID Dummy (RER)\n")
+    f.write("-" * 80 + "\n")
+    f.write(str(res_d) + "\n\n")
+    f.write("MODEL E: Entity FE + Time FE (RER)\n")
+    f.write("-" * 80 + "\n")
+    f.write(str(res_e) + "\n\n")
+    f.write("MODEL F: Thailand Asymmetry (RER)\n")
+    f.write("-" * 80 + "\n")
+    f.write(str(res_f) + "\n\n")
+    f.write("MODEL G: Nominal vs Real ER Comparison\n")
+    f.write("-" * 80 + "\n")
+    f.write(str(res_g) + "\n")
 
 print("\n✓ Results saved to 'regression_results_model1.txt'")
 
 # Save coefficients to CSV for easy import to Excel/LaTeX
-coef_comparison = pd.DataFrame({
+# Combine all model results
+all_params = pd.DataFrame({
     'Model_A_Coef': res_a.params,
     'Model_A_SE': res_a.std_errors,
     'Model_A_Pval': res_a.pvalues,
@@ -179,9 +261,21 @@ coef_comparison = pd.DataFrame({
     'Model_B_Pval': res_b.pvalues,
     'Model_C_Coef': res_c.params,
     'Model_C_SE': res_c.std_errors,
-    'Model_C_Pval': res_c.pvalues
+    'Model_C_Pval': res_c.pvalues,
+    'Model_D_Coef': res_d.params,
+    'Model_D_SE': res_d.std_errors,
+    'Model_D_Pval': res_d.pvalues,
+    'Model_E_Coef': res_e.params,
+    'Model_E_SE': res_e.std_errors,
+    'Model_E_Pval': res_e.pvalues,
+    'Model_F_Coef': res_f.params,
+    'Model_F_SE': res_f.std_errors,
+    'Model_F_Pval': res_f.pvalues,
+    'Model_G_Coef': res_g.params,
+    'Model_G_SE': res_g.std_errors,
+    'Model_G_Pval': res_g.pvalues
 })
-coef_comparison.to_csv('regression_coefficients_model1.csv')
+all_params.to_csv('regression_coefficients_model1.csv')
 print("✓ Coefficients saved to 'regression_coefficients_model1.csv'")
 
 # ==========================================
@@ -256,30 +350,73 @@ plt.close()
 
 # Plot 4: Correlation Heatmap
 plt.figure(figsize=(10, 8))
-corr_vars = ['ln_arrivals', 'peace_index', 'ln_cpi', 'ln_gdp_china', 'ln_exchange_rate']
+corr_vars = ['ln_arrivals', 'peace_index', 'ln_cpi', 'ln_gdp_china', 'ln_exchange_rate', 'ln_rer']
 correlation_matrix = df_plot[corr_vars].corr()
 sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', center=0, 
             square=True, linewidths=1, cbar_kws={"shrink": 0.8})
-plt.title('Correlation Matrix of Variables', fontsize=14, fontweight='bold')
+plt.title('Correlation Matrix of Variables (Including RER)', fontsize=14, fontweight='bold')
 plt.tight_layout()
 plt.savefig('correlation_matrix.png', dpi=300, bbox_inches='tight')
 print("✓ Saved: correlation_matrix.png")
+plt.close()
+
+# Plot 5: Nominal vs Real Exchange Rate Comparison
+plt.figure(figsize=(14, 8))
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(14, 10))
+
+# Plot nominal exchange rate
+for country in df_plot['Country'].unique():
+    country_data = df_plot[df_plot['Country'] == country]
+    ax1.plot(country_data['Year'], country_data['ln_exchange_rate'], 
+             marker='o', label=country, linewidth=2, alpha=0.7)
+ax1.axvline(x=2020, color='red', linestyle='--', linewidth=2, alpha=0.5)
+ax1.set_xlabel('Year', fontsize=11)
+ax1.set_ylabel('Log(Nominal Exchange Rate)', fontsize=11)
+ax1.set_title('Nominal Exchange Rate Over Time', fontsize=12, fontweight='bold')
+ax1.legend(bbox_to_anchor=(1.05, 1), loc='upper left', fontsize=9)
+ax1.grid(True, alpha=0.3)
+
+# Plot real exchange rate
+for country in df_plot['Country'].unique():
+    country_data = df_plot[df_plot['Country'] == country]
+    ax2.plot(country_data['Year'], country_data['ln_rer'], 
+             marker='s', label=country, linewidth=2, alpha=0.7)
+ax2.axvline(x=2020, color='red', linestyle='--', linewidth=2, alpha=0.5)
+ax2.set_xlabel('Year', fontsize=11)
+ax2.set_ylabel('Log(Real Exchange Rate)', fontsize=11)
+ax2.set_title('Real Exchange Rate (RER) Over Time', fontsize=12, fontweight='bold')
+ax2.legend(bbox_to_anchor=(1.05, 1), loc='upper left', fontsize=9)
+ax2.grid(True, alpha=0.3)
+
+plt.tight_layout()
+plt.savefig('exchange_rate_comparison.png', dpi=300, bbox_inches='tight')
+print("✓ Saved: exchange_rate_comparison.png")
 plt.close()
 
 print("\n" + "=" * 80)
 print("ANALYSIS COMPLETE!")
 print("=" * 80)
 print("\nFiles Generated:")
-print("  1. regression_results_model1.txt - Full regression output")
-print("  2. regression_coefficients_model1.csv - Coefficients table")
+print("  1. regression_results_model1.txt - Full regression output (7 models)")
+print("  2. regression_coefficients_model1.csv - Coefficients table (all models)")
 print("  3. arrivals_by_country.png - Time series by country")
 print("  4. thailand_asymmetry.png - Thailand vs others comparison")
 print("  5. log_arrivals_by_country.png - Log-transformed arrivals")
-print("  6. correlation_matrix.png - Variable correlations")
-print("\nKey Finding:")
+print("  6. correlation_matrix.png - Variable correlations (including RER)")
+print("  7. exchange_rate_comparison.png - Nominal vs Real ER comparison")
+print("\nKey Findings:")
 if 'thailand_post_covid' in params_c.index:
     if params_c['thailand_post_covid'] < 0:
-        print(f"  → Thailand shows a {abs(params_c['thailand_post_covid']*100):.2f}% SLOWER recovery than other countries")
+        print(f"  → Thailand shows a {abs(params_c['thailand_post_covid']*100):.2f}% SLOWER recovery (Nominal ER model)")
     else:
-        print(f"  → Thailand shows a {params_c['thailand_post_covid']*100:.2f}% FASTER recovery than other countries")
+        print(f"  → Thailand shows a {params_c['thailand_post_covid']*100:.2f}% FASTER recovery (Nominal ER model)")
+if 'thailand_post_covid' in params_f.index:
+    if params_f['thailand_post_covid'] < 0:
+        print(f"  → Thailand shows a {abs(params_f['thailand_post_covid']*100):.2f}% SLOWER recovery (RER model)")
+    else:
+        print(f"  → Thailand shows a {params_f['thailand_post_covid']*100:.2f}% FASTER recovery (RER model)")
+print("\nExchange Rate Comparison (Model G):")
+if 'ln_exchange_rate' in params_g.index and 'ln_rer' in params_g.index:
+    print(f"  → Nominal ER coefficient: {params_g['ln_exchange_rate']:.3f} (p={res_g.pvalues['ln_exchange_rate']:.3f})")
+    print(f"  → Real ER coefficient: {params_g['ln_rer']:.3f} (p={res_g.pvalues['ln_rer']:.3f})")
 print("=" * 80)
