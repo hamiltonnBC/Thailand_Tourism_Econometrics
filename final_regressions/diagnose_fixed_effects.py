@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 # Load data
-df = pd.read_csv('Primary_Dataset_For_Panel_FINAL.csv')
+df = pd.read_csv('final_regressions/Primary_Dataset_For_Panel_FINAL.csv')
 df = df.dropna(subset=['arrivals_from_china', 'peace_index', 'cpi_index', 'exchange_rate'])
 
 print("=" * 70)
