@@ -1,0 +1,119 @@
+================================================================================
+GRAVITY PANEL REGRESSION RESULTS (2008-2024)
+================================================================================
+
+MODEL A: Entity FE + COVID Dummy
+--------------------------------------------------------------------------------
+                          PanelOLS Estimation Summary                           
+================================================================================
+Dep. Variable:            ln_arrivals   R-squared:                        0.4252
+Estimator:                   PanelOLS   R-squared (Between):             -31.697
+No. Observations:                 136   R-squared (Within):               0.4252
+Date:                Thu, Dec 04 2025   R-squared (Overall):             -5.3525
+Time:                        00:03:24   Log-likelihood                   -185.51
+Cov. Estimator:             Clustered                                           
+                                        F-statistic:                      18.197
+Entities:                           8   P-value                           0.0000
+Avg Obs:                       17.000   Distribution:                   F(5,123)
+Min Obs:                       17.000                                           
+Max Obs:                       17.000   F-statistic (robust):             41.871
+                                        P-value                           0.0000
+Time periods:                      17   Distribution:                   F(5,123)
+Avg Obs:                       8.0000                                           
+Min Obs:                       8.0000                                           
+Max Obs:                       8.0000                                           
+                                                                                
+                                Parameter Estimates                                 
+====================================================================================
+                  Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------------
+const                3.6496     2.4207     1.5076     0.1342     -1.1421      8.4413
+peace_index          1.6580     0.8855     1.8725     0.0635     -0.0947      3.4108
+ln_cpi               1.4369     0.6704     2.1433     0.0341      0.1099      2.7639
+ln_gdp_china         0.3884     0.2862     1.3571     0.1772     -0.1781      0.9550
+ln_exchange_rate     0.9773     0.8736     1.1187     0.2655     -0.7520      2.7066
+covid_dummy         -2.5621     0.2040    -12.557     0.0000     -2.9660     -2.1582
+====================================================================================
+
+F-test for Poolability: 7.0033
+P-value: 0.0000
+Distribution: F(7,123)
+
+Included effects: Entity
+
+MODEL B: Entity FE + Time FE
+--------------------------------------------------------------------------------
+                          PanelOLS Estimation Summary                           
+================================================================================
+Dep. Variable:            ln_arrivals   R-squared:                        0.0288
+Estimator:                   PanelOLS   R-squared (Between):              0.3808
+No. Observations:                 136   R-squared (Within):              -0.0002
+Date:                Thu, Dec 04 2025   R-squared (Overall):              0.3777
+Time:                        00:03:24   Log-likelihood                   -53.055
+Cov. Estimator:             Clustered                                           
+                                        F-statistic:                      1.0766
+Entities:                           8   P-value                           0.3622
+Avg Obs:                       17.000   Distribution:                   F(3,109)
+Min Obs:                       17.000                                           
+Max Obs:                       17.000   F-statistic (robust):             0.7823
+                                        P-value                           0.5063
+Time periods:                      17   Distribution:                   F(3,109)
+Avg Obs:                       8.0000                                           
+Min Obs:                       8.0000                                           
+Max Obs:                       8.0000                                           
+                                                                                
+                                Parameter Estimates                                 
+====================================================================================
+                  Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------------
+peace_index         -0.1308     0.4407    -0.2968     0.7672     -1.0042      0.7427
+ln_cpi               0.9297     0.8464     1.0985     0.2744     -0.7478      2.6072
+ln_exchange_rate     0.4137     0.7274     0.5688     0.5707     -1.0279      1.8554
+====================================================================================
+
+F-test for Poolability: 65.122
+P-value: 0.0000
+Distribution: F(23,109)
+
+Included effects: Entity, Time
+
+MODEL C: Thailand Asymmetry
+--------------------------------------------------------------------------------
+                          PanelOLS Estimation Summary                           
+================================================================================
+Dep. Variable:            ln_arrivals   R-squared:                        0.5927
+Estimator:                   PanelOLS   R-squared (Between):             -73.265
+No. Observations:                 136   R-squared (Within):               0.5927
+Date:                Thu, Dec 04 2025   R-squared (Overall):             -12.692
+Time:                        00:03:25   Log-likelihood                   -162.09
+Cov. Estimator:             Clustered                                           
+                                        F-statistic:                      25.151
+Entities:                           8   P-value                           0.0000
+Avg Obs:                       17.000   Distribution:                   F(7,121)
+Min Obs:                       17.000                                           
+Max Obs:                       17.000   F-statistic (robust):         -6.395e+14
+                                        P-value                           1.0000
+Time periods:                      17   Distribution:                   F(7,121)
+Avg Obs:                       8.0000                                           
+Min Obs:                       8.0000                                           
+Max Obs:                       8.0000                                           
+                                                                                
+                                  Parameter Estimates                                  
+=======================================================================================
+                     Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+---------------------------------------------------------------------------------------
+const                  -7.2538     2.7738    -2.6151     0.0101     -12.745     -1.7623
+peace_index             0.3661     0.7299     0.5016     0.6169     -1.0789      1.8112
+ln_cpi                  3.2120     1.4130     2.2732     0.0248      0.4146      6.0095
+ln_gdp_china            1.0916     0.4012     2.7210     0.0075      0.2974      1.8858
+ln_exchange_rate        1.4124     1.0172     1.3885     0.1675     -0.6015      3.4262
+covid_dummy            -3.4230     0.1803    -18.981     0.0000     -3.7800     -3.0660
+post_covid             -1.9206     0.2157    -8.9022     0.0000     -2.3477     -1.4934
+thailand_post_covid     0.2904     0.1401     2.0730     0.0403      0.0131      0.5677
+=======================================================================================
+
+F-test for Poolability: 9.8883
+P-value: 0.0000
+Distribution: F(7,121)
+
+Included effects: Entity
