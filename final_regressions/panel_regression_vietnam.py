@@ -19,17 +19,17 @@ df = pd.read_csv(data_path)
 # ==========================================
 # Countries: Exclude Korea, Philippines, United Kingdom (missing recent data)
 # Also excluding Cambodia and Indonesia for this analysis
-countries_to_include = ['Australia', 'Japan', 
+countries_to_include = ['Australia', 'Japan',
                         'Malaysia', 'Maldives', 'Singapore', 'Thailand', 'Viet Nam']
 
 # Years: 2008-2024 (when peace_index becomes available)
-df = df[(df['Country'].isin(countries_to_include)) & 
-        (df['Year'] >= 2008) & 
+df = df[(df['Country'].isin(countries_to_include)) &
+        (df['Year'] >= 2008) &
         (df['Year'] <= 2024)]
 
 print('oof')
 # Drop rows with missing values in key variables
-df = df.dropna(subset=['arrivals_from_china', 'peace_index', 'CPI_destination', 
+df = df.dropna(subset=['arrivals_from_china', 'peace_index', 'CPI_destination',
                        'gdp_china', 'exchange_rate', 'RER'])
 
 print("=" * 80)
@@ -40,7 +40,6 @@ print(f"Year range: {df['Year'].min()} - {df['Year'].max()}")
 print(f"Countries: {sorted(df['Country'].unique())}")
 print(f"\nObservations per country:")
 print(df.groupby('Country').size().sort_values(ascending=False))
-
 
 # ==========================================
 # 3. FEATURE ENGINEERING (Crucial Step)
@@ -102,7 +101,7 @@ df['time_trend'] = df['Year'] - df['Year'].min()
 print("\n" + "=" * 80)
 print("VARIABLE SUMMARY STATISTICS")
 print("=" * 80)
-print(df[['ln_arrivals', 'peace_index', 'ln_cpi', 'ln_gdp_china', 
+print(df[['ln_arrivals', 'peace_index', 'ln_cpi', 'ln_gdp_china',
           'ln_exchange_rate', 'ln_rer', 'covid_dummy', 'post_covid']].describe())
 
 # ==========================================
@@ -145,7 +144,7 @@ print(res_b)
 print("\n" + "-" * 80)
 print("MODEL C: Thailand Asymmetry Analysis (Entity FE + COVID + Thailand Interaction)")
 print("-" * 80)
-exog_vars_c = ['peace_index', 'ln_cpi', 'ln_gdp_china', 'ln_exchange_rate', 
+exog_vars_c = ['peace_index', 'ln_cpi', 'ln_gdp_china', 'ln_exchange_rate',
                'covid_dummy', 'post_covid', 'thailand_post_covid']
 exog_c = sm.add_constant(df[exog_vars_c])
 mod_c = PanelOLS(df['ln_arrivals'], exog_c, entity_effects=True, time_effects=False)
@@ -190,7 +189,7 @@ print("\n" + "-" * 80)
 print("MODEL F: RER + Thailand Asymmetry Analysis")
 print("-" * 80)
 try:
-    exog_vars_f = ['peace_index', 'ln_cpi', 'ln_gdp_china', 'ln_rer', 
+    exog_vars_f = ['peace_index', 'ln_cpi', 'ln_gdp_china', 'ln_rer',
                    'covid_dummy', 'post_covid', 'thailand_post_covid']
     exog_f = sm.add_constant(df[exog_vars_f])
     mod_f = PanelOLS(df['ln_arrivals'], exog_f, entity_effects=True, time_effects=False)
@@ -209,12 +208,12 @@ print("-" * 80)
 try:
     exog_vars_g = ['peace_index', 'ln_cpi', 'ln_gdp_china', 'ln_exchange_rate', 'ln_rer', 'covid_dummy']
     exog_g = sm.add_constant(df[exog_vars_g])
-    
+
     # Check for infinite or NaN values
     if exog_g.isin([np.inf, -np.inf]).any().any():
         print("WARNING: Infinite values detected in exogenous variables")
         print(exog_g.isin([np.inf, -np.inf]).sum())
-    
+
     mod_g = PanelOLS(df['ln_arrivals'], exog_g, entity_effects=True, time_effects=False)
     res_g = mod_g.fit(cov_type='clustered', cluster_entity=True)
     print(res_g)
@@ -233,34 +232,34 @@ print("=" * 80)
 
 print("\n--- MODEL A: Baseline Gravity Model ---")
 params_a = res_a.params
-print(f"Peace Index: 1 unit increase → {params_a['peace_index']*100:.2f}% change in arrivals")
+print(f"Peace Index: 1 unit increase → {params_a['peace_index'] * 100:.2f}% change in arrivals")
 print(f"CPI: 1% increase → {params_a['ln_cpi']:.3f}% change in arrivals")
 print(f"China GDP: 1% increase → {params_a['ln_gdp_china']:.3f}% change in arrivals")
 print(f"Exchange Rate: 1% appreciation → {params_a['ln_exchange_rate']:.3f}% change in arrivals")
-print(f"COVID Impact: {params_a['covid_dummy']*100:.2f}% change during 2020-2021")
+print(f"COVID Impact: {params_a['covid_dummy'] * 100:.2f}% change during 2020-2021")
 
 print("\n--- MODEL C: Thailand Asymmetry ---")
 params_c = res_c.params
-print(f"Post-COVID Recovery (all countries): {params_c['post_covid']*100:.2f}% change")
-print(f"Thailand-Specific Post-COVID Effect: {params_c['thailand_post_covid']*100:.2f}% ADDITIONAL change")
-print(f"Total Thailand Post-COVID Effect: {(params_c['post_covid'] + params_c['thailand_post_covid'])*100:.2f}%")
+print(f"Post-COVID Recovery (all countries): {params_c['post_covid'] * 100:.2f}% change")
+print(f"Thailand-Specific Post-COVID Effect: {params_c['thailand_post_covid'] * 100:.2f}% ADDITIONAL change")
+print(f"Total Thailand Post-COVID Effect: {(params_c['post_covid'] + params_c['thailand_post_covid']) * 100:.2f}%")
 
 if model_d_success and res_d is not None:
     print("\n--- MODEL D: Real Exchange Rate (RER) ---")
     params_d = res_d.params
-    print(f"Peace Index: 1 unit increase → {params_d['peace_index']*100:.2f}% change in arrivals")
+    print(f"Peace Index: 1 unit increase → {params_d['peace_index'] * 100:.2f}% change in arrivals")
     print(f"CPI: 1% increase → {params_d['ln_cpi']:.3f}% change in arrivals")
     print(f"China GDP: 1% increase → {params_d['ln_gdp_china']:.3f}% change in arrivals")
     print(f"Real Exchange Rate (RER): 1% appreciation → {params_d['ln_rer']:.3f}% change in arrivals")
-    print(f"COVID Impact: {params_d['covid_dummy']*100:.2f}% change during 2020-2021")
+    print(f"COVID Impact: {params_d['covid_dummy'] * 100:.2f}% change during 2020-2021")
 
 if model_f_success and res_f is not None:
     print("\n--- MODEL F: RER + Thailand Asymmetry ---")
     params_f = res_f.params
     print(f"Real Exchange Rate (RER): 1% appreciation → {params_f['ln_rer']:.3f}% change in arrivals")
-    print(f"Post-COVID Recovery (all countries): {params_f['post_covid']*100:.2f}% change")
-    print(f"Thailand-Specific Post-COVID Effect: {params_f['thailand_post_covid']*100:.2f}% ADDITIONAL change")
-    print(f"Total Thailand Post-COVID Effect: {(params_f['post_covid'] + params_f['thailand_post_covid'])*100:.2f}%")
+    print(f"Post-COVID Recovery (all countries): {params_f['post_covid'] * 100:.2f}% change")
+    print(f"Thailand-Specific Post-COVID Effect: {params_f['thailand_post_covid'] * 100:.2f}% ADDITIONAL change")
+    print(f"Total Thailand Post-COVID Effect: {(params_f['post_covid'] + params_f['thailand_post_covid']) * 100:.2f}%")
 
 # Model Comparison
 print("\n" + "=" * 80)
@@ -276,12 +275,14 @@ comparison_data = {
 if model_d_success and res_d is not None:
     comparison_data['Model D (RER)'] = [res_d.rsquared, res_d.rsquared_within, res_d.f_statistic.stat, res_d.nobs]
 if model_e_success and res_e is not None:
-    comparison_data['Model E (RER+Time FE)'] = [res_e.rsquared, res_e.rsquared_within, res_e.f_statistic.stat, res_e.nobs]
+    comparison_data['Model E (RER+Time FE)'] = [res_e.rsquared, res_e.rsquared_within, res_e.f_statistic.stat,
+                                                res_e.nobs]
 if model_f_success and res_f is not None:
-    comparison_data['Model F (RER+Thailand)'] = [res_f.rsquared, res_f.rsquared_within, res_f.f_statistic.stat, res_f.nobs]
+    comparison_data['Model F (RER+Thailand)'] = [res_f.rsquared, res_f.rsquared_within, res_f.f_statistic.stat,
+                                                 res_f.nobs]
 
-comparison = pd.DataFrame(comparison_data, 
-                         index=['R-squared', 'R-squared Within', 'F-statistic', 'N Observations'])
+comparison = pd.DataFrame(comparison_data,
+                          index=['R-squared', 'R-squared Within', 'F-statistic', 'N Observations'])
 print(comparison)
 
 # ==========================================
@@ -301,17 +302,17 @@ with open(os.path.join(script_dir, 'regression_results_model1_woCandE.txt'), 'w'
     f.write("MODEL C: Thailand Asymmetry (Nominal ER)\n")
     f.write("-" * 80 + "\n")
     f.write(str(res_c) + "\n\n")
-    
+
     if model_d_success and res_d is not None:
         f.write("MODEL D: Entity FE + COVID Dummy (RER)\n")
         f.write("-" * 80 + "\n")
         f.write(str(res_d) + "\n\n")
-    
+
     if model_e_success and res_e is not None:
         f.write("MODEL E: Entity FE + Time FE (RER)\n")
         f.write("-" * 80 + "\n")
         f.write(str(res_e) + "\n\n")
-    
+
     if model_f_success and res_f is not None:
         f.write("MODEL F: Thailand Asymmetry (RER)\n")
         f.write("-" * 80 + "\n")
@@ -370,7 +371,7 @@ df_plot = df.reset_index()
 plt.figure(figsize=(14, 8))
 for country in df_plot['Country'].unique():
     country_data = df_plot[df_plot['Country'] == country]
-    plt.plot(country_data['Year'], country_data['arrivals_from_china'], 
+    plt.plot(country_data['Year'], country_data['arrivals_from_china'],
              marker='o', label=country, linewidth=2)
 
 plt.axvline(x=2020, color='red', linestyle='--', linewidth=2, label='COVID-19', alpha=0.7)
@@ -390,9 +391,9 @@ plt.figure(figsize=(12, 6))
 thailand_data = df_plot[df_plot['Country'] == 'Thailand']
 others_data = df_plot[df_plot['Country'] != 'Thailand'].groupby('Year')['arrivals_from_china'].mean().reset_index()
 
-plt.plot(thailand_data['Year'], thailand_data['arrivals_from_china'], 
+plt.plot(thailand_data['Year'], thailand_data['arrivals_from_china'],
          marker='o', linewidth=3, label='Thailand', color='#FF6B6B')
-plt.plot(others_data['Year'], others_data['arrivals_from_china'], 
+plt.plot(others_data['Year'], others_data['arrivals_from_china'],
          marker='s', linewidth=3, label='Other Countries (Average)', color='#4ECDC4')
 
 plt.axvline(x=2020, color='red', linestyle='--', linewidth=2, alpha=0.5)
@@ -411,7 +412,7 @@ plt.close()
 plt.figure(figsize=(14, 8))
 for country in df_plot['Country'].unique():
     country_data = df_plot[df_plot['Country'] == country]
-    plt.plot(country_data['Year'], country_data['ln_arrivals'], 
+    plt.plot(country_data['Year'], country_data['ln_arrivals'],
              marker='o', label=country, linewidth=2)
 
 plt.axvline(x=2020, color='red', linestyle='--', linewidth=2, alpha=0.7)
@@ -430,7 +431,7 @@ plt.close()
 plt.figure(figsize=(10, 8))
 corr_vars = ['ln_arrivals', 'peace_index', 'ln_cpi', 'ln_gdp_china', 'ln_exchange_rate', 'ln_rer']
 correlation_matrix = df_plot[corr_vars].corr()
-sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', center=0, 
+sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', center=0,
             square=True, linewidths=1, cbar_kws={"shrink": 0.8})
 plt.title('Correlation Matrix of Variables (Including RER)', fontsize=14, fontweight='bold')
 plt.tight_layout()
@@ -445,7 +446,7 @@ fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(14, 10))
 # Plot nominal exchange rate
 for country in df_plot['Country'].unique():
     country_data = df_plot[df_plot['Country'] == country]
-    ax1.plot(country_data['Year'], country_data['ln_exchange_rate'], 
+    ax1.plot(country_data['Year'], country_data['ln_exchange_rate'],
              marker='o', label=country, linewidth=2, alpha=0.7)
 ax1.axvline(x=2020, color='red', linestyle='--', linewidth=2, alpha=0.5)
 ax1.set_xlabel('Year', fontsize=11)
@@ -457,7 +458,7 @@ ax1.grid(True, alpha=0.3)
 # Plot real exchange rate
 for country in df_plot['Country'].unique():
     country_data = df_plot[df_plot['Country'] == country]
-    ax2.plot(country_data['Year'], country_data['ln_rer'], 
+    ax2.plot(country_data['Year'], country_data['ln_rer'],
              marker='s', label=country, linewidth=2, alpha=0.7)
 ax2.axvline(x=2020, color='red', linestyle='--', linewidth=2, alpha=0.5)
 ax2.set_xlabel('Year', fontsize=11)
@@ -485,17 +486,18 @@ print("  7. exchange_rate_comparison.png - Nominal vs Real ER comparison")
 print("\nKey Findings:")
 if 'thailand_post_covid' in params_c.index:
     if params_c['thailand_post_covid'] < 0:
-        print(f"  → Thailand shows a {abs(params_c['thailand_post_covid']*100):.2f}% SLOWER recovery (Nominal ER model)")
+        print(
+            f"  → Thailand shows a {abs(params_c['thailand_post_covid'] * 100):.2f}% SLOWER recovery (Nominal ER model)")
     else:
-        print(f"  → Thailand shows a {params_c['thailand_post_covid']*100:.2f}% FASTER recovery (Nominal ER model)")
+        print(f"  → Thailand shows a {params_c['thailand_post_covid'] * 100:.2f}% FASTER recovery (Nominal ER model)")
 
 if model_f_success and res_f is not None:
     params_f = res_f.params
     if 'thailand_post_covid' in params_f.index:
         if params_f['thailand_post_covid'] < 0:
-            print(f"  → Thailand shows a {abs(params_f['thailand_post_covid']*100):.2f}% SLOWER recovery (RER model)")
+            print(f"  → Thailand shows a {abs(params_f['thailand_post_covid'] * 100):.2f}% SLOWER recovery (RER model)")
         else:
-            print(f"  → Thailand shows a {params_f['thailand_post_covid']*100:.2f}% FASTER recovery (RER model)")
+            print(f"  → Thailand shows a {params_f['thailand_post_covid'] * 100:.2f}% FASTER recovery (RER model)")
 
 print("\nModels Successfully Estimated:")
 print(f"  → Models A, B, C (Nominal ER): ✓")

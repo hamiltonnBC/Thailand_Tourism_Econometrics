@@ -20,6 +20,7 @@ interface RegressionModelCardProps {
   description: string
   keyFindings: string[]
   hypothesisTests: HypothesisTest[]
+  potentialIssues?: string[]
 }
 
 export function RegressionModelCard({
@@ -27,7 +28,8 @@ export function RegressionModelCard({
   modelEquation,
   description,
   keyFindings,
-  hypothesisTests
+  hypothesisTests,
+  potentialIssues
 }: RegressionModelCardProps) {
   return (
     <Box
@@ -89,6 +91,28 @@ export function RegressionModelCard({
             ))}
           </HStack>
         </Box>
+
+        {/* Potential Issues & Limitations */}
+        {potentialIssues && potentialIssues.length > 0 && (
+          <Box 
+            bg="#fef3c7" 
+            border="1px" 
+            borderColor="#fbbf24" 
+            borderRadius="md" 
+            p={4}
+          >
+            <Text fontWeight="semibold" color="#92400e" mb={2} fontSize="sm">
+              ⚠️ Potential Issues & Limitations:
+            </Text>
+            <VStack align="stretch" gap={2}>
+              {potentialIssues.map((issue, index) => (
+                <Text key={index} color="#78350f" fontSize="sm" lineHeight="1.6">
+                  • {issue}
+                </Text>
+              ))}
+            </VStack>
+          </Box>
+        )}
       </VStack>
     </Box>
   )

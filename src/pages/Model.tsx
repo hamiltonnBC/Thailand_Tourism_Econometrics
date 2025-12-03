@@ -7,6 +7,7 @@
 import { useState } from 'react'
 import { Box, HStack, Text, Code, VStack } from '@chakra-ui/react'
 import { RegressionModelCard } from '../components/RegressionModelCard'
+import { PlaceboTestCard } from '../components/PlaceboTestCard'
 
 type ModelTab = 'development' | 'specification' | 'diagnostics' | 'limitations'
 
@@ -304,6 +305,13 @@ export function Model() {
                       interpretation: 'COVID-19 had a massive negative impact, reducing arrivals by approximately 92% during 2020-2021.'
                     }
                   ]}
+                  potentialIssues={[
+                    'Counterintuitive CPI sign: Higher prices associated with MORE arrivals. This could indicate: (1) quality signaling - expensive destinations attract luxury tourists, (2) reverse causality - popular destinations can charge more, or (3) CPI capturing something other than pure price effects.',
+                    'Exchange rate not significant (p = 0.263): This is surprising for a gravity model. Possible explanations: (1) multicollinearity with CPI, (2) Chinese tourists may be less price-sensitive than expected, or (3) nominal exchange rate is the wrong measure (should use real exchange rate).',
+                    'China GDP not significant (p = 0.177): Income effect is weaker than expected. This could mean: (1) GDP is too aggregate - need per capita or disposable income, (2) time variation in GDP is absorbed by other variables, or (3) outbound tourism is driven by factors beyond just income.',
+                    'Peace Index marginally significant (p = 0.059): Just misses 5% threshold. Could indicate: (1) objective safety (GPI) differs from perceived safety by Chinese tourists, (2) insufficient statistical power, or (3) safety matters but is confounded with other factors.',
+                    'COVID dummy is very crude: A single binary variable for 2020-2021 assumes uniform impact across all countries and both years. Reality was more nuanced with different lockdown timings and severities.'
+                  ]}
                 />
 
                 {/* Model C: Thailand Asymmetry */}
@@ -341,6 +349,14 @@ export function Model() {
                       result: 'Reject H₀',
                       interpretation: 'Adding the Thailand interaction and post-COVID variables substantially improves model fit, explaining 59% of within-country variation.'
                     }
+                  ]}
+                  potentialIssues={[
+                    'Unexpected positive Thailand effect: We hypothesized a "Thailand Penalty" but found a "Thailand Bonus." This could mean: (1) our initial hypothesis was wrong - Thailand is actually recovering well, (2) the post-2022 period is too early to capture the full penalty, (3) we\'re measuring something else (e.g., pent-up demand), or (4) data quality issues in 2023-2024.',
+                    'Parallel trends assumption: DiD requires that Thailand and control countries would have followed parallel trends absent treatment. If Thailand was already on a different trajectory pre-2022, our estimate is biased. Visual inspection suggests parallel trends hold, but this is not a formal test.',
+                    'Treatment timing ambiguity: When exactly did the "Thailand effect" begin? We use 2022+ as post-COVID, but the actual treatment (negative sentiment, safety concerns) may have started earlier or later. Misspecifying treatment timing biases the interaction coefficient.',
+                    'Peace Index becomes insignificant: In Model A it was marginally significant (p=0.059), now it\'s not (p=0.578). This suggests: (1) multicollinearity with the new variables, (2) post-COVID variables absorb safety effects, or (3) safety matters less in the recovery period.',
+                    'CPI coefficient doubles: From 1.46 in Model A to 3.23 here. This dramatic change suggests: (1) model instability, (2) multicollinearity issues, or (3) CPI\'s effect differs in post-COVID period. The large standard error indicates high uncertainty.',
+                    'Small sample for post-COVID: Only 2022-2024 data (3 years × 8 countries = 24 observations) drives the Thailand interaction. This limited data makes the estimate sensitive to outliers or data errors in those specific years.'
                   ]}
                 />
 
@@ -380,6 +396,14 @@ export function Model() {
                       interpretation: 'RER has theoretically correct sign (negative) and similar model fit. Both specifications are valid, but RER is theoretically preferred.'
                     }
                   ]}
+                  potentialIssues={[
+                    'RER not significant (p = 0.207): Despite being theoretically superior to nominal ER, RER is not statistically significant. This could mean: (1) insufficient variation in RER after country-specific normalization, (2) multicollinearity with CPI (both measure price effects), or (3) Chinese tourists are genuinely insensitive to real exchange rate changes.',
+                    'RER normalization may remove too much variation: We normalize RER by dividing by each country\'s mean to handle scale differences. However, this transformation removes cross-country variation in average RER levels, leaving only within-country time variation. We may have "thrown out the baby with the bathwater."',
+                    'China GDP becomes negative: The coefficient flips from +0.39 (Model A) to -0.19 (Model D). While neither is significant, this sign change is concerning and suggests: (1) multicollinearity between GDP and RER, (2) model instability, or (3) RER is capturing GDP effects.',
+                    'Multicollinearity between CPI and RER: Both variables measure price/cost effects. RER = (Nominal ER × CPI_China) / CPI_destination. This mathematical relationship creates correlation. When both are in the model, their individual effects become hard to separate, inflating standard errors.',
+                    'Peace Index loses significance: Compared to Model A (p=0.059), it\'s now p=0.207. This suggests RER specification changes the model dynamics, possibly because: (1) RER absorbs some safety-related variation, (2) different sample after RER normalization, or (3) increased multicollinearity reduces precision.',
+                    'Minimal improvement over Model A: Log-likelihood improves by only 0.04 (-185.36 vs -185.40). This tiny improvement suggests RER doesn\'t add much explanatory power despite being theoretically preferred. The data may not support the theoretical refinement.'
+                  ]}
                 />
 
                 {/* Model F: Thailand Asymmetry with RER */}
@@ -418,6 +442,15 @@ export function Model() {
                       result: 'Reject H₀',
                       interpretation: 'The model as a whole is highly significant. The combination of economic factors, COVID effects, and Thailand-specific recovery explains 59% of variation.'
                     }
+                  ]}
+                  potentialIssues={[
+                    'RER coefficient flips sign: In Model D, RER was -0.97 (correct sign). Here it\'s +0.87 (wrong sign). This sign flip is alarming and suggests: (1) severe multicollinearity with the new interaction terms, (2) model instability, or (3) RER\'s effect differs in post-COVID period. The fact that it\'s not significant (p=0.295) doesn\'t excuse the wrong sign.',
+                    'Thailand effect contradicts hypothesis: We expected a penalty but found a bonus. This is the central puzzle. Possible explanations: (1) our hypothesis was wrong, (2) measurement error in 2023-2024 data, (3) pent-up demand creates temporary boost, (4) Thailand\'s marketing/visa policies are working, or (5) we\'re measuring recovery from a lower base (Thailand fell further, so % recovery looks faster).',
+                    'Peace Index completely insignificant: p=0.664 means safety has no detectable effect in this specification. This contradicts literature and common sense. Likely causes: (1) multicollinearity with 7 other variables absorbs safety effects, (2) post-COVID variables capture safety concerns, (3) objective GPI doesn\'t match perceived safety, or (4) overfitting - too many variables for 136 observations.',
+                    'High multicollinearity risk: This model has 7 regressors + 8 country FE = 15 parameters estimated from 136 observations. That\'s only 9 observations per parameter. With CPI, RER, and COVID variables all measuring related concepts, multicollinearity is likely inflating standard errors and causing coefficient instability.',
+                    'Post-COVID period too short: Only 3 years (2022-2024) × 8 countries = 24 observations drive the Thailand interaction. If even one country has data issues in 2023-2024, it could swing the result. The estimate is fragile.',
+                    'Comparing apples to oranges: Thailand may have fallen further during COVID than other countries, so its "faster recovery" might just be mean reversion. We need to check if Thailand is recovering to its pre-COVID level or exceeding it. The positive coefficient could be misleading without this context.',
+                    'China GDP elasticity seems too high: 1.43 is very high - it suggests tourism is a strong luxury good. For comparison, typical income elasticities for tourism are 1.0-1.2. This could indicate: (1) our sample of destinations is luxury-focused, (2) GDP is proxying for other factors, or (3) the post-COVID period has unusual dynamics.'
                   ]}
                 />
               </VStack>
@@ -689,7 +722,7 @@ export function Model() {
               </Text>
               <Text color="#64748b" mb={4}>
                 For our Difference-in-Differences approach to work, we need to validate the parallel trends assumption: 
-                that Thailand and control countries followed similar trends before 2023.
+                that Thailand and control countries followed similar trends before 2022.
               </Text>
               <VStack align="stretch" gap={4}>
                 <Box>
@@ -699,22 +732,74 @@ export function Model() {
                     moved together, supporting our parallel trends assumption.
                   </Text>
                 </Box>
-                <Box>
-                  <Text fontWeight="semibold" mb={2}>Spatial Placebo Test</Text>
-                  <Text color="#64748b" mb={3}>
-                    We re-estimated the model assigning a false treatment to Vietnam (a control country with similar 
-                    characteristics to Thailand).
-                  </Text>
-                  <Box bg="#f8fafc" p={4} borderRadius="md" border="1px" borderColor="#e2e8f0">
-                    <Text fontWeight="semibold" mb={2}>Result:</Text>
-                    <Text color="#64748b">
-                      The coefficient for (Vietnam × Post2023) was statistically indistinguishable from zero. This 
-                      supports our claim that the penalty is unique to Thailand, not a regional phenomenon.
-                    </Text>
-                  </Box>
-                </Box>
               </VStack>
             </Box>
+
+            {/* Spatial Placebo Tests - All Countries */}
+            <PlaceboTestCard
+              title="Spatial Placebo Tests: Testing All Countries"
+              description="To validate that Thailand's asymmetric recovery is truly Thailand-specific and not a regional or random phenomenon, we ran Model C (Thailand Asymmetry) separately for each country in our sample. We replace the Thailand interaction term with an interaction for each other country. If Thailand's effect is unique, we should find that ONLY Thailand shows a significant coefficient, while all other countries' coefficients are statistically indistinguishable from zero."
+              tests={[
+                {
+                  country: 'Thailand',
+                  coefficient: 0.2963,
+                  pValue: '0.038',
+                  tStat: '2.10',
+                  isSignificant: true,
+                  isThailand: true
+                },
+                {
+                  country: 'Vietnam',
+                  coefficient: 'TBD',
+                  pValue: 'TBD',
+                  tStat: 'TBD',
+                  isSignificant: false
+                },
+                {
+                  country: 'Malaysia',
+                  coefficient: 'TBD',
+                  pValue: 'TBD',
+                  tStat: 'TBD',
+                  isSignificant: false
+                },
+                {
+                  country: 'Singapore',
+                  coefficient: 'TBD',
+                  pValue: 'TBD',
+                  tStat: 'TBD',
+                  isSignificant: false
+                },
+                {
+                  country: 'Indonesia',
+                  coefficient: 'TBD',
+                  pValue: 'TBD',
+                  tStat: 'TBD',
+                  isSignificant: false
+                },
+                {
+                  country: 'Cambodia',
+                  coefficient: 'TBD',
+                  pValue: 'TBD',
+                  tStat: 'TBD',
+                  isSignificant: false
+                },
+                {
+                  country: 'Japan',
+                  coefficient: 'TBD',
+                  pValue: 'TBD',
+                  tStat: 'TBD',
+                  isSignificant: false
+                },
+                {
+                  country: 'Australia',
+                  coefficient: 'TBD',
+                  pValue: 'TBD',
+                  tStat: 'TBD',
+                  isSignificant: false
+                }
+              ]}
+              interpretation="Expected Result: Thailand should be the ONLY country with a significant coefficient (p < 0.05). All other countries should have p-values > 0.10, indicating no asymmetric recovery effect. If multiple countries show significant effects, it would suggest the pattern is not Thailand-specific but rather a broader regional or systematic phenomenon. The color coding helps visualize this: Thailand (blue) should be significant, while all other countries (green) should be non-significant."
+            />
 
             <Box>
               <Text fontSize="xl" fontWeight="semibold" mb={4}>
