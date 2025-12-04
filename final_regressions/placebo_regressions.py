@@ -248,7 +248,7 @@ results_df = pd.DataFrame(placebo_results)
 # Sort by p-value
 results_df_sorted = results_df.sort_values('p_value')
 
-print("\n📊 RESULTS RANKED BY SIGNIFICANCE (most significant first):")
+print("\n RESULTS RANKED BY SIGNIFICANCE (most significant first):")
 print("-" * 85)
 print(f"{'Country':<15} {'Coefficient':>12} {'t-stat':>10} {'p-value':>10} {'Sig':>5} {'Status':>15}")
 print("-" * 85)

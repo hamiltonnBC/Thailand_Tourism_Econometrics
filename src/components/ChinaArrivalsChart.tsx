@@ -326,16 +326,14 @@ export function ChinaArrivalsChart() {
               with vastly different tourism volumes.
             </Text>
             <Text>
-              <strong style={{ color: '#1e293b' }}>2. Handling Scale Differences:</strong> Our data spans several orders of magnitude—from 
-              thousands of arrivals (Maldives in early years) to millions (Thailand, Japan). The logarithmic transformation 
+              <strong style={{ color: '#1e293b' }}>2. Handling Scale Differences:</strong> Our data spans several orders of magnitude. The logarithmic transformation 
               compresses this range, preventing countries with larger absolute numbers from dominating the regression and 
-              allowing us to model proportional relationships.
+              allowing us to model proportional relationships. This really goes along with our first point.
             </Text>
             <Text>
               <strong style={{ color: '#1e293b' }}>3. Linearity in Parameters:</strong> Many economic relationships are multiplicative 
               rather than additive. Taking logs converts multiplicative relationships into additive ones, which satisfies 
-              the linearity assumption required for OLS regression. This is particularly important for modeling growth rates 
-              and elasticities.
+              the linearity assumption required for OLS regression. We knew to take the log from our textbook, and it was clearly the correct move. 
             </Text>
             <Text>
               <strong style={{ color: '#1e293b' }}>4. Reducing Heteroskedasticity:</strong> Tourism data often exhibits increasing 

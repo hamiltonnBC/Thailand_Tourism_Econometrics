@@ -1,0 +1,85 @@
+================================================================================
+HETEROSKEDASTICITY AND AUTOCORRELATION TEST SUMMARY
+================================================================================
+Dataset: 136 observations, 8 countries
+Years: 2008-2024
+
+
+Model A: Baseline (Nominal ER)
+--------------------------------------------------------------------------------
+
+Modified Wald Test for Heteroskedasticity:
+  Test Statistic: χ²(7) = 12.6860
+  P-value: 0.080139
+  Result: Fail to reject H₀
+  ✓ No strong evidence of heteroskedasticity
+
+Wooldridge Test for Autocorrelation:
+  F-statistic: 0.4587
+  P-value: 0.499497
+  Result: Fail to reject H₀
+  ✓ No strong evidence of autocorrelation
+
+Model C: Thailand Asymmetry (Nominal ER)
+--------------------------------------------------------------------------------
+
+Modified Wald Test for Heteroskedasticity:
+  Test Statistic: χ²(7) = 36.5053
+  P-value: 0.000006
+  Result: Reject H₀
+  ⚠️  Evidence of heteroskedasticity - use robust standard errors
+
+Wooldridge Test for Autocorrelation:
+  F-statistic: 14.5359
+  P-value: 0.000214
+  Result: Reject H₀
+  ⚠️  Evidence of autocorrelation - consider AR(1) correction or year FE
+
+Model D: Baseline (RER)
+--------------------------------------------------------------------------------
+
+Modified Wald Test for Heteroskedasticity:
+  Test Statistic: χ²(7) = 16.3316
+  P-value: 0.022254
+  Result: Reject H₀
+  ⚠️  Evidence of heteroskedasticity - use robust standard errors
+
+Wooldridge Test for Autocorrelation:
+  F-statistic: 0.5027
+  P-value: 0.479647
+  Result: Fail to reject H₀
+  ✓ No strong evidence of autocorrelation
+
+Model F: Thailand Asymmetry (RER)
+--------------------------------------------------------------------------------
+
+Modified Wald Test for Heteroskedasticity:
+  Test Statistic: χ²(7) = 34.9941
+  P-value: 0.000011
+  Result: Reject H₀
+  ⚠️  Evidence of heteroskedasticity - use robust standard errors
+
+Wooldridge Test for Autocorrelation:
+  F-statistic: 16.3625
+  P-value: 0.000091
+  Result: Reject H₀
+  ⚠️  Evidence of autocorrelation - consider AR(1) correction or year FE
+
+================================================================================
+INTERPRETATION AND RECOMMENDATIONS
+================================================================================
+
+Modified Wald Test:
+- Tests whether residual variance differs across countries (heteroskedasticity)
+- Rejection of H₀ indicates country-specific variance
+- Solution: Use clustered/robust standard errors (which we do)
+
+Wooldridge Test:
+- Tests for first-order autocorrelation in panel data
+- Rejection of H₀ indicates errors are correlated over time
+- Solutions: (1) Include year fixed effects, (2) Use AR(1) correction, (3) Cluster by time
+
+Our Approach:
+- We use clustered standard errors (by country) to address heteroskedasticity
+- We include year fixed effects in some specifications to capture temporal patterns
+- These adjustments make our inference robust to both issues

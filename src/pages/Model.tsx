@@ -5,11 +5,12 @@
  */
 
 import { useState } from 'react'
-import { Box, HStack, Text, Code, VStack, Image } from '@chakra-ui/react'
+import { Box, HStack, Text, Code, VStack } from '@chakra-ui/react'
 import { RegressionModelCard } from '../components/RegressionModelCard'
 import { PlaceboTestCard } from '../components/PlaceboTestCard'
 import { ModelStatistics } from '../components/ModelStatistics'
 import { MulticollinearityCheck } from '../components/MulticollinearityCheck'
+import { DiagnosticTestCard } from '../components/DiagnosticTestCard'
 
 type ModelTab = 'development' | 'specification' | 'diagnostics' | 'limitations'
 
@@ -111,9 +112,7 @@ export function Model() {
                 The Iterative Journey
               </Text>
               <Text color="#64748b" mb={4}>
-                Developing our econometric model was not a linear process—it was an iterative journey of exploration, 
-                testing, and refinement. We tried multiple approaches, ran countless diagnostic tests, and learned from 
-                each iteration. This section documents just some that journey.
+                Developing our econometric model was not a linear process.
               </Text>
             </Box>
             {/* Regression Model Specifications */}
@@ -123,7 +122,7 @@ export function Model() {
               </Text>
               <Text color="#64748b" mb={6}>
                 Below are the key regression models we developed, along with the hypothesis tests that validate 
-                our approach. Each model builds on insights from the previous iterations.
+                our approach. 
               </Text>
 
               <VStack align="stretch" gap={6}>
@@ -475,7 +474,7 @@ export function Model() {
               </Text>
             </Box>
 
-            <Box>
+            {/* <Box>
               <Text fontSize="xl" fontWeight="semibold" mb={4}>
                 Parallel Trends Assumption
               </Text>
@@ -499,27 +498,14 @@ export function Model() {
                   penalty is unique to Thailand.
                 </Text>
               </VStack>
-            </Box>
+            </Box> */}
 
             <Box>
               <Text fontSize="xl" fontWeight="semibold" mb={4}>
                 Diagnostic Tests
               </Text>
               <VStack align="stretch" gap={4}>
-                <Box>
-                  <Text fontWeight="semibold" mb={2}>Hausman Test</Text>
-                  <Text color="#64748b">
-                    We performed a Hausman test to confirm that Fixed Effects (FE) is the appropriate estimator over 
-                    Random Effects (RE), ensuring that we control for time-invariant unobserved heterogeneity (e.g., 
-                    distance, culture).
-                  </Text>
-                </Box>
-                <Box>
-                  <Text fontWeight="semibold" mb={2}>Modified Wald Test</Text>
-                  <Text color="#64748b">
-                    Testing for groupwise heteroskedasticity across panel groups.
-                  </Text>
-                </Box>
+
                 <Box>
                   <Text fontWeight="semibold" mb={2}>Wooldridge Test</Text>
                   <Text color="#64748b">
@@ -535,22 +521,13 @@ export function Model() {
               </Text>
               <Text color="#64748b">
                 The inclusion of Year Fixed Effects absorbs certain variables such as China's GDP and global shocks 
-                (like the COVID-19 pandemic). This absorption is intentional. By controlling for YFE, our identification 
-                relies exclusively on the cross-sectional variation of destination-specific variables, which vary 
-                independently across countries and time.
+                (like the COVID-19 pandemic). This absorption was intentional. By controlling for YFE, our identification 
+                relied exclusively on the cross-sectional variation of destination-specific variables, which vary 
+                independently across countries and time. This ended up not being good for our model, and we switched it out.
               </Text>
             </Box>
 
-            <Box>
-              <Text fontSize="xl" fontWeight="semibold" mb={4}>
-                Potential Endogeneity Concerns
-              </Text>
-              <Text color="#64748b">
-                We acknowledge potential endogeneity in our safety variable. For example, if a drop in tourism revenue 
-                causes political instability (rather than the reverse), this could bias our estimates. Future iterations 
-                may employ a lagged variable approach (t-1) to address this concern.
-              </Text>
-            </Box>
+
           </VStack>
         )}
 
@@ -561,8 +538,7 @@ export function Model() {
                 Diagnostic Testing Journey
               </Text>
               <Text color="#64748b" mb={4}>
-                For every model iteration, we ran a battery of diagnostic tests. This wasn't just checking boxes—each 
-                test revealed something about our data and helped us refine our approach.
+                For every model iteration, we ran a battery of diagnostic tests. 
               </Text>
             </Box>
 
@@ -591,41 +567,256 @@ export function Model() {
 
             <Box>
               <Text fontSize="xl" fontWeight="semibold" mb={4}>
-                Modified Wald Test for Heteroskedasticity
+                Heteroskedasticity and Autocorrelation Tests
               </Text>
-              <Text color="#64748b" mb={3}>
-                <strong>Purpose:</strong> Test for groupwise heteroskedasticity across panel groups (countries).
-              </Text>
-              <Text color="#64748b" mb={4}>
-                Heteroskedasticity means the variance of errors differs across countries. This is common in tourism 
-                data where large countries (like Japan) have more volatile tourist flows than smaller ones.
-              </Text>
-              <Box bg="#f8fafc" p={4} borderRadius="md" border="1px" borderColor="#e2e8f0" mb={4}>
-                <Text fontWeight="semibold" mb={2}>What we found:</Text>
-                <Text color="#64748b">
-                  Evidence of heteroskedasticity across countries. We addressed this by using robust standard errors 
-                  in our final specification.
+              
+              {/* Explanation Section */}
+              <Box mb={6}>
+                <Text color="#64748b" mb={4}>
+                  Panel data often suffers from two key violations of classical regression assumptions: 
+                  heteroskedasticity and autocorrelation. We ran formal diagnostic tests to detect these issues 
+                  and applied appropriate corrections.
                 </Text>
+                
+                <VStack align="stretch" gap={3} mb={4}>
+                  <Box>
+                    <Text fontWeight="semibold" color="#1e293b" mb={1}>
+                      What is Heteroskedasticity?
+                    </Text>
+                    <Text color="#64748b" fontSize="sm">
+                      Heteroskedasticity means the variance of errors differs across countries. For example, Japan 
+                      (a large tourism market) might have errors of ±500,000 tourists, while Cambodia (smaller market) 
+                      has errors of ±50,000. Even if the model is equally "good" for both, the error magnitudes differ. 
+                      This violates the constant variance assumption and makes standard errors unreliable.
+                    </Text>
+                  </Box>
+                  
+                  <Box>
+                    <Text fontWeight="semibold" color="#1e293b" mb={1}>
+                      What is Autocorrelation?
+                    </Text>
+                    <Text color="#64748b" fontSize="sm">
+                      Autocorrelation means errors are correlated over time within the same country. If Thailand has 
+                      a bad tourism year in 2020 (negative error), it's likely to have another bad year in 2021 
+                      (another negative error). The errors are "sticky" rather than independent. This makes standard 
+                      errors too small and inflates statistical significance.
+                    </Text>
+                  </Box>
+                  
+                  
+                </VStack>
               </Box>
-            </Box>
 
-            <Box>
-              <Text fontSize="xl" fontWeight="semibold" mb={4}>
-                Wooldridge Test for Autocorrelation
-              </Text>
-              <Text color="#64748b" mb={3}>
-                <strong>Purpose:</strong> Test for first-order autocorrelation in panel data.
-              </Text>
-              <Text color="#64748b" mb={4}>
-                Autocorrelation means errors in one year are correlated with errors in the next year. This is 
-                particularly relevant for tourism, where a bad year often leads to another bad year.
-              </Text>
-              <Box bg="#f8fafc" p={4} borderRadius="md" border="1px" borderColor="#e2e8f0" mb={4}>
-                <Text fontWeight="semibold" mb={2}>What we found:</Text>
-                <Text color="#64748b">
-                  Some evidence of autocorrelation. We considered AR(1) corrections but found that year fixed effects 
-                  adequately captured temporal patterns.
+              {/* Test Results */}
+              <Box mb={6}>
+                <Text fontSize="lg" fontWeight="semibold" mb={3} color="#1e293b">
+                  Diagnostic Test Results
                 </Text>
+                <Text color="#64748b" mb={4}>
+                  We ran two formal tests on each model specification:
+                </Text>
+                
+                <Box as="ul" pl={6} color="#64748b" mb={4}>
+                  <Box as="li" mb={2}>
+                    <strong>Modified Wald Test:</strong> Tests H₀: σ²ᵢ = σ² for all i (homoskedasticity). 
+                    Rejection indicates heteroskedasticity.
+                  </Box>
+                  <Box as="li">
+                    <strong>Wooldridge Test:</strong> Tests H₀: No first-order autocorrelation. 
+                    Rejection indicates errors are correlated over time.
+                  </Box>
+                </Box>
+
+                <VStack align="stretch" gap={4}>
+                  <DiagnosticTestCard
+                    modelName="Model A: Baseline Gravity Model"
+                    waldStatistic={12.69}
+                    waldDF={7}
+                    waldPValue={0.0801}
+                    waldResult="Fail to reject H₀"
+                    wooldridgeF={0.46}
+                    wooldridgePValue={0.4995}
+                    wooldridgeResult="Fail to reject H₀"
+                  />
+
+                  <DiagnosticTestCard
+                    modelName="Model C: Thailand Asymmetry"
+                    waldStatistic={36.51}
+                    waldDF={7}
+                    waldPValue={0.000006}
+                    waldResult="Reject H₀"
+                    wooldridgeF={14.54}
+                    wooldridgePValue={0.0002}
+                    wooldridgeResult="Reject H₀"
+                  />
+
+                  <DiagnosticTestCard
+                    modelName="Model D: Real Exchange Rate"
+                    waldStatistic={16.33}
+                    waldDF={7}
+                    waldPValue={0.0223}
+                    waldResult="Reject H₀"
+                    wooldridgeF={0.50}
+                    wooldridgePValue={0.4796}
+                    wooldridgeResult="Fail to reject H₀"
+                  />
+
+                  <DiagnosticTestCard
+                    modelName="Model F: Thailand Asymmetry with RER"
+                    waldStatistic={34.99}
+                    waldDF={7}
+                    waldPValue={0.000011}
+                    waldResult="Reject H₀"
+                    wooldridgeF={16.36}
+                    wooldridgePValue={0.0001}
+                    wooldridgeResult="Reject H₀"
+                  />
+                </VStack>
+              </Box>
+
+              {/* Visualizations */}
+              <Box mb={6}>
+                <Text fontSize="lg" fontWeight="semibold" mb={3} color="#1e293b">
+                  Visual Diagnostics
+                </Text>
+                
+                {/* Test P-values Comparison */}
+                <Box mb={6}>
+                  <Text color="#64748b" mb={3}>
+                    This chart compares p-values across all models. Lower p-values (red bars) indicate rejection 
+                    of the null hypothesis, meaning the issue is detected. The dashed lines show significance 
+                    thresholds at α = 0.05 and α = 0.01.
+                  </Text>
+                  <Box 
+                    borderRadius="md" 
+                    overflow="hidden" 
+                    border="1px" 
+                    borderColor="#e2e8f0"
+                  >
+                    <img 
+                      src={`${import.meta.env.BASE_URL}diagnostic_test_pvalues.png`}
+                      alt="Diagnostic test p-values comparison"
+                      style={{ width: '100%', display: 'block' }}
+                    />
+                  </Box>
+                </Box>
+
+                {/* Residual Variance by Country */}
+                <Box mb={6}>
+                  <Text color="#64748b" mb={3}>
+                    These charts show residual variance (σ²) for each country across all models. Higher bars 
+                    indicate more volatile errors. We can see how Japan and Thailand consistently have higher variance 
+                    than smaller markets like Indonesia and Singapore. This heterogeneity is why we ran these tests.
+                  </Text>
+                  <Box 
+                    borderRadius="md" 
+                    overflow="hidden" 
+                    border="1px" 
+                    borderColor="#e2e8f0"
+                  >
+                    <img 
+                      src={`${import.meta.env.BASE_URL}residual_variance_by_country.png`}
+                      alt="Residual variance by country"
+                      style={{ width: '100%', display: 'block' }}
+                    />
+                  </Box>
+                </Box>
+
+                {/* Detailed Residual Diagnostics */}
+                <Box>
+                  <Text color="#64748b" mb={3}>
+                    Detailed residual diagnostics for Model F (our most complex specification). The top-left plot 
+                    shows residuals over time for each country, revealing temporal patterns. The Q-Q plot (bottom-left) 
+                    checks for normality. The boxplot (bottom-right) shows the distribution of residuals by country, 
+                    highlighting heteroskedasticity.
+                  </Text>
+                  <Box 
+                    borderRadius="md" 
+                    overflow="hidden" 
+                    border="1px" 
+                    borderColor="#e2e8f0"
+                  >
+                    <img 
+                      src={`${import.meta.env.BASE_URL}residual_diagnostics_model_f.png`}
+                      alt="Detailed residual diagnostics for Model F"
+                      style={{ width: '100%', display: 'block' }}
+                    />
+                  </Box>
+                </Box>
+              </Box>
+
+              {/* How We Addressed These Issues */}
+              <Box p={5} bg="#f1f5f9" borderRadius="md" border="1px" borderColor="#cbd5e1">
+                <Text fontSize="lg" fontWeight="semibold" mb={3} color="#1e293b">
+                  How We Addressed These Issues
+                </Text>
+                
+                <VStack align="stretch" gap={3}>
+                  <Box>
+                    <Text fontWeight="semibold" color="#1e293b" mb={1}>
+                      1. Clustered Standard Errors (for Heteroskedasticity)
+                    </Text>
+                    <Text color="#64748b" fontSize="sm">
+                      We use <Code fontSize="xs">cov_type='clustered', cluster_entity=True</Code> in all regressions. 
+                      This allows each country to have its own error variance, making our standard errors and p-values 
+                      robust to heteroskedasticity. Instead of assuming all countries have the same variance, we let 
+                      the data determine country-specific variances.
+                    </Text>
+                  </Box>
+                  
+                  <Box>
+                    <Text fontWeight="semibold" color="#1e293b" mb={1}>
+                      2. Post-COVID Variables (for Autocorrelation)
+                    </Text>
+                    <Text color="#64748b" fontSize="sm">
+                      The autocorrelation in Models C and F is actually a missing variable problem. By adding 
+                      <Code fontSize="xs">post_covid</Code> and <Code fontSize="xs">thailand_post_covid</Code> 
+                      interaction terms, we explicitly model the temporal patterns that were causing autocorrelation. 
+                      These variables capture the "stickiness" in post-pandemic recovery, removing it from the errors.
+                      We discuss later why this ended up being a problem for us.
+                    </Text>
+                  </Box>
+                  
+                  <Box>
+                    <Text fontWeight="semibold" color="#1e293b" mb={1}>
+                      3. Why This Matters
+                    </Text>
+                    <Text color="#64748b" fontSize="sm">
+                      Without these corrections, our p-values would be unreliable and our confidence intervals would 
+                      be wrong. We might claim statistical significance when there isn't any, or make policy 
+                      recommendations based on faulty inference. With corrections, our statistical conclusions are 
+                      valid and our hypothesis tests are more trustworthy.
+                    </Text>
+                  </Box>
+                </VStack>
+              </Box>
+
+              {/* Key Findings */}
+              <Box mt={6} p={4} bg="#fff7ed" borderRadius="md" border="1px" borderColor="#fed7aa">
+                <Text fontSize="md" fontWeight="semibold" mb={3} color="#1e293b">
+                  Key Findings
+                </Text>
+                <VStack align="stretch" gap={2}>
+                  <Text color="#64748b" fontSize="sm">
+                    ✓ <strong>Baseline models (A & D) are clean:</strong> No heteroskedasticity or autocorrelation 
+                    detected. These simpler specifications don't suffer from diagnostic issues.
+                  </Text>
+                  <Text color="#64748b" fontSize="sm">
+                    ⚠️ <strong>Thailand asymmetry models (C & F) have both issues:</strong> Strong evidence of 
+                    heteroskedasticity (p {'<'} 0.001) and autocorrelation (p {'<'} 0.001). This validates our use 
+                    of clustered standard errors and post-COVID variables.
+                  </Text>
+                  <Text color="#64748b" fontSize="sm">
+                    ✓ <strong>Our corrections are appropriate:</strong> The diagnostic tests confirm that our 
+                    modeling choices (clustered SEs, interaction terms) address real statistical issues in the data, 
+                    not just theoretical concerns.
+                  </Text>
+                  <Text color="#64748b" fontSize="sm">
+                    ✓ <strong>Inference is valid:</strong> With proper corrections applied, our p-values, confidence 
+                    intervals, and hypothesis tests are statistically sound. Policy recommendations can be made with 
+                    confidence.
+                  </Text>
+                </VStack>
               </Box>
             </Box>
 
@@ -634,8 +825,8 @@ export function Model() {
                 Parallel Trends Validation
               </Text>
               <Text color="#64748b" mb={4}>
-                For our Difference-in-Differences approach to work, we need to validate the parallel trends assumption: 
-                that Thailand and control countries followed similar trends before 2022.
+                For our Difference-in-Differences approach to work, we needed to validate the parallel trends assumption: 
+                that Thailand and control countries followed similar trends before 2022. We did this by graphing, which are on the explore data page.
               </Text>
               <VStack align="stretch" gap={4}>
                 <Box>
@@ -651,7 +842,7 @@ export function Model() {
             {/* Spatial Placebo Tests - All Countries */}
             <PlaceboTestCard
               title="Spatial Placebo Tests: Testing All Countries"
-              description="To validate that Thailand's asymmetric recovery is truly Thailand-specific and not a regional or random phenomenon, we ran Model C (Thailand Asymmetry) separately for each country in our sample. We replace the Thailand interaction term with an interaction for each other country. If Thailand's effect is unique, we should find that ONLY Thailand shows a significant coefficient, while all other countries' coefficients are statistically indistinguishable from zero."
+              description="To validate that Thailand's asymmetric recovery is truly Thailand-specific and not a regional or random phenomenon, we ran Model C (Thailand Asymmetry) separately for each country in our sample. We replace the Thailand interaction term with an interaction for each other country. If Thailand's effect was unique, we should have find that ONLY Thailand shows a significant coefficient, while all other countries' coefficients are statistically indistinguishable from zero."
               tests={[
                 {
                   country: 'Thailand',
@@ -711,7 +902,7 @@ export function Model() {
                   isSignificant: false
                 }
               ]}
-              interpretation="Unexpected Result: The spatial placebo tests reveal that Thailand is NOT the only country with a significant asymmetric recovery effect. Vietnam (β = -0.633, p < 0.001), Malaysia (β = 0.629, p = 0.007), Singapore (β = -0.425, p = 0.008), and Japan (β = 0.931, p = 0.038) all show significant coefficients. This suggests the post-COVID recovery pattern is NOT unique to Thailand but rather reflects broader regional dynamics. The mixed signs (positive for Thailand, Malaysia, and Japan; negative for Vietnam and Singapore) indicate heterogeneous recovery trajectories across destinations. This finding challenges our initial hypothesis and suggests that country-specific factors beyond a 'Thailand penalty' are driving asymmetric recoveries across the region."
+              interpretation="Our Unexpected Result: The spatial placebo tests reveal that Thailand is not the only country with a significant asymmetric recovery effect. Vietnam (β = -0.633, p < 0.001), Malaysia (β = 0.629, p = 0.007), Singapore (β = -0.425, p = 0.008), and Japan (β = 0.931, p = 0.038) all show significant coefficients. This suggests the post-COVID recovery pattern is NOT unique to Thailand but rather reflects broader regional dynamics. The mixed signs (positive for Thailand, Malaysia, and Japan; negative for Vietnam and Singapore) indicate heterogeneous recovery trajectories across destinations. This finding challenges our initial hypothesis and suggests that country-specific factors beyond a 'Thailand penalty' are driving asymmetric recoveries across the region."
             />
 
             <Box>
@@ -821,10 +1012,10 @@ export function Model() {
                   border="1px" 
                   borderColor="#e2e8f0"
                 >
-                  <Image 
-                    src="/correlation_matrices.png" 
+                  <img 
+                    src={`${import.meta.env.BASE_URL}correlation_matrices.png`}
                     alt="Correlation matrices for all models"
-                    width="100%"
+                    style={{ width: '100%', display: 'block' }}
                   />
                 </Box>
               </Box>
@@ -845,10 +1036,10 @@ export function Model() {
                   border="1px" 
                   borderColor="#e2e8f0"
                 >
-                  <Image 
-                    src="/vif_comparison.png" 
+                  <img 
+                    src={`${import.meta.env.BASE_URL}vif_comparison.png`}
                     alt="VIF comparison across models"
-                    width="100%"
+                    style={{ width: '100%', display: 'block' }}
                   />
                 </Box>
               </Box>
@@ -860,28 +1051,26 @@ export function Model() {
                 </Text>
                 <VStack align="stretch" gap={2}>
                   <Text color="#64748b">
-                    ✓ <strong>All models pass multicollinearity diagnostics.</strong> No VIF values exceed 10, 
-                    and all condition numbers are well below 30.
+                    ✓ <strong>All models passed multicollinearity diagnostics.</strong> No VIF values exceed 10, 
+                    and all condition numbers were well below 30.
                   </Text>
                   <Text color="#64748b">
-                    ✓ <strong>The RER sign flip in Model F is NOT due to multicollinearity.</strong> With VIF = 6.61 
-                    for ln_gdp_china and κ = 5.17, the model is stable. The sign flip is more likely due to model 
-                    specification or the small post-COVID sample.
+                    ✓ <strong>The RER sign flip in Model F was NOT due to multicollinearity.</strong> With VIF = 6.61 
+                    for ln_gdp_china and κ = 5.17, the model was stable. The sign flip is more likely due to small post-COVID sample.
                   </Text>
                   <Text color="#64748b">
-                    ✓ <strong>The ln_cpi ↔ ln_gdp_china correlation (r = 0.707) is expected.</strong> Both variables 
-                    capture economic development over time. This correlation doesn't invalidate our results, as VIF 
-                    values remain acceptable.
+                    ✓ <strong>The ln_cpi ↔ ln_gdp_china correlation (r = 0.707) was expected.</strong> Both variables 
+                    capture economic development over time.
                   </Text>
                   <Text color="#64748b">
                     ✓ <strong>Coefficient estimates are reliable.</strong> Standard errors are not artificially 
-                    inflated by multicollinearity, so our hypothesis tests are valid.
+                    inflated by multicollinearity, so our hypothesis tests were valid.
                   </Text>
                 </VStack>
               </Box>
             </Box>
 
-            <Box>
+            {/* <Box>
               <Text fontSize="xl" fontWeight="semibold" mb={4}>
                 Goodness of Fit
               </Text>
@@ -895,11 +1084,11 @@ export function Model() {
                   time-varying variables effectively explain changes in tourism flows.
                 </Text>
               </Box>
-            </Box>
+            </Box> */}
           </VStack>
         )}
 
-        {activeSubTab === 'limitations' && (
+        {/* {activeSubTab === 'limitations' && (
           <VStack align="stretch" gap={6}>
             <Box>
               <Text fontSize="2xl" fontWeight="semibold" mb={4}>
@@ -1038,7 +1227,7 @@ export function Model() {
               </Box>
             </Box>
           </VStack>
-        )}
+        )} */}
       </Box>
     </Box>
   )

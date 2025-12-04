@@ -211,7 +211,7 @@ export function Overview() {
               The post-pandemic recovery of global tourism is easily characterized by confusion, with Southeast Asia 
               experiencing a particularly uneven rebound. While aggregate international arrivals to the region have 
               approached 2019 levels, the recovery of the Chinese outbound tourism market has been asymmetrical. 
-              Specifically, Chinese tourism to Thailand is recovering at a much slower rate than it is to other countries.
+              Specifically, Chinese tourism to Thailand is recovering at a much slower rate than it is to some other countries.
             </Text>
             <Text color="#64748b" mb={4}>
               Our project looks at quantifying this difference, and using econometric theory that we have learned in this 

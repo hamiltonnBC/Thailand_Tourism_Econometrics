@@ -229,7 +229,7 @@ export function RecoveryRateChart() {
       </Box>
 
       {/* Analysis Box */}
-      <Box p={6} bg="#f8fafc" borderRadius="md" borderWidth="1px" borderColor="#e2e8f0">
+      {/* <Box p={6} bg="#f8fafc" borderRadius="md" borderWidth="1px" borderColor="#e2e8f0">
         <Text fontSize="lg" fontWeight="semibold" mb={3} color="#1e293b">
           Key Insights on Asymmetric Recovery
         </Text>
@@ -253,7 +253,7 @@ export function RecoveryRateChart() {
             for long-term tourism planning and investment.
           </Text>
         </VStack>
-      </Box>
+      </Box> */}
     </VStack>
   )
 }

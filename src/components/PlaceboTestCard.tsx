@@ -68,7 +68,7 @@ export function PlaceboTestCard({
           p={4}
         >
           <Text fontWeight="semibold" color="#1e40af" mb={2} fontSize="sm">
-            📊 Interpretation:
+             Interpretation:
           </Text>
           <Text color="#1e40af" fontSize="sm" lineHeight="1.6">
             {interpretation}
@@ -109,7 +109,7 @@ function PlaceboCountryCard({ test }: { test: PlaceboTest }) {
       bgColor = '#fef2f2'
       glowColor = '0 0 12px rgba(252, 165, 165, 0.6)'
       statusColor = '#dc2626'
-      statusText = '✗ Significant (Problem!)'
+      statusText = '✗ Significant (Problem)'
     } else {
       // GREEN - good
       borderColor = '#86efac'
