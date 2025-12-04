@@ -1,0 +1,79 @@
+================================================================================
+MULTICOLLINEARITY DIAGNOSTIC SUMMARY
+================================================================================
+Dataset: 136 observations, 8 countries
+Years: 2008-2024
+
+
+Model A: Baseline (Nominal ER)
+--------------------------------------------------------------------------------
+VIF Analysis:
+  Max VIF: 3.10
+  Variables with VIF > 10: 0
+
+Condition Number: 3.43
+  ✓ Low multicollinearity
+
+High Correlations (|r| > 0.7): 1
+  ln_cpi ↔ ln_gdp_china: r = 0.707
+
+Model C: Thailand Asymmetry (Nominal ER)
+--------------------------------------------------------------------------------
+VIF Analysis:
+  Max VIF: 3.38
+  Variables with VIF > 10: 0
+
+Condition Number: 3.81
+  ✓ Low multicollinearity
+
+High Correlations (|r| > 0.7): 1
+  ln_cpi ↔ ln_gdp_china: r = 0.707
+
+Model D: Baseline (RER)
+--------------------------------------------------------------------------------
+VIF Analysis:
+  Max VIF: 4.33
+  Variables with VIF > 10: 0
+
+Condition Number: 4.04
+  ✓ Low multicollinearity
+
+High Correlations (|r| > 0.7): 1
+  ln_cpi ↔ ln_gdp_china: r = 0.707
+
+Model F: Thailand Asymmetry (RER)
+--------------------------------------------------------------------------------
+VIF Analysis:
+  Max VIF: 6.61
+  Variables with VIF > 10: 0
+
+Condition Number: 5.17
+  ✓ Low multicollinearity
+
+High Correlations (|r| > 0.7): 1
+  ln_cpi ↔ ln_gdp_china: r = 0.707
+
+================================================================================
+INTERPRETATION GUIDE
+================================================================================
+
+VIF (Variance Inflation Factor):
+- Measures how much the variance of a coefficient is inflated due to collinearity
+- VIF = 1/(1 - R²) where R² is from regressing that variable on all others
+- High VIF means the variable is highly predictable from other variables
+
+Condition Number (κ):
+- Measures overall multicollinearity in the design matrix
+- Based on ratio of largest to smallest eigenvalue
+- High κ means the matrix is nearly singular (ill-conditioned)
+
+Correlation:
+- Pairwise linear relationships between variables
+- High correlation (|r| > 0.7) suggests potential multicollinearity
+- But multicollinearity can exist even with low pairwise correlations
+
+Common Issues in Tourism Models:
+1. CPI and Exchange Rate: Both measure price/cost effects
+2. GDP and Time Trend: Economic growth is time-trending
+3. COVID and Post-COVID: Temporal overlap creates collinearity
+4. RER and CPI: RER is constructed from exchange rate and CPI ratio

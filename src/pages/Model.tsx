@@ -5,9 +5,11 @@
  */
 
 import { useState } from 'react'
-import { Box, HStack, Text, Code, VStack } from '@chakra-ui/react'
+import { Box, HStack, Text, Code, VStack, Image } from '@chakra-ui/react'
 import { RegressionModelCard } from '../components/RegressionModelCard'
 import { PlaceboTestCard } from '../components/PlaceboTestCard'
+import { ModelStatistics } from '../components/ModelStatistics'
+import { MulticollinearityCheck } from '../components/MulticollinearityCheck'
 
 type ModelTab = 'development' | 'specification' | 'diagnostics' | 'limitations'
 
@@ -111,154 +113,9 @@ export function Model() {
               <Text color="#64748b" mb={4}>
                 Developing our econometric model was not a linear process—it was an iterative journey of exploration, 
                 testing, and refinement. We tried multiple approaches, ran countless diagnostic tests, and learned from 
-                each iteration. This section documents that journey.
+                each iteration. This section documents just some that journey.
               </Text>
             </Box>
-
-            <Box>
-              <Text fontSize="xl" fontWeight="semibold" mb={4}>
-                Phase 1: Initial Exploration
-              </Text>
-              <Text color="#64748b" mb={3}>
-                We began by exploring various modeling approaches mentioned in the literature:
-              </Text>
-              <Box as="ul" pl={6} color="#64748b" mb={4}>
-                <Box as="li" mb={2}>
-                  <strong>Simple OLS Regression:</strong> Our first attempt used basic linear regression, but we quickly 
-                  discovered issues with heteroskedasticity and autocorrelation across countries.
-                </Box>
-                <Box as="li" mb={2}>
-                  <strong>Time Series Models:</strong> We explored ARIMA and other time series approaches, but these 
-                  couldn't capture the cross-country variation we needed.
-                </Box>
-                <Box as="li" mb={2}>
-                  <strong>Gradient Boosting Trees:</strong> We experimented with machine learning approaches, but they 
-                  lacked the interpretability we needed for policy recommendations.
-                </Box>
-              </Box>
-            </Box>
-
-            <Box>
-              <Text fontSize="xl" fontWeight="semibold" mb={4}>
-                Phase 2: Panel Data Discovery
-              </Text>
-              <Text color="#64748b" mb={4}>
-                After reviewing tourism econometrics literature, particularly Yunitaningtyas et al. (2019), we realized 
-                that panel data methods were ideal for our research question. We had:
-              </Text>
-              <Box as="ul" pl={6} color="#64748b" mb={4}>
-                <Box as="li" mb={2}>Multiple countries (cross-sectional dimension)</Box>
-                <Box as="li" mb={2}>Multiple years (time dimension)</Box>
-                <Box as="li" mb={2}>Country-specific effects we needed to control for</Box>
-                <Box as="li">Time-varying shocks affecting all countries</Box>
-              </Box>
-              <Text color="#64748b">
-                This led us to explore Fixed Effects vs. Random Effects models.
-              </Text>
-            </Box>
-
-            <Box>
-              <Text fontSize="xl" fontWeight="semibold" mb={4}>
-                Phase 3: Model Specification Trials
-              </Text>
-              <Text color="#64748b" mb={3}>
-                We ran multiple model specifications, each teaching us something new:
-              </Text>
-              <Box bg="#f8fafc" p={4} borderRadius="md" border="1px" borderColor="#e2e8f0" mb={4}>
-                <VStack align="stretch" gap={3}>
-                  <Box>
-                    <Text fontWeight="semibold" mb={2}>Version 1: Basic Gravity Model</Text>
-                    <Text color="#64748b" fontSize="sm">
-                      Included distance, GDP, and population. Problem: Distance is time-invariant and gets absorbed by 
-                      country fixed effects.
-                    </Text>
-                  </Box>
-                  <Box>
-                    <Text fontWeight="semibold" mb={2}>Version 2: Adding Economic Variables</Text>
-                    <Text color="#64748b" fontSize="sm">
-                      Added exchange rates and CPI. Better, but still missing the safety dimension that literature 
-                      emphasized.
-                    </Text>
-                  </Box>
-                  <Box>
-                    <Text fontWeight="semibold" mb={2}>Version 3: Safety Index Integration</Text>
-                    <Text color="#64748b" fontSize="sm">
-                      Incorporated Global Peace Index. Improved model fit, but we debated whether to use objective or 
-                      perceived safety metrics.
-                    </Text>
-                  </Box>
-                  <Box>
-                    <Text fontWeight="semibold" mb={2}>Version 4: GDP vs. Year Fixed Effects</Text>
-                    <Text color="#64748b" fontSize="sm">
-                      Tested two approaches: one with Chinese GDP explicitly, another with year fixed effects. The latter 
-                      better captured global shocks like COVID-19.
-                    </Text>
-                  </Box>
-                </VStack>
-              </Box>
-            </Box>
-
-            <Box>
-              <Text fontSize="xl" fontWeight="semibold" mb={4}>
-                Phase 4: Variable Transformations
-              </Text>
-              <Text color="#64748b" mb={4}>
-                We learned that raw values created problems due to scale differences between countries. We experimented with:
-              </Text>
-              <Box as="ul" pl={6} color="#64748b" mb={4}>
-                <Box as="li" mb={2}>
-                  <strong>Log transformations:</strong> Allowed us to interpret coefficients as percentage changes and 
-                  smoothed outliers
-                </Box>
-                <Box as="li" mb={2}>
-                  <strong>Standardization:</strong> Tested z-scores but found logs more interpretable
-                </Box>
-                <Box as="li">
-                  <strong>Index creation:</strong> Built CPI indices with 2010 as base year for consistency
-                </Box>
-              </Box>
-            </Box>
-
-            <Box>
-              <Text fontSize="xl" fontWeight="semibold" mb={4}>
-                Phase 5: The "Thailand Penalty" Variable
-              </Text>
-              <Text color="#64748b" mb={4}>
-                A breakthrough came when we realized we could create an interaction term (Thailand × Post-2023) to 
-                directly measure the asymmetric recovery. This Difference-in-Differences approach allowed us to:
-              </Text>
-              <Box as="ul" pl={6} color="#64748b">
-                <Box as="li" mb={2}>Isolate Thailand's specific effect</Box>
-                <Box as="li" mb={2}>Control for global trends affecting all countries</Box>
-                <Box as="li">Quantify the exact magnitude of the penalty</Box>
-              </Box>
-            </Box>
-
-            <Box>
-              <Text fontSize="xl" fontWeight="semibold" mb={4}>
-                Key Lessons Learned
-              </Text>
-              <Box bg="#f1f5f9" p={4} borderRadius="md" border="1px" borderColor="#cbd5e1">
-                <VStack align="stretch" gap={2}>
-                  <Text color="#64748b">
-                    ✓ Panel data methods are powerful for tourism research with multiple countries and years
-                  </Text>
-                  <Text color="#64748b">
-                    ✓ Fixed Effects control for unobserved heterogeneity better than Random Effects for our data
-                  </Text>
-                  <Text color="#64748b">
-                    ✓ Log transformations improve interpretability and handle scale differences
-                  </Text>
-                  <Text color="#64748b">
-                    ✓ Interaction terms can isolate specific treatment effects
-                  </Text>
-                  <Text color="#64748b">
-                    ✓ Every model specification teaches you something, even the "failed" ones
-                  </Text>
-                </VStack>
-              </Box>
-            </Box>
-
             {/* Regression Model Specifications */}
             <Box>
               <Text fontSize="2xl" fontWeight="semibold" mb={4}>
@@ -313,6 +170,20 @@ export function Model() {
                     'COVID dummy is very crude: A single binary variable for 2020-2021 assumes uniform impact across all countries and both years. Reality was more nuanced with different lockdown timings and severities.'
                   ]}
                 />
+                <ModelStatistics
+                  rSquared="0.4261"
+                  rSquaredWithin="0.4261"
+                  rSquaredBetween="-33.519"
+                  rSquaredOverall="-5.6794"
+                  nObservations={136}
+                  entities={8}
+                  timePeriods={17}
+                  fStatistic="18.264"
+                  fPValue="0.0000"
+                  logLikelihood="-185.40"
+                  poolabilityF="7.0378"
+                  poolabilityP="0.0000"
+                />
 
                 {/* Model C: Thailand Asymmetry */}
                 <RegressionModelCard
@@ -359,6 +230,20 @@ export function Model() {
                     'Small sample for post-COVID: Only 2022-2024 data (3 years × 8 countries = 24 observations) drives the Thailand interaction. This limited data makes the estimate sensitive to outliers or data errors in those specific years.'
                   ]}
                 />
+                <ModelStatistics
+                  rSquared="0.5935"
+                  rSquaredWithin="0.5935"
+                  rSquaredBetween="-75.967"
+                  rSquaredOverall="-13.177"
+                  nObservations={136}
+                  entities={8}
+                  timePeriods={17}
+                  fStatistic="25.235"
+                  fPValue="0.0000"
+                  logLikelihood="-161.95"
+                  poolabilityF="9.9314"
+                  poolabilityP="0.0000"
+                />
 
                 {/* Model D: Real Exchange Rate */}
                 <RegressionModelCard
@@ -404,6 +289,20 @@ export function Model() {
                     'Peace Index loses significance: Compared to Model A (p=0.059), it\'s now p=0.207. This suggests RER specification changes the model dynamics, possibly because: (1) RER absorbs some safety-related variation, (2) different sample after RER normalization, or (3) increased multicollinearity reduces precision.',
                     'Minimal improvement over Model A: Log-likelihood improves by only 0.04 (-185.36 vs -185.40). This tiny improvement suggests RER doesn\'t add much explanatory power despite being theoretically preferred. The data may not support the theoretical refinement.'
                   ]}
+                />
+                <ModelStatistics
+                  rSquared="0.4265"
+                  rSquaredWithin="0.4265"
+                  rSquaredBetween="-0.7290"
+                  rSquaredOverall="0.2186"
+                  nObservations={136}
+                  entities={8}
+                  timePeriods={17}
+                  fStatistic="18.293"
+                  fPValue="0.0000"
+                  logLikelihood="-185.36"
+                  poolabilityF="7.1080"
+                  poolabilityP="0.0000"
                 />
 
                 {/* Model F: Thailand Asymmetry with RER */}
@@ -452,6 +351,20 @@ export function Model() {
                     'Comparing apples to oranges: Thailand may have fallen further during COVID than other countries, so its "faster recovery" might just be mean reversion. We need to check if Thailand is recovering to its pre-COVID level or exceeding it. The positive coefficient could be misleading without this context.',
                     'China GDP elasticity seems too high: 1.43 is very high - it suggests tourism is a strong luxury good. For comparison, typical income elasticities for tourism are 1.0-1.2. This could indicate: (1) our sample of destinations is luxury-focused, (2) GDP is proxying for other factors, or (3) the post-COVID period has unusual dynamics.'
                   ]}
+                />
+                <ModelStatistics
+                  rSquared="0.5877"
+                  rSquaredWithin="0.5877"
+                  rSquaredBetween="-0.3871"
+                  rSquaredOverall="0.4124"
+                  nObservations={136}
+                  entities={8}
+                  timePeriods={17}
+                  fStatistic="24.639"
+                  fPValue="0.0000"
+                  logLikelihood="-162.91"
+                  poolabilityF="9.2043"
+                  poolabilityP="0.0000"
                 />
               </VStack>
             </Box>
@@ -750,55 +663,55 @@ export function Model() {
                 },
                 {
                   country: 'Vietnam',
-                  coefficient: 'TBD',
-                  pValue: 'TBD',
-                  tStat: 'TBD',
-                  isSignificant: false
+                  coefficient: -0.6326,
+                  pValue: '0.000',
+                  tStat: '-3.77',
+                  isSignificant: true
                 },
                 {
                   country: 'Malaysia',
-                  coefficient: 'TBD',
-                  pValue: 'TBD',
-                  tStat: 'TBD',
-                  isSignificant: false
+                  coefficient: 0.6285,
+                  pValue: '0.007',
+                  tStat: '2.75',
+                  isSignificant: true
                 },
                 {
                   country: 'Singapore',
-                  coefficient: 'TBD',
-                  pValue: 'TBD',
-                  tStat: 'TBD',
-                  isSignificant: false
+                  coefficient: -0.4250,
+                  pValue: '0.008',
+                  tStat: '-2.72',
+                  isSignificant: true
                 },
                 {
                   country: 'Indonesia',
-                  coefficient: 'TBD',
-                  pValue: 'TBD',
-                  tStat: 'TBD',
+                  coefficient: -0.2266,
+                  pValue: '0.306',
+                  tStat: '-1.03',
                   isSignificant: false
                 },
                 {
                   country: 'Cambodia',
-                  coefficient: 'TBD',
-                  pValue: 'TBD',
-                  tStat: 'TBD',
+                  coefficient: -0.2206,
+                  pValue: '0.516',
+                  tStat: '-0.65',
                   isSignificant: false
                 },
                 {
                   country: 'Japan',
-                  coefficient: 'TBD',
-                  pValue: 'TBD',
-                  tStat: 'TBD',
-                  isSignificant: false
+                  coefficient: 0.9307,
+                  pValue: '0.038',
+                  tStat: '2.10',
+                  isSignificant: true
                 },
                 {
                   country: 'Australia',
-                  coefficient: 'TBD',
-                  pValue: 'TBD',
-                  tStat: 'TBD',
+                  coefficient: -0.2240,
+                  pValue: '0.412',
+                  tStat: '-0.82',
                   isSignificant: false
                 }
               ]}
-              interpretation="Expected Result: Thailand should be the ONLY country with a significant coefficient (p < 0.05). All other countries should have p-values > 0.10, indicating no asymmetric recovery effect. If multiple countries show significant effects, it would suggest the pattern is not Thailand-specific but rather a broader regional or systematic phenomenon. The color coding helps visualize this: Thailand (blue) should be significant, while all other countries (green) should be non-significant."
+              interpretation="Unexpected Result: The spatial placebo tests reveal that Thailand is NOT the only country with a significant asymmetric recovery effect. Vietnam (β = -0.633, p < 0.001), Malaysia (β = 0.629, p = 0.007), Singapore (β = -0.425, p = 0.008), and Japan (β = 0.931, p = 0.038) all show significant coefficients. This suggests the post-COVID recovery pattern is NOT unique to Thailand but rather reflects broader regional dynamics. The mixed signs (positive for Thailand, Malaysia, and Japan; negative for Vietnam and Singapore) indicate heterogeneous recovery trajectories across destinations. This finding challenges our initial hypothesis and suggests that country-specific factors beyond a 'Thailand penalty' are driving asymmetric recoveries across the region."
             />
 
             <Box>
@@ -806,15 +719,165 @@ export function Model() {
                 Multicollinearity Check
               </Text>
               <Text color="#64748b" mb={4}>
-                We calculated Variance Inflation Factors (VIF) for all regressors to ensure they weren't too highly 
-                correlated with each other.
+                Multicollinearity occurs when independent variables are highly correlated, which can inflate standard 
+                errors and make coefficient estimates unreliable. We use three diagnostic measures:
               </Text>
-              <Box bg="#f8fafc" p={4} borderRadius="md" border="1px" borderColor="#e2e8f0">
-                <Text fontWeight="semibold" mb={2}>Result:</Text>
-                <Text color="#64748b">
-                  All VIF values were below 5, indicating acceptable levels of multicollinearity. The highest VIF was 
-                  for GDP and exchange rate (as expected), but still within acceptable bounds.
+              
+              <Box as="ul" pl={6} color="#64748b" mb={4}>
+                <Box as="li" mb={2}>
+                  <strong>Variance Inflation Factor (VIF):</strong> Measures how much the variance of a coefficient 
+                  is inflated due to collinearity. VIF {'<'} 5 is ideal, 5-10 is moderate, {'>'}10 is problematic.
+                </Box>
+                <Box as="li" mb={2}>
+                  <strong>Condition Number (κ):</strong> Measures overall multicollinearity in the design matrix. 
+                  κ {'<'} 30 is low, 30-100 is moderate, {'>'}100 is severe.
+                </Box>
+                <Box as="li">
+                  <strong>Correlation Matrix:</strong> Shows pairwise correlations between variables. 
+                  |r| {'>'}0.7 suggests potential multicollinearity.
+                </Box>
+              </Box>
+
+              <VStack align="stretch" gap={4}>
+                {/* Model A VIF */}
+                <MulticollinearityCheck
+                  modelName="Model A: Baseline Gravity Model"
+                  vifData={[
+                    { variable: 'ln_cpi', vif: 3.10 },
+                    { variable: 'ln_gdp_china', vif: 2.72 },
+                    { variable: 'ln_exchange_rate', vif: 1.89 },
+                    { variable: 'peace_index', vif: 1.32 },
+                    { variable: 'covid_dummy', vif: 1.14 }
+                  ]}
+                  maxVIF={3.10}
+                  conditionNumber={3.43}
+                  highCorrelations={['ln_cpi ↔ ln_gdp_china: r = 0.707']}
+                />
+
+                {/* Model C VIF */}
+                <MulticollinearityCheck
+                  modelName="Model C: Thailand Asymmetry"
+                  vifData={[
+                    { variable: 'ln_gdp_china', vif: 3.38 },
+                    { variable: 'ln_cpi', vif: 3.32 },
+                    { variable: 'post_covid', vif: 2.02 },
+                    { variable: 'ln_exchange_rate', vif: 1.89 },
+                    { variable: 'peace_index', vif: 1.42 },
+                    { variable: 'covid_dummy', vif: 1.41 },
+                    { variable: 'thailand_post_covid', vif: 1.27 }
+                  ]}
+                  maxVIF={3.38}
+                  conditionNumber={3.81}
+                  highCorrelations={['ln_cpi ↔ ln_gdp_china: r = 0.707']}
+                />
+
+                {/* Model D VIF */}
+                <MulticollinearityCheck
+                  modelName="Model D: Real Exchange Rate"
+                  vifData={[
+                    { variable: 'ln_gdp_china', vif: 4.33 },
+                    { variable: 'ln_cpi', vif: 2.43 },
+                    { variable: 'ln_rer', vif: 2.20 },
+                    { variable: 'covid_dummy', vif: 1.14 },
+                    { variable: 'peace_index', vif: 1.09 }
+                  ]}
+                  maxVIF={4.33}
+                  conditionNumber={4.04}
+                  highCorrelations={['ln_cpi ↔ ln_gdp_china: r = 0.707']}
+                />
+
+                {/* Model F VIF */}
+                <MulticollinearityCheck
+                  modelName="Model F: Thailand Asymmetry with RER"
+                  vifData={[
+                    { variable: 'ln_gdp_china', vif: 6.61 },
+                    { variable: 'ln_cpi', vif: 2.65 },
+                    { variable: 'ln_rer', vif: 2.60 },
+                    { variable: 'post_covid', vif: 2.32 },
+                    { variable: 'covid_dummy', vif: 1.49 },
+                    { variable: 'thailand_post_covid', vif: 1.27 },
+                    { variable: 'peace_index', vif: 1.18 }
+                  ]}
+                  maxVIF={6.61}
+                  conditionNumber={5.17}
+                  highCorrelations={['ln_cpi ↔ ln_gdp_china: r = 0.707']}
+                />
+              </VStack>
+
+              {/* Correlation Matrices Visualization */}
+              <Box mt={6}>
+                <Text fontSize="lg" fontWeight="semibold" mb={3} color="#1e293b">
+                  Correlation Matrices
                 </Text>
+                <Text color="#64748b" mb={4}>
+                  The heatmaps below show pairwise correlations between all variables in each model. Red indicates 
+                  positive correlation, blue indicates negative correlation. The only notable high correlation 
+                  (r = 0.707) is between ln(CPI) and ln(GDP_China), which is expected as both capture economic 
+                  development over time.
+                </Text>
+                <Box 
+                  borderRadius="md" 
+                  overflow="hidden" 
+                  border="1px" 
+                  borderColor="#e2e8f0"
+                >
+                  <Image 
+                    src="/correlation_matrices.png" 
+                    alt="Correlation matrices for all models"
+                    width="100%"
+                  />
+                </Box>
+              </Box>
+
+              {/* VIF Comparison Chart */}
+              <Box mt={6}>
+                <Text fontSize="lg" fontWeight="semibold" mb={3} color="#1e293b">
+                  VIF Comparison Across Models
+                </Text>
+                <Text color="#64748b" mb={4}>
+                  This chart compares VIF values across all four models. Notice that Model F (Thailand Asymmetry 
+                  with RER) has the highest VIF for ln_gdp_china (6.61), but it's still below the threshold of 10. 
+                  The dashed lines indicate moderate (VIF = 5) and high (VIF = 10) multicollinearity thresholds.
+                </Text>
+                <Box 
+                  borderRadius="md" 
+                  overflow="hidden" 
+                  border="1px" 
+                  borderColor="#e2e8f0"
+                >
+                  <Image 
+                    src="/vif_comparison.png" 
+                    alt="VIF comparison across models"
+                    width="100%"
+                  />
+                </Box>
+              </Box>
+
+              {/* Overall Interpretation */}
+              <Box mt={6} p={4} bg="#f1f5f9" borderRadius="md" border="1px" borderColor="#cbd5e1">
+                <Text fontSize="md" fontWeight="semibold" mb={3} color="#1e293b">
+                  Overall Assessment
+                </Text>
+                <VStack align="stretch" gap={2}>
+                  <Text color="#64748b">
+                    ✓ <strong>All models pass multicollinearity diagnostics.</strong> No VIF values exceed 10, 
+                    and all condition numbers are well below 30.
+                  </Text>
+                  <Text color="#64748b">
+                    ✓ <strong>The RER sign flip in Model F is NOT due to multicollinearity.</strong> With VIF = 6.61 
+                    for ln_gdp_china and κ = 5.17, the model is stable. The sign flip is more likely due to model 
+                    specification or the small post-COVID sample.
+                  </Text>
+                  <Text color="#64748b">
+                    ✓ <strong>The ln_cpi ↔ ln_gdp_china correlation (r = 0.707) is expected.</strong> Both variables 
+                    capture economic development over time. This correlation doesn't invalidate our results, as VIF 
+                    values remain acceptable.
+                  </Text>
+                  <Text color="#64748b">
+                    ✓ <strong>Coefficient estimates are reliable.</strong> Standard errors are not artificially 
+                    inflated by multicollinearity, so our hypothesis tests are valid.
+                  </Text>
+                </VStack>
               </Box>
             </Box>
 

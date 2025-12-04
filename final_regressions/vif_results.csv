@@ -1,0 +1,25 @@
+Model,Variable,VIF
+Model A: Baseline (Nominal ER),ln_cpi,3.0965999847188606
+Model A: Baseline (Nominal ER),ln_gdp_china,2.7221398545698765
+Model A: Baseline (Nominal ER),ln_exchange_rate,1.8903745403257946
+Model A: Baseline (Nominal ER),peace_index,1.3220096448227168
+Model A: Baseline (Nominal ER),covid_dummy,1.1365244573213744
+Model C: Thailand Asymmetry (Nominal ER),ln_gdp_china,3.378668238177135
+Model C: Thailand Asymmetry (Nominal ER),ln_cpi,3.3221093637848127
+Model C: Thailand Asymmetry (Nominal ER),post_covid,2.0227427599871115
+Model C: Thailand Asymmetry (Nominal ER),ln_exchange_rate,1.8943720769268477
+Model C: Thailand Asymmetry (Nominal ER),peace_index,1.4237627795848458
+Model C: Thailand Asymmetry (Nominal ER),covid_dummy,1.4148831043199184
+Model C: Thailand Asymmetry (Nominal ER),thailand_post_covid,1.269545178929326
+Model D: Baseline (RER),ln_gdp_china,4.331696204844713
+Model D: Baseline (RER),ln_cpi,2.4253702830595176
+Model D: Baseline (RER),ln_rer,2.1964290193216067
+Model D: Baseline (RER),covid_dummy,1.1357168938226128
+Model D: Baseline (RER),peace_index,1.088585287583336
+Model F: Thailand Asymmetry (RER),ln_gdp_china,6.612978685325892
+Model F: Thailand Asymmetry (RER),ln_cpi,2.6517964634653977
+Model F: Thailand Asymmetry (RER),ln_rer,2.595041271963622
+Model F: Thailand Asymmetry (RER),post_covid,2.315475379178417
+Model F: Thailand Asymmetry (RER),covid_dummy,1.492093974649706
+Model F: Thailand Asymmetry (RER),thailand_post_covid,1.2738885352280185
+Model F: Thailand Asymmetry (RER),peace_index,1.1836676305815153

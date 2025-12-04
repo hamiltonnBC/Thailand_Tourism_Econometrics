@@ -87,15 +87,15 @@ export function Overview() {
               Project Synopsis
             </Text>
             <Text color="#64748b" mb={4}>
-              This project investigates the asymmetric recovery of Chinese tourism to Thailand following the COVID-19 
-              pandemic. While Chinese outbound tourism has rebounded globally, Thailand has experienced a notably slower 
-              recovery compared to regional competitors, creating what we term the "Thailand Penalty."
+              This project investigates the asymmetric recovery of Chinese tourism, specifically to Thailand following the COVID-19 
+              pandemic. While Chinese outbound tourism has rebounded globally, Thailand has experienced a notably slow 
+              recovery compared to some competitors."
             </Text>
             <Text color="#64748b" mb={4}>
               Using panel data analysis covering 13 destinations from 2005-2024, we employ a Fixed Effects model to 
               quantify this phenomenon while controlling for China's economic slowdown and other confounding factors. 
               Our gravity-style specification isolates destination-specific effects, allowing us to measure the precise 
-              magnitude of Thailand's underperformance.
+              magnitude of Thailand's underperformance. This project is for Mahidol University's Econometrics Course.
             </Text>
             <Text fontSize="xl" fontWeight="semibold" mb={3} mt={6}>
               Research Questions
@@ -115,13 +115,10 @@ export function Overview() {
               Key Findings
             </Text>
             <Text color="#64748b" mb={4}>
-              Our analysis reveals statistically significant differences in recovery rates, with Thailand experiencing 
-              a measurable penalty relative to competitors. The model controls for visa policies, exchange rates, safety 
-              indices, and price levels, isolating the Thailand-specific effect from broader economic trends.
+              Our analysis reveals statistically significant differences in recovery rates, although with the current limitations of our model, we have too much room for error.
+
             </Text>
             <Text color="#64748b">
-              This research fills a critical gap in the literature by providing quantitative evidence for what has 
-              previously been documented only through qualitative surveys and anecdotal comparisons.
             </Text>
           </Box>
         )}

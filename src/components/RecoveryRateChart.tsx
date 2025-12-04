@@ -43,7 +43,7 @@ export function RecoveryRateChart() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('/Primary_Dataset_For_Panel_FINAL.csv')
+    fetch(`${import.meta.env.BASE_URL}Primary_Dataset_For_Panel_FINAL.csv`)
       .then(response => response.text())
       .then(csvText => {
         const lines = csvText.split('\n')
