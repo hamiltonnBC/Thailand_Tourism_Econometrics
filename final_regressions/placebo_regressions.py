@@ -324,7 +324,7 @@ else:
 
 # Additional statistics
 print("\n" + "=" * 85)
-print("📊 COEFFICIENT STATISTICS:")
+print(" COEFFICIENT STATISTICS:")
 print("-" * 85)
 print(f"  Mean coefficient:     {results_df['coefficient'].mean():8.4f}")
 print(f"  Median coefficient:   {results_df['coefficient'].median():8.4f}")
@@ -552,7 +552,7 @@ print(f"     → P-value comparison across countries")
 print(f"  5. {output_plot3}")
 print(f"     → Coefficient distribution analysis")
 
-print("\n📊 QUICK SUMMARY:")
+print("\n QUICK SUMMARY:")
 print(f"  • Total countries tested: {len(countries_to_include)}")
 print(f"  • Significant at p < 0.05: {n_sig_05}")
 print(f"  • Thailand coefficient: {thailand_coef:.4f}")
