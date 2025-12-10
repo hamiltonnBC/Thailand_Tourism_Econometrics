@@ -1,0 +1,27 @@
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:            ln_arrivals   R-squared:                       0.725
+Model:                            OLS   Adj. R-squared:                  0.686
+Method:                 Least Squares   F-statistic:                     40.98
+Date:                Tue, 09 Dec 2025   Prob (F-statistic):           5.88e-09
+Time:                        18:51:22   Log-Likelihood:                -27.124
+No. Observations:                  25   AIC:                             62.25
+Df Residuals:                      21   BIC:                             67.12
+Df Model:                           3                                         
+Covariance Type:                  HAC                                         
+================================================================================
+                   coef    std err          z      P>|z|      [0.025      0.975]
+--------------------------------------------------------------------------------
+const            5.5712      0.794      7.018      0.000       4.015       7.127
+ln_gdp_china     0.6655      0.209      3.180      0.001       0.255       1.076
+ln_rer          -2.3321      1.098     -2.123      0.034      -4.485      -0.179
+covid_dummy     -3.5730      0.717     -4.983      0.000      -4.978      -2.168
+==============================================================================
+Omnibus:                        7.646   Durbin-Watson:                   2.021
+Prob(Omnibus):                  0.022   Jarque-Bera (JB):               11.218
+Skew:                          -0.011   Prob(JB):                      0.00366
+Kurtosis:                       6.282   Cond. No.                         101.
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity and autocorrelation robust (HAC) using 1 lags and without small sample correction

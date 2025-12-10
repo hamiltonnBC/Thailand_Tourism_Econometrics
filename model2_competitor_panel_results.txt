@@ -1,0 +1,37 @@
+                          PanelOLS Estimation Summary                           
+================================================================================
+Dep. Variable:            ln_arrivals   R-squared:                        0.7203
+Estimator:                   PanelOLS   R-squared (Between):             -53.515
+No. Observations:                  68   R-squared (Within):               0.7203
+Date:                Tue, Dec 09 2025   R-squared (Overall):             -4.9962
+Time:                        18:51:23   Log-likelihood                   -70.609
+Cov. Estimator:             Clustered                                           
+                                        F-statistic:                      24.889
+Entities:                           4   P-value                           0.0000
+Avg Obs:                       17.000   Distribution:                    F(6,58)
+Min Obs:                       17.000                                           
+Max Obs:                       17.000   F-statistic (robust):          3.404e+16
+                                        P-value                           0.0000
+Time periods:                      17   Distribution:                    F(6,58)
+Avg Obs:                       4.0000                                           
+Min Obs:                       4.0000                                           
+Max Obs:                       4.0000                                           
+                                                                                
+                                  Parameter Estimates                                  
+=======================================================================================
+                     Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+---------------------------------------------------------------------------------------
+const                  -0.1843     2.5436    -0.0724     0.9425     -5.2759      4.9073
+ln_gdp_china            1.9541     0.3276     5.9656     0.0000      1.2984      2.6098
+ln_rer                  0.9498     0.3849     2.4675     0.0166      0.1793      1.7203
+peace_index             0.6446     0.6082     1.0598     0.2936     -0.5728      1.8620
+covid_dummy            -3.5394     0.2901    -12.202     0.0000     -4.1200     -2.9588
+post_covid             -1.0087     0.3079    -3.2757     0.0018     -1.6251     -0.3923
+thailand_post_covid     0.2262     0.2074     1.0906     0.2799     -0.1890      0.6414
+=======================================================================================
+
+F-test for Poolability: 2.8427
+P-value: 0.0455
+Distribution: F(3,58)
+
+Included effects: Entity

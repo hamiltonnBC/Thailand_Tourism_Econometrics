@@ -1,0 +1,74 @@
+================================================================================
+ADVANCED ECONOMETRIC ANALYSIS RESULTS
+================================================================================
+
+1. DIAGNOSTIC TESTS (Thailand Time Series Model)
+--------------------------------------------------------------------------------
+
+A. Multicollinearity (VIF):
+    Variable        VIF
+       const 109.276862
+ln_gdp_china   4.120617
+      ln_rer   4.123153
+ covid_dummy   1.206599
+   > Rule of Thumb: VIF > 10 indicates high multicollinearity.
+
+B. Heteroscedasticity (Breusch-Pagan Test):
+   Lagrange Multiplier Statistic: 15.3567
+   P-value: 0.0015
+   > Result: Heteroscedasticity detected (P < 0.05). Use robust standard errors (HC1/HAC).
+
+C. Autocorrelation (Durbin-Watson):
+   D-W Statistic: 2.0213
+   > Rule of Thumb: Values near 2.0 indicate no autocorrelation. < 1.5 suggests positive autocorrelation.
+
+D. Normality of Residuals (Shapiro-Wilk Test):
+   Statistic: 0.8936, P-value: 0.0134
+   > Result: Residuals are NOT normally distributed (P < 0.05).
+
+
+2. ADVANCED MODEL: ADL(1,0) (Habit Persistence)
+--------------------------------------------------------------------------------
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:            ln_arrivals   R-squared:                       0.800
+Model:                            OLS   Adj. R-squared:                  0.757
+Method:                 Least Squares   F-statistic:                     158.3
+Date:                Tue, 09 Dec 2025   Prob (F-statistic):           2.64e-14
+Time:                        18:56:16   Log-Likelihood:                -22.556
+No. Observations:                  24   AIC:                             55.11
+Df Residuals:                      19   BIC:                             61.00
+Df Model:                           4                                         
+Covariance Type:                  HAC                                         
+====================================================================================
+                       coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------------
+const                2.8047      1.350      2.077      0.038       0.159       5.451
+ln_arrivals_lag1     0.3212      0.165      1.942      0.052      -0.003       0.645
+ln_gdp_china         0.4887      0.102      4.809      0.000       0.290       0.688
+ln_rer              -2.0832      0.885     -2.355      0.019      -3.817      -0.349
+covid_dummy         -3.0540      0.646     -4.726      0.000      -4.321      -1.787
+==============================================================================
+Omnibus:                       21.791   Durbin-Watson:                   2.794
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               41.633
+Skew:                          -1.586   Prob(JB):                     9.11e-10
+Kurtosis:                       8.619   Cond. No.                         216.
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity and autocorrelation robust (HAC) using 1 lags and without small sample correction
+
+ELASTICITY ANALYSIS:
+   Habit Persistence (rho): 0.3212
+   Short-Run Price Elasticity: -2.0832
+   Long-Run Price Elasticity: -3.0690
+
+
+3. COMPARATIVE ELASTICITY ANALYSIS (Thailand vs Competitors)
+--------------------------------------------------------------------------------
+Country         Price Elasticity     P-Value    Significance   
+------------------------------------------------------------
+Thailand        -2.0091              0.3483     ns             
+Viet Nam        -0.6962              0.3896     ns             
+Malaysia        -1.1842              0.3702     ns             
+Indonesia       -2.8757              0.0060     ***            
