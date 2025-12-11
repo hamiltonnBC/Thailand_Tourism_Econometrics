@@ -7,7 +7,7 @@
 
 import { Box, VStack } from '@chakra-ui/react'
 
-export type TabId = 'overview' | 'data' | 'model' | 'safety' | 'advanced' | 'references'
+export type TabId = 'overview' | 'data' | 'model' | 'safety' | 'advanced'
 
 interface NavigationProps {
   activeTab: TabId
@@ -20,7 +20,7 @@ const tabs: { id: TabId; label: string }[] = [
   { id: 'model', label: 'Panel Data Analysis' },
   { id: 'safety', label: 'Thailand Safety Regression' },
   { id: 'advanced', label: 'Time Series Analysis' },
-  { id: 'references', label: 'References' },
+
 ]
 
 export function Navigation({ activeTab, onTabChange }: NavigationProps) {

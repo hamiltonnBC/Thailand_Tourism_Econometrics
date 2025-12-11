@@ -42,14 +42,7 @@ function App() {
               {activeTab === 'safety' && <ThailandSafetyRegression />}
               {activeTab === 'advanced' && <AdvancedAnalysis />}
 
-              {activeTab === 'references' && (
-                <Box>
-                  <Box fontSize="3xl" fontWeight="bold" mb={4} color="#1e293b">
-                    References
-                  </Box>
-                  <Box color="#64748b" fontSize="md">References content coming soon...</Box>
-                </Box>
-              )}
+
             </Box>
           </Container>
         </Box>

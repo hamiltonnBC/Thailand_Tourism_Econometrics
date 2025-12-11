@@ -29,7 +29,7 @@ for var in ['cpi_index', 'exchange_rate', 'peace_index', 'arrivals_from_china']:
     if abs(corr) > 0.7:
         print(f"  ❌ STRONG time trend - will conflict with time fixed effects!")
     elif abs(corr) > 0.4:
-        print(f"  ⚠️  MODERATE time trend")
+        print(f"    MODERATE time trend")
     else:
         print(f"  ✓ Weak time trend")
 

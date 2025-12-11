@@ -12,7 +12,7 @@ import { ModelStatistics } from '../components/ModelStatistics'
 import { MulticollinearityCheck } from '../components/MulticollinearityCheck'
 import { DiagnosticTestCard } from '../components/DiagnosticTestCard'
 
-type ModelTab = 'development' | 'specification' | 'diagnostics'
+type ModelTab = 'development' | 'specification' | 'diagnostics' | 'limitations'
 
 export function Model() {
   const [activeSubTab, setActiveSubTab] = useState<ModelTab>('development')
@@ -82,7 +82,25 @@ export function Model() {
         >
           Diagnostic Tests
         </Box>
-
+        <Box
+          px={5}
+          py={3}
+          cursor="pointer"
+          fontWeight={activeSubTab === 'limitations' ? 'semibold' : 'medium'}
+          fontSize="sm"
+          color={activeSubTab === 'limitations' ? '#1e293b' : '#64748b'}
+          borderBottom="3px"
+          borderColor={activeSubTab === 'limitations' ? '#1e293b' : 'transparent'}
+          mb="-2px"
+          _hover={{
+            color: '#1e293b',
+            bg: '#f8fafc',
+          }}
+          transition="all 0.2s"
+          onClick={() => setActiveSubTab('limitations')}
+        >
+          Limitations
+        </Box>
       </HStack>
 
       {/* Content area */}
@@ -443,7 +461,75 @@ export function Model() {
           </VStack>
         )}
 
+        {activeSubTab === 'diagnostics' && (
+          <VStack align="stretch" gap={6}>
+            <Box>
+              <Text fontSize="2xl" fontWeight="semibold" mb={4}>
+                Model Limitations
+              </Text>
+              <Text color="#64748b" mb={4}>
+                For every model, there are of course a multitude of econometric limitations. We want to address those
+                that we have thus far identified with ours, justify why we feel there is still value in our model, and
+                detail some of the tests (and results) that we have run.
+              </Text>
+            </Box>
 
+            {/* <Box>
+              <Text fontSize="xl" fontWeight="semibold" mb={4}>
+                Parallel Trends Assumption
+              </Text>
+              <Text color="#64748b" mb={4}>
+                Our model treats Thailand as a single treated unit with a universal "post-2023" treatment window. A 
+                standard DiD assumption is that, absent that treatment, the treated unit would follow the same path as 
+                the control group. This is known as Parallel Trends.
+              </Text>
+              <Text color="#64748b" fontWeight="semibold" mb={2}>
+                Validation Checks:
+              </Text>
+              <VStack align="stretch" gap={3} pl={4}>
+                <Text color="#64748b">
+                  1. We plotted the pre-treatment trends from 2010-2019 for Thailand vs the control group average. 
+                  This allowed us to do a quick visual inspection of the parallel trends.
+                </Text>
+                <Text color="#64748b">
+                  2. We performed a spatial placebo test by re-estimating the model assigning a false treatment to a 
+                  control country (Vietnam). Our hypothesis is that the coefficient for (Vietnam x Post2023) should be 
+                  statistically indistinguishable from zero. If this is the case, this supports our claim that the 
+                  penalty is unique to Thailand.
+                </Text>
+              </VStack>
+            </Box> */}
+
+            <Box>
+              <Text fontSize="xl" fontWeight="semibold" mb={4}>
+                Diagnostic Tests
+              </Text>
+              <VStack align="stretch" gap={4}>
+
+                <Box>
+                  <Text fontWeight="semibold" mb={2}>Wooldridge Test</Text>
+                  <Text color="#64748b">
+                    Testing for autocorrelation in panel data.
+                  </Text>
+                </Box>
+              </VStack>
+            </Box>
+
+            <Box>
+              <Text fontSize="xl" fontWeight="semibold" mb={4}>
+                Year Fixed Effects
+              </Text>
+              <Text color="#64748b">
+                The inclusion of Year Fixed Effects absorbs certain variables such as China's GDP and global shocks
+                (like the COVID-19 pandemic). This absorption was intentional. By controlling for YFE, our identification
+                relied exclusively on the cross-sectional variation of destination-specific variables, which vary
+                independently across countries and time. This ended up not being good for our model, and we switched it out.
+              </Text>
+            </Box>
+
+
+          </VStack>
+        )}
 
         {activeSubTab === 'diagnostics' && (
           <VStack align="stretch" gap={6}>

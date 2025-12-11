@@ -87,14 +87,14 @@ export function Overview() {
               Project Synopsis
             </Text>
             <Text color="#64748b" mb={4}>
-              This project investigates the asymmetric recovery of Chinese tourism, specifically to Thailand following the COVID-19 
-              pandemic. While Chinese outbound tourism has rebounded globally, Thailand has experienced a notably slow 
+              This project investigates the asymmetric recovery of Chinese tourism, specifically to Thailand following the COVID-19
+              pandemic. While Chinese outbound tourism has rebounded globally, Thailand has experienced a notably slow
               recovery compared to some competitors."
             </Text>
             <Text color="#64748b" mb={4}>
-              Using panel data analysis covering 13 destinations from 2005-2024, we employ a Fixed Effects model to 
-              quantify this phenomenon while controlling for China's economic slowdown and other confounding factors. 
-              Our gravity-style specification isolates destination-specific effects, allowing us to measure the precise 
+              Using panel data analysis covering 13 destinations from 2005-2024, we employ a Fixed Effects model to
+              quantify this phenomenon while controlling for China's economic slowdown and other confounding factors.
+              Our gravity-style specification isolates destination-specific effects, allowing us to measure the precise
               magnitude of Thailand's underperformance. This project is for Mahidol University's Econometrics Course.
             </Text>
             <Text fontSize="xl" fontWeight="semibold" mb={3} mt={6}>
@@ -111,15 +111,7 @@ export function Overview() {
                 Can we quantify a specific "Thailand Penalty" while controlling for China's economic conditions?
               </Box>
             </Box>
-            <Text fontSize="xl" fontWeight="semibold" mb={3} mt={6}>
-              Key Findings
-            </Text>
-            <Text color="#64748b" mb={4}>
-              Our analysis reveals statistically significant differences in recovery rates, although with the current limitations of our model, we have too much room for error.
 
-            </Text>
-            <Text color="#64748b">
-            </Text>
           </Box>
         )}
         {activeSubTab === 'journey' && (
@@ -128,20 +120,20 @@ export function Overview() {
               Our Research Journey
             </Text>
             <Text color="#64748b" mb={4}>
-              We started out brainstorming what we wanted to analyze in tourism. This was a tumultuous process, as when 
-              we started looking into literature, it became very apparent that tourism econometrics is quite a field. As 
-              we grew in our understanding of econometric theory, it became easier for us to identify what we could and 
+              We started out brainstorming what we wanted to analyze in tourism. This was a tumultuous process, as when
+              we started looking into literature, it became very apparent that tourism econometrics is quite a field. As
+              we grew in our understanding of econometric theory, it became easier for us to identify what we could and
               could not accomplish for this final project.
             </Text>
-            
+
             <Text fontSize="xl" fontWeight="semibold" mb={3} mt={6}>
               Identifying the Gap
             </Text>
             <Text color="#64748b" mb={4}>
-              We found a large number of articles written about the lack of rebounding tourism to Thailand from Chinese 
-              tourists. As we looked into this, there was a lot written about how significant this difference was, 
-              potential reasons why, and potential solutions. We felt though, that it wasn't quantified in the literature 
-              nearly well enough, and that there was a lack of evidence with methodological backing for reasons that were 
+              We found a large number of articles written about the lack of rebounding tourism to Thailand from Chinese
+              tourists. As we looked into this, there was a lot written about how significant this difference was,
+              potential reasons why, and potential solutions. We felt though, that it wasn't quantified in the literature
+              nearly well enough, and that there was a lack of evidence with methodological backing for reasons that were
               listed.
             </Text>
 
@@ -149,14 +141,14 @@ export function Overview() {
               Learning and Exploration
             </Text>
             <Text color="#64748b" mb={4}>
-              Our first goal was to get a full picture of what has been done so far. As we did so, we identified a variety 
-              of different ways that tourism econometrics has been used in the past for different purposes. We felt that we 
-              for sure wanted to run a linear regression, and get hands-on practice with OLS, the standard tests that we 
+              Our first goal was to get a full picture of what has been done so far. As we did so, we identified a variety
+              of different ways that tourism econometrics has been used in the past for different purposes. We felt that we
+              for sure wanted to run a linear regression, and get hands-on practice with OLS, the standard tests that we
               learned about in class, and the surrounding skills we gain from this project.
             </Text>
             <Text color="#64748b" mb={4}>
-              We wanted to branch further than this though, and to really research other econometric theory. We learned 
-              about gradient boosting trees, abnormality testing, time series analysis, panel data analysis, and 
+              We wanted to branch further than this though, and to really research other econometric theory. We learned
+              about gradient boosting trees, abnormality testing, time series analysis, panel data analysis, and
               specifically gravity models used in the context of tourism.
             </Text>
 
@@ -164,8 +156,8 @@ export function Overview() {
               Technical Skills Development
             </Text>
             <Text color="#64748b" mb={4}>
-              We also wanted to practice our programming skills, as this felt like a good opportunity to really dive deep 
-              and attempt to develop multiple points of value. We web scraped data heavily, we wrestled with Chinese 
+              We also wanted to practice our programming skills, as this felt like a good opportunity to really dive deep
+              and attempt to develop multiple points of value. We web scraped data heavily, we wrestled with Chinese
               government bot protection, and explored training models for sentiment analysis.
             </Text>
 
@@ -173,7 +165,7 @@ export function Overview() {
               Project Goals
             </Text>
             <Text color="#64748b" mb={3}>
-              Given our unique goals, we decided to run multiple different models to identify multiple different aspects 
+              Given our unique goals, we decided to run multiple different models to identify multiple different aspects
               of this story we wanted to tell. Our specific objectives included:
             </Text>
             <Box as="ul" pl={6} color="#64748b" mb={4}>
@@ -192,8 +184,8 @@ export function Overview() {
               Collaboration and Organization
             </Text>
             <Text color="#64748b">
-              We had several meetings with our group, and created a shared Google Drive for collaboration. A Git 
-              repository was established to store all relevant code (outside of MATLAB code), ensuring version control 
+              We had several meetings with our group, and created a shared Google Drive for collaboration. A Git
+              repository was established to store all relevant code (outside of MATLAB code), ensuring version control
               and reproducibility of our analysis.
             </Text>
           </Box>
@@ -203,18 +195,18 @@ export function Overview() {
             <Text fontSize="2xl" fontWeight="semibold" mb={4}>
               Literature Review
             </Text>
-            
+
             <Text fontSize="xl" fontWeight="semibold" mb={3} mt={6}>
               The Asymmetric Recovery Phenomenon
             </Text>
             <Text color="#64748b" mb={4}>
-              The post-pandemic recovery of global tourism is easily characterized by confusion, with Southeast Asia 
-              experiencing a particularly uneven rebound. While aggregate international arrivals to the region have 
-              approached 2019 levels, the recovery of the Chinese outbound tourism market has been asymmetrical. 
+              The post-pandemic recovery of global tourism is easily characterized by confusion, with Southeast Asia
+              experiencing a particularly uneven rebound. While aggregate international arrivals to the region have
+              approached 2019 levels, the recovery of the Chinese outbound tourism market has been asymmetrical.
               Specifically, Chinese tourism to Thailand is recovering at a much slower rate than it is to some other countries.
             </Text>
             <Text color="#64748b" mb={4}>
-              Our project looks at quantifying this difference, and using econometric theory that we have learned in this 
+              Our project looks at quantifying this difference, and using econometric theory that we have learned in this
               class to determine the effects that select variables have had to cause this difference.
             </Text>
 
@@ -222,13 +214,13 @@ export function Overview() {
               Documented Evidence
             </Text>
             <Text color="#64748b" mb={4}>
-              Existing literature has described this phenomenon already. In a report from Sabre Market Intelligence (MIDT), 
-              'Travel originating from mainland China has increased by close to 400% overall globally for 2024.' Thailand 
+              Existing literature has described this phenomenon already. In a report from Sabre Market Intelligence (MIDT),
+              'Travel originating from mainland China has increased by close to 400% overall globally for 2024.' Thailand
               fell from second place in 2023 to fourth in 2024.
             </Text>
             <Text color="#64748b" mb={4}>
-              In determining a methodologically sound way to determine the answers to our questions, we looked at the 
-              growing changes in Chinese outbound tourism, along with literature that details the cultural reasonings 
+              In determining a methodologically sound way to determine the answers to our questions, we looked at the
+              growing changes in Chinese outbound tourism, along with literature that details the cultural reasonings
               behind it.
             </Text>
 
@@ -236,14 +228,14 @@ export function Overview() {
               The Role of Social Media
             </Text>
             <Text color="#64748b" mb={4}>
-              One of the major factors that we have seen detailed in the literature as a change in Chinese tourist behavior, 
-              is the increasing importance of social media and the internet. In a micro-econometric study, researchers 
-              utilized Structural Equation Modeling (SEM) on a sample of 490 independent Chinese tourists to demonstrate 
+              One of the major factors that we have seen detailed in the literature as a change in Chinese tourist behavior,
+              is the increasing importance of social media and the internet. In a micro-econometric study, researchers
+              utilized Structural Equation Modeling (SEM) on a sample of 490 independent Chinese tourists to demonstrate
               that Perceived Value (PV) and Perceived Cost (PC) are the primary mediators of travel intention.
             </Text>
             <Text color="#64748b" mb={4}>
-              Their findings explicitly link Social Media exposure (via WeChat and Douyin) to destination choice, arguing 
-              that digital platforms significantly enhance perceived value while simultaneously reducing perceived costs 
+              Their findings explicitly link Social Media exposure (via WeChat and Douyin) to destination choice, arguing
+              that digital platforms significantly enhance perceived value while simultaneously reducing perceived costs
               (Fu, Li, and Li 2025).
             </Text>
 
@@ -251,18 +243,18 @@ export function Overview() {
               The "Second Wave" of Chinese Tourists
             </Text>
             <Text color="#64748b" mb={4}>
-              Perhaps most importantly, we sought out literature on what is changing with Chinese Tourists. In "How tourism 
-              markets change: insights from Chinese outbound group and independent travellers," we find several notable 
-              conclusions. The market has seen a significant structural change, moving away from a dominance of traditional 
+              Perhaps most importantly, we sought out literature on what is changing with Chinese Tourists. In "How tourism
+              markets change: insights from Chinese outbound group and independent travellers," we find several notable
+              conclusions. The market has seen a significant structural change, moving away from a dominance of traditional
               package group tours toward a preference for independent travel (Huang et al., 2024).
             </Text>
             <Text color="#64748b" mb={4}>
-              The authors essentially indicate that there is a "Second Wave" of Chinese outbound tourists, that are younger, 
-              more technologically savvy, and have different priorities. This further evidences the importance of social 
+              The authors essentially indicate that there is a "Second Wave" of Chinese outbound tourists, that are younger,
+              more technologically savvy, and have different priorities. This further evidences the importance of social
               media as a factor influencing tourism.
             </Text>
             <Text color="#64748b" mb={4}>
-              The authors also note that for both groups of Chinese outbound tourists—the traditional and this new group—safety 
+              The authors also note that for both groups of Chinese outbound tourists—the traditional and this new group—safety
               is a paramount consideration (Huang et al., 2024).
             </Text>
 
