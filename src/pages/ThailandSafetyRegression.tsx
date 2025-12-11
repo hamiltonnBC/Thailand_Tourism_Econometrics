@@ -62,6 +62,16 @@ export function ThailandSafetyRegression() {
                             Throughout our literature review, the perceptions of safety in Thailand among Chinese tourists was cited as a key reason for the decline in Chinese tourists to Thailand (Li, X. & Batra, A, 2023; Sinan He, 2024; Boey 2025; Adith Chairattananon, 2025; Bangkok Post, 2025). There is limited available data on this topic. Data scraping of RedNote is virtually impossible. And large scale survey data is hard to come by.
                         </Text>
 
+                        <Box float={{ base: "none", md: "right" }} ml={{ base: 0, md: 6 }} mb={4} mt={2} display="flex" justifyContent="center">
+                            <Image
+                                src={`${import.meta.env.BASE_URL}images/safety_regression/Image%201.png`}
+                                alt="Dragon Trail Report Data"
+                                maxW={{ base: "100%", md: "400px" }}
+                                borderRadius="md"
+                                boxShadow="md"
+                            />
+                        </Box>
+
                         <Text>
                             <Link color="blue.500" href="https://dragontrail.com/wp-content/uploads/sites/6/2025/04/Dragon-Trail-Chinese-Traveler-Sentiment-Report-Spring-2025.pdf" target="_blank" rel="noopener noreferrer">
                                 Dragon Trail’s April 2025 report
@@ -69,11 +79,11 @@ export function ThailandSafetyRegression() {
                             {' '}suggests that 19% of Chinese outbound tourists view Thailand as a safe destination to travel (Page.13).
                         </Text>
 
-                        <Box display="flex" justifyContent="center">
+                        <Box float={{ base: "none", md: "right" }} ml={{ base: 0, md: 6 }} mb={4} mt={2} display="flex" justifyContent="center">
                             <Image
-                                src={`${import.meta.env.BASE_URL}images/safety_regression/Image%201.png`}
-                                alt="Dragon Trail Report Data"
-                                maxW="800px"
+                                src={`${import.meta.env.BASE_URL}images/safety_regression/Image%202.png`}
+                                alt="Regression Analysis Plot"
+                                maxW={{ base: "100%", md: "400px" }}
                                 borderRadius="md"
                                 boxShadow="md"
                             />
@@ -87,13 +97,13 @@ export function ThailandSafetyRegression() {
                             {' '}on Chinese outbound tourism in 2024 explains that Thailand has fallen from second place to fourth place in the rank of most popular destinations for travellers from mainland China (Sabre, 2024). We decided to test the correlation between perception of the safety of a country and popularity of that country as a tourist destination for Chinese tourists.
                         </Text>
 
-                        <Box borderTop="1px" borderColor="gray.200" my={4} />
+                        <Box borderTop="1px" borderColor="gray.200" my={4} style={{ clear: 'both' }} />
 
-                        <Box display="flex" justifyContent="center">
+                        <Box float={{ base: "none", md: "right" }} ml={{ base: 0, md: 6 }} mb={4} mt={2} display="flex" justifyContent="center">
                             <Image
-                                src={`${import.meta.env.BASE_URL}images/safety_regression/Image%202.png`}
-                                alt="Regression Analysis Plot"
-                                maxW="800px"
+                                src={`${import.meta.env.BASE_URL}images/safety_regression/Image%203.png`}
+                                alt="Q-Q Plot 1"
+                                maxW={{ base: "100%", md: "300px" }}
                                 borderRadius="md"
                                 boxShadow="md"
                             />
@@ -103,18 +113,11 @@ export function ThailandSafetyRegression() {
                             We checked for homoscedasticity and found it using the following Q-Q plot.
                         </Text>
 
-                        <Box display="flex" justifyContent="center" gap={4} flexWrap="wrap">
-                            <Image
-                                src={`${import.meta.env.BASE_URL}images/safety_regression/Image%203.png`}
-                                alt="Q-Q Plot 1"
-                                maxW="500px"
-                                borderRadius="md"
-                                boxShadow="md"
-                            />
+                        <Box float={{ base: "none", md: "right" }} ml={{ base: 0, md: 6 }} mb={4} mt={2} display="flex" justifyContent="center">
                             <Image
                                 src={`${import.meta.env.BASE_URL}images/safety_regression/Image%204.png`}
                                 alt="Q-Q Plot 2"
-                                maxW="500px"
+                                maxW={{ base: "100%", md: "300px" }}
                                 borderRadius="md"
                                 boxShadow="md"
                             />
@@ -124,7 +127,7 @@ export function ThailandSafetyRegression() {
                             This is the resulting data. The R<sup>2</sup> value demonstrates that about 15% of the popularity rank is associated with safety perception. Notably, the p-value is not statistically significant. Because of the small sample size, the standard errors increase which impacts our p-value.
                         </Text>
 
-                        <Text>
+                        <Text style={{ clear: 'both' }}>
                             While, ultimately, we cannot give statistical evidence for a correlation between the Chinese perception of how safe a country is and the popularity of that destination for Chinese tourists, we cannot suggest that there is no correlation. Certainly, the literature opposes this view.
                         </Text>
 

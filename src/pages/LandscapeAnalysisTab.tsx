@@ -32,7 +32,7 @@ export function LandscapeAnalysisTab() {
                 <Image
                     src={`${import.meta.env.BASE_URL}images/main_ols_regression/Image%201.png`}
                     alt="Sabre Infographic"
-                    maxW="600px"
+                    maxW="300px"
                     borderRadius="md"
                     boxShadow="md"
                 />
@@ -58,7 +58,7 @@ export function LandscapeAnalysisTab() {
                 <Image
                     src={`${import.meta.env.BASE_URL}images/main_ols_regression/Image%202.png`}
                     alt="Landscape Analysis"
-                    maxW="600px"
+                    maxW="300px"
                     borderRadius="md"
                     boxShadow="md"
                 />
@@ -187,7 +187,7 @@ export function LandscapeAnalysisTab() {
                 <Image
                     src={`${import.meta.env.BASE_URL}images/main_ols_regression/Image%205.png`}
                     alt="Safety and Relaxation"
-                    maxW="600px"
+                    maxW="400px"
                     borderRadius="md"
                     boxShadow="md"
                 />
@@ -254,7 +254,7 @@ export function LandscapeAnalysisTab() {
                 <Image
                     src={`${import.meta.env.BASE_URL}images/main_ols_regression/Image%206.png`}
                     alt="Wellness Industry"
-                    maxW="600px"
+                    maxW="400px"
                     borderRadius="md"
                     boxShadow="md"
                 />
@@ -443,7 +443,7 @@ export function LandscapeAnalysisTab() {
                 <Image
                     src={`${import.meta.env.BASE_URL}images/main_ols_regression/Image%207.png`}
                     alt="Data Sources"
-                    maxW="600px"
+                    maxW="400px"
                     borderRadius="md"
                     boxShadow="md"
                 />
@@ -480,7 +480,7 @@ export function LandscapeAnalysisTab() {
                 <Image
                     src={`${import.meta.env.BASE_URL}images/main_ols_regression/Image%209.png`}
                     alt="Regression Iteration"
-                    maxW="600px"
+                    maxW="400px"
                     borderRadius="md"
                     boxShadow="md"
                 />
@@ -499,7 +499,7 @@ export function LandscapeAnalysisTab() {
                 <Image
                     src={`${import.meta.env.BASE_URL}images/main_ols_regression/Image%2010.png`}
                     alt="Safety VIF"
-                    maxW="600px"
+                    maxW="400px"
                     borderRadius="md"
                     boxShadow="md"
                 />
@@ -510,7 +510,7 @@ export function LandscapeAnalysisTab() {
                 <Image
                     src={`${import.meta.env.BASE_URL}images/main_ols_regression/Image%2011.png`}
                     alt="Visa VIF"
-                    maxW="600px"
+                    maxW="400px"
                     borderRadius="md"
                     boxShadow="md"
                 />
@@ -521,7 +521,7 @@ export function LandscapeAnalysisTab() {
                 <Image
                     src={`${import.meta.env.BASE_URL}images/main_ols_regression/wellness.png`}
                     alt="Wellness VIF"
-                    maxW="600px"
+                    maxW="400px"
                     borderRadius="md"
                     boxShadow="md"
                 />
@@ -532,7 +532,7 @@ export function LandscapeAnalysisTab() {
                 <Image
                     src={`${import.meta.env.BASE_URL}images/main_ols_regression/heritage.png`}
                     alt="Heritage VIF"
-                    maxW="600px"
+                    maxW="400px"
                     borderRadius="md"
                     boxShadow="md"
                 />
@@ -546,7 +546,7 @@ export function LandscapeAnalysisTab() {
                 <Image
                     src={`${import.meta.env.BASE_URL}images/main_ols_regression/VIF.png`}
                     alt="VIF Formula"
-                    maxW="600px"
+                    maxW="400px"
                     borderRadius="md"
                     boxShadow="md"
                 />
@@ -564,7 +564,7 @@ export function LandscapeAnalysisTab() {
                 <Image
                     src={`${import.meta.env.BASE_URL}images/main_ols_regression/Q_Q.png`}
                     alt="Q-Q Chart"
-                    maxW="600px"
+                    maxW="400px"
                     borderRadius="md"
                     boxShadow="md"
                 />
@@ -586,7 +586,7 @@ export function LandscapeAnalysisTab() {
                 <Image
                     src={`${import.meta.env.BASE_URL}images/main_ols_regression/final.png`}
                     alt="Final Regression Results"
-                    maxW="600px"
+                    maxW="400px"
                     borderRadius="md"
                     boxShadow="md"
                 />
