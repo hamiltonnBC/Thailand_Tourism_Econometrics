@@ -71,7 +71,7 @@ export function ThailandSafetyRegression() {
 
                         <Box display="flex" justifyContent="center">
                             <Image
-                                src={`${import.meta.env.BASE_URL}images/safety_regression/Image%204.png`}
+                                src={`${import.meta.env.BASE_URL}images/safety_regression/Image%201.png`}
                                 alt="Dragon Trail Report Data"
                                 maxW="800px"
                                 borderRadius="md"
@@ -89,18 +89,11 @@ export function ThailandSafetyRegression() {
 
                         <Box borderTop="1px" borderColor="gray.200" my={4} />
 
-                        <Box display="flex" justifyContent="center" gap={4} flexWrap="wrap">
+                        <Box display="flex" justifyContent="center">
                             <Image
-                                src={`${import.meta.env.BASE_URL}images/safety_regression/Image%203.png`}
-                                alt="Regression Analysis Plot 1"
-                                maxW="500px"
-                                borderRadius="md"
-                                boxShadow="md"
-                            />
-                            <Image
-                                src={`${import.meta.env.BASE_URL}images/safety_regression/Image%201.png`}
-                                alt="Regression Analysis Plot 2"
-                                maxW="350px"
+                                src={`${import.meta.env.BASE_URL}images/safety_regression/Image%202.png`}
+                                alt="Regression Analysis Plot"
+                                maxW="800px"
                                 borderRadius="md"
                                 boxShadow="md"
                             />
@@ -110,11 +103,18 @@ export function ThailandSafetyRegression() {
                             We checked for homoscedasticity and found it using the following Q-Q plot.
                         </Text>
 
-                        <Box display="flex" justifyContent="center">
+                        <Box display="flex" justifyContent="center" gap={4} flexWrap="wrap">
                             <Image
-                                src={`${import.meta.env.BASE_URL}images/safety_regression/Image%202.png`}
-                                alt="Q-Q Plot"
-                                maxW="800px"
+                                src={`${import.meta.env.BASE_URL}images/safety_regression/Image%203.png`}
+                                alt="Q-Q Plot 1"
+                                maxW="500px"
+                                borderRadius="md"
+                                boxShadow="md"
+                            />
+                            <Image
+                                src={`${import.meta.env.BASE_URL}images/safety_regression/Image%204.png`}
+                                alt="Q-Q Plot 2"
+                                maxW="500px"
                                 borderRadius="md"
                                 boxShadow="md"
                             />

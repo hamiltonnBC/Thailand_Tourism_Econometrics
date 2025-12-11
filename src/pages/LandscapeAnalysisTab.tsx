@@ -54,6 +54,16 @@ export function LandscapeAnalysisTab() {
                 Factors that may influence Chinese tourists to choose other countries over Thailand were identified through a literature review. Relevant data sets were then sourced to analyse these factors.
             </Text>
 
+            <Box display="flex" justifyContent="center" my={4}>
+                <Image
+                    src={`${import.meta.env.BASE_URL}images/main_ols_regression/Image%202.png`}
+                    alt="Landscape Analysis"
+                    maxW="600px"
+                    borderRadius="md"
+                    boxShadow="md"
+                />
+            </Box>
+
             <Text fontStyle="italic">
                 Note: This regression is for countries in an annual period. Thus, seasonal changes have not been adjusted for.
             </Text>
@@ -175,7 +185,7 @@ export function LandscapeAnalysisTab() {
 
             <Box display="flex" justifyContent="center">
                 <Image
-                    src={`${import.meta.env.BASE_URL}images/main_ols_regression/Image%206.png`}
+                    src={`${import.meta.env.BASE_URL}images/main_ols_regression/Image%205.png`}
                     alt="Safety and Relaxation"
                     maxW="600px"
                     borderRadius="md"
@@ -242,7 +252,7 @@ export function LandscapeAnalysisTab() {
 
             <Box display="flex" justifyContent="center">
                 <Image
-                    src={`${import.meta.env.BASE_URL}images/main_ols_regression/Image%208.png`}
+                    src={`${import.meta.env.BASE_URL}images/main_ols_regression/Image%206.png`}
                     alt="Wellness Industry"
                     maxW="600px"
                     borderRadius="md"
@@ -431,7 +441,7 @@ export function LandscapeAnalysisTab() {
 
             <Box display="flex" justifyContent="center" mt={4}>
                 <Image
-                    src={`${import.meta.env.BASE_URL}images/main_ols_regression/Image%2012.png`}
+                    src={`${import.meta.env.BASE_URL}images/main_ols_regression/Image%207.png`}
                     alt="Data Sources"
                     maxW="600px"
                     borderRadius="md"
@@ -509,7 +519,7 @@ export function LandscapeAnalysisTab() {
             <Text fontWeight="bold">Wellness VIF</Text>
             <Box display="flex" justifyContent="center">
                 <Image
-                    src={`${import.meta.env.BASE_URL}images/main_ols_regression/Image%205.png`}
+                    src={`${import.meta.env.BASE_URL}images/main_ols_regression/wellness.png`}
                     alt="Wellness VIF"
                     maxW="600px"
                     borderRadius="md"
@@ -520,7 +530,7 @@ export function LandscapeAnalysisTab() {
             <Text fontWeight="bold">Heritage VIF</Text>
             <Box display="flex" justifyContent="center">
                 <Image
-                    src={`${import.meta.env.BASE_URL}images/main_ols_regression/Image%207.png`}
+                    src={`${import.meta.env.BASE_URL}images/main_ols_regression/heritage.png`}
                     alt="Heritage VIF"
                     maxW="600px"
                     borderRadius="md"
@@ -534,7 +544,7 @@ export function LandscapeAnalysisTab() {
 
             <Box display="flex" justifyContent="center">
                 <Image
-                    src={`${import.meta.env.BASE_URL}images/main_ols_regression/Image%203.png`}
+                    src={`${import.meta.env.BASE_URL}images/main_ols_regression/VIF.png`}
                     alt="VIF Formula"
                     maxW="600px"
                     borderRadius="md"
@@ -552,7 +562,7 @@ export function LandscapeAnalysisTab() {
 
             <Box display="flex" justifyContent="center">
                 <Image
-                    src={`${import.meta.env.BASE_URL}images/main_ols_regression/Image%202.png`}
+                    src={`${import.meta.env.BASE_URL}images/main_ols_regression/Q_Q.png`}
                     alt="Q-Q Chart"
                     maxW="600px"
                     borderRadius="md"
@@ -574,7 +584,7 @@ export function LandscapeAnalysisTab() {
 
             <Box display="flex" justifyContent="center">
                 <Image
-                    src={`${import.meta.env.BASE_URL}images/main_ols_regression/Image%204.png`}
+                    src={`${import.meta.env.BASE_URL}images/main_ols_regression/final.png`}
                     alt="Final Regression Results"
                     maxW="600px"
                     borderRadius="md"
