@@ -99,6 +99,13 @@ export function ThailandSafetyRegression() {
 
                         <Box borderTop="1px" borderColor="gray.200" my={4} style={{ clear: 'both' }} />
 
+
+
+                        <Text>
+                            We checked for homoscedasticity and found it using the following Q-Q plot.
+                        </Text>
+
+
                         <Box float={{ base: "none", md: "right" }} ml={{ base: 0, md: 6 }} mb={4} mt={2} display="flex" justifyContent="center">
                             <Image
                                 src={`${import.meta.env.BASE_URL}images/safety_regression/Image%203.png`}
@@ -108,12 +115,10 @@ export function ThailandSafetyRegression() {
                                 boxShadow="md"
                             />
                         </Box>
-
                         <Text>
-                            We checked for homoscedasticity and found it using the following Q-Q plot.
+                            This is the resulting data. The R<sup>2</sup> value demonstrates that about 15% of the popularity rank is associated with safety perception. Notably, the p-value is not statistically significant. Because of the small sample size, the standard errors increase which impacts our p-value.
                         </Text>
-
-                        <Box float={{ base: "none", md: "right" }} ml={{ base: 0, md: 6 }} mb={4} mt={2} display="flex" justifyContent="center">
+                        <Box float={{ base: "none", md: "right" }} ml={{ base: 0, md: 6 }} mb={4} mt={2} display="flex" justifyContent="left">
                             <Image
                                 src={`${import.meta.env.BASE_URL}images/safety_regression/Image%204.png`}
                                 alt="Q-Q Plot 2"
@@ -122,11 +127,6 @@ export function ThailandSafetyRegression() {
                                 boxShadow="md"
                             />
                         </Box>
-
-                        <Text>
-                            This is the resulting data. The R<sup>2</sup> value demonstrates that about 15% of the popularity rank is associated with safety perception. Notably, the p-value is not statistically significant. Because of the small sample size, the standard errors increase which impacts our p-value.
-                        </Text>
-
                         <Text style={{ clear: 'both' }}>
                             While, ultimately, we cannot give statistical evidence for a correlation between the Chinese perception of how safe a country is and the popularity of that destination for Chinese tourists, we cannot suggest that there is no correlation. Certainly, the literature opposes this view.
                         </Text>
