@@ -7,7 +7,7 @@
 
 import { Box, VStack } from '@chakra-ui/react'
 
-export type TabId = 'overview' | 'data' | 'model' | 'results' | 'conclusions' | 'team' | 'references'
+export type TabId = 'overview' | 'data' | 'model' | 'safety' | 'advanced' | 'references'
 
 interface NavigationProps {
   activeTab: TabId
@@ -17,18 +17,17 @@ interface NavigationProps {
 const tabs: { id: TabId; label: string }[] = [
   { id: 'overview', label: 'Overview' },
   { id: 'data', label: 'Data Exploration' },
-  { id: 'model', label: 'The Model' },
-  { id: 'results', label: 'Results' },
-  { id: 'conclusions', label: 'Conclusions' },
-  { id: 'team', label: 'Team' },
+  { id: 'model', label: 'Panel Data Analysis' },
+  { id: 'safety', label: 'Thailand Safety Regression' },
+  { id: 'advanced', label: 'Time Series Analysis' },
   { id: 'references', label: 'References' },
 ]
 
 export function Navigation({ activeTab, onTabChange }: NavigationProps) {
   return (
-    <Box 
-      bg="white" 
-      borderRight="1px" 
+    <Box
+      bg="white"
+      borderRight="1px"
       borderColor="#e2e8f0"
       w="250px"
       minH="calc(100vh - 120px)"
@@ -52,7 +51,7 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
             borderRadius="md"
             borderLeft="3px"
             borderColor={activeTab === tab.id ? '#1e293b' : 'transparent'}
-            _hover={{ 
+            _hover={{
               color: '#1e293b',
               bg: '#f8fafc'
             }}
