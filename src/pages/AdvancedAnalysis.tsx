@@ -107,8 +107,8 @@ export function AdvancedAnalysis() {
                 Executive Summary
               </Text>
               <Text color="#64748b" mb={4}>
-                This report presents a robust econometric analysis of the determinants of Chinese tourist arrivals 
-                in Thailand. Using a 25-year time series dataset (2000-2024), we identify the key drivers of demand 
+                This report presents a robust econometric analysis of the determinants of Chinese tourist arrivals
+                in Thailand. Using a 25-year time series dataset (2000-2024), we identify the key drivers of demand
                 and quantify the sensitivity of tourism flows to economic factors.
               </Text>
             </Box>
@@ -123,7 +123,7 @@ export function AdvancedAnalysis() {
                     1. Price Sensitivity
                   </Text>
                   <Text color="#64748b" fontSize="sm">
-                    Thailand's tourism demand is highly elastic to price changes in the long run. A 1% appreciation 
+                    Thailand's tourism demand is highly elastic to price changes in the long run. A 1% appreciation
                     of the Real Exchange Rate (RER) leads to a <strong>3.07% decrease</strong> in arrivals over time.
                   </Text>
                 </Box>
@@ -148,7 +148,7 @@ export function AdvancedAnalysis() {
                     4. Competitive Landscape
                   </Text>
                   <Text color="#64748b" fontSize="sm">
-                    Thailand competes closely with Indonesia on price, while Vietnam and Malaysia show less sensitivity 
+                    Thailand competes closely with Indonesia on price, while Vietnam and Malaysia show less sensitivity
                     to exchange rate fluctuations.
                   </Text>
                 </Box>
@@ -162,7 +162,7 @@ export function AdvancedAnalysis() {
               <Text color="#64748b" mb={4}>
                 The analysis utilizes a curated dataset covering 25 years of Chinese tourism to Thailand.
               </Text>
-              
+
               <Box bg="#f8fafc" p={4} borderRadius="md" border="1px" borderColor="#e2e8f0" mb={4}>
                 <Text fontWeight="semibold" mb={3}>Key Variables:</Text>
                 <VStack align="stretch" gap={2}>
@@ -191,37 +191,37 @@ export function AdvancedAnalysis() {
                 Data Visualizations
               </Text>
               <Text color="#64748b" mb={4}>
-                The correlation matrix confirms strong relationships between the key variables, justifying their 
-                inclusion in the model. The trend analysis shows how closely tourist arrivals track Chinese 
+                The correlation matrix confirms strong relationships between the key variables, justifying their
+                inclusion in the model. The trend analysis shows how closely tourist arrivals track Chinese
                 economic growth (GDP), interrupted only by the massive shock of COVID-19.
               </Text>
-              
+
               <VStack align="stretch" gap={4}>
                 <Box>
                   <Text fontWeight="semibold" mb={2}>Correlation Matrix</Text>
-                  <Box 
-                    borderRadius="md" 
-                    overflow="hidden" 
-                    border="1px" 
+                  <Box
+                    borderRadius="md"
+                    overflow="hidden"
+                    border="1px"
                     borderColor="#e2e8f0"
                   >
-                    <img 
+                    <img
                       src={`${import.meta.env.BASE_URL}thailand_correlation_matrix.png`}
                       alt="Thailand correlation matrix"
                       style={{ width: '100%', display: 'block' }}
                     />
                   </Box>
                 </Box>
-                
+
                 <Box>
                   <Text fontWeight="semibold" mb={2}>GDP vs Arrivals Trends</Text>
-                  <Box 
-                    borderRadius="md" 
-                    overflow="hidden" 
-                    border="1px" 
+                  <Box
+                    borderRadius="md"
+                    overflow="hidden"
+                    border="1px"
                     borderColor="#e2e8f0"
                   >
-                    <img 
+                    <img
                       src={`${import.meta.env.BASE_URL}thailand_trends_gdp.png`}
                       alt="Thailand trends GDP vs arrivals"
                       style={{ width: '100%', display: 'block' }}
@@ -249,11 +249,11 @@ export function AdvancedAnalysis() {
                 Methodology
               </Text>
               <Text color="#64748b" mb={4}>
-                We employ an <strong>Ordinary Least Squares (OLS)</strong> regression with <strong>HAC 
-                (Heteroscedasticity and Autocorrelation Consistent)</strong> standard errors to correct for 
+                We employ an <strong>Ordinary Least Squares (OLS)</strong> regression with <strong>HAC
+                  (Heteroscedasticity and Autocorrelation Consistent)</strong> standard errors to correct for
                 potential serial correlation and heteroscedasticity detected in diagnostic tests.
               </Text>
-              
+
               <Box bg="#f8fafc" p={6} borderRadius="md" border="1px" borderColor="#e2e8f0" mb={4}>
                 <Text fontWeight="semibold" mb={3}>Regression Equation:</Text>
                 <Code fontSize="md" colorScheme="gray" display="block" whiteSpace="pre-wrap">
@@ -273,8 +273,8 @@ export function AdvancedAnalysis() {
                 overflow="hidden"
               >
                 {/* Table Header */}
-                <HStack 
-                  bg="#f1f5f9" 
+                <HStack
+                  bg="#f1f5f9"
                   p={3}
                   borderBottom="1px"
                   borderColor="#e2e8f0"
@@ -291,7 +291,7 @@ export function AdvancedAnalysis() {
 
                 {/* Table Rows */}
                 <VStack align="stretch" gap={0}>
-                  <HStack 
+                  <HStack
                     p={3}
                     borderBottom="1px"
                     borderColor="#f1f5f9"
@@ -304,8 +304,8 @@ export function AdvancedAnalysis() {
                     <Box flex="1" textAlign="center" fontWeight="semibold" color="green.600">0.001</Box>
                     <Box flex="3">Income Elasticity: +0.67% arrivals for +1% GDP</Box>
                   </HStack>
-                  
-                  <HStack 
+
+                  <HStack
                     p={3}
                     borderBottom="1px"
                     borderColor="#f1f5f9"
@@ -318,8 +318,8 @@ export function AdvancedAnalysis() {
                     <Box flex="1" textAlign="center" fontWeight="semibold" color="green.600">0.034</Box>
                     <Box flex="3">Price Elasticity: -2.33% arrivals for +1% Price (Appreciation)</Box>
                   </HStack>
-                  
-                  <HStack 
+
+                  <HStack
                     p={3}
                     fontSize="sm"
                     _hover={{ bg: "#f8fafc" }}
@@ -339,20 +339,20 @@ export function AdvancedAnalysis() {
                 Model Fit
               </Text>
               <Text color="#64748b" mb={4}>
-                The model explains <strong>72.5%</strong> of the variation in tourist arrivals (R² = 0.725). 
-                The predicted values track the actual data very closely, capturing both the pre-2010 trends 
+                The model explains <strong>72.5%</strong> of the variation in tourist arrivals (R² = 0.725).
+                The predicted values track the actual data very closely, capturing both the pre-2010 trends
                 and the post-2010 boom.
               </Text>
-              
+
               <Box>
                 <Text fontWeight="semibold" mb={2}>Actual vs Predicted Values</Text>
-                <Box 
-                  borderRadius="md" 
-                  overflow="hidden" 
-                  border="1px" 
+                <Box
+                  borderRadius="md"
+                  overflow="hidden"
+                  border="1px"
                   borderColor="#e2e8f0"
                 >
-                  <img 
+                  <img
                     src={`${import.meta.env.BASE_URL}model1_actual_vs_predicted.png`}
                     alt="Model 1 actual vs predicted"
                     style={{ width: '100%', display: 'block' }}
@@ -370,7 +370,7 @@ export function AdvancedAnalysis() {
                 Advanced Model: Habit Persistence (ADL)
               </Text>
               <Text color="#64748b" mb={4}>
-                <strong>Objective:</strong> To distinguish between short-run and long-run effects by accounting 
+                <strong>Objective:</strong> To distinguish between short-run and long-run effects by accounting
                 for "habit persistence" (tourists returning to a familiar destination).
               </Text>
             </Box>
@@ -380,10 +380,10 @@ export function AdvancedAnalysis() {
                 Methodology
               </Text>
               <Text color="#64748b" mb={4}>
-                We estimate an <strong>Autoregressive Distributed Lag (ADL(1,0))</strong> model by including 
+                We estimate an <strong>Autoregressive Distributed Lag (ADL(1,0))</strong> model by including
                 the lagged dependent variable (ln(Arrivals_{'{'}t-1{'}'})).
               </Text>
-              
+
               <Box bg="#f8fafc" p={6} borderRadius="md" border="1px" borderColor="#e2e8f0" mb={4}>
                 <Text fontWeight="semibold" mb={3}>Regression Equation:</Text>
                 <Code fontSize="md" colorScheme="gray" display="block" whiteSpace="pre-wrap">
@@ -402,7 +402,7 @@ export function AdvancedAnalysis() {
                     Habit Persistence (ρ): 0.32 (p = 0.05)
                   </Text>
                   <Text color="#64748b" fontSize="sm">
-                    This indicates that <strong>32%</strong> of the previous year's tourism volume "carries over" 
+                    This indicates that <strong>32%</strong> of the previous year's tourism volume "carries over"
                     to the current year, reflecting strong destination loyalty or inertia.
                   </Text>
                 </Box>
@@ -415,8 +415,8 @@ export function AdvancedAnalysis() {
                     <strong>Calculation:</strong> β_LR = β_SR / (1 - ρ) = -2.08 / (1 - 0.32) = -3.07
                   </Text>
                   <Text color="#64748b" fontSize="sm">
-                    <strong>Insight:</strong> The negative impact of a price increase (e.g., Baht appreciation) 
-                    is <strong>amplified over time</strong>. In the short run, tourists may still come due to 
+                    <strong>Insight:</strong> The negative impact of a price increase (e.g., Baht appreciation)
+                    is <strong>amplified over time</strong>. In the short run, tourists may still come due to
                     pre-booked plans, but in the long run, they switch to cheaper destinations.
                   </Text>
                 </Box>
@@ -434,8 +434,8 @@ export function AdvancedAnalysis() {
                 overflow="hidden"
               >
                 {/* Table Header */}
-                <HStack 
-                  bg="#f1f5f9" 
+                <HStack
+                  bg="#f1f5f9"
                   p={3}
                   borderBottom="1px"
                   borderColor="#e2e8f0"
@@ -451,7 +451,7 @@ export function AdvancedAnalysis() {
 
                 {/* Table Rows */}
                 <VStack align="stretch" gap={0}>
-                  <HStack 
+                  <HStack
                     p={3}
                     borderBottom="1px"
                     borderColor="#f1f5f9"
@@ -463,8 +463,8 @@ export function AdvancedAnalysis() {
                     <Box flex="2" textAlign="center" color="green.600">+0.67</Box>
                     <Box flex="3">Immediate response to price/income changes</Box>
                   </HStack>
-                  
-                  <HStack 
+
+                  <HStack
                     p={3}
                     fontSize="sm"
                     _hover={{ bg: "#f8fafc" }}
@@ -478,18 +478,7 @@ export function AdvancedAnalysis() {
               </Box>
             </Box>
 
-            <Box p={4} bg="#f0f9ff" borderRadius="md" border="1px" borderColor="#bae6fd">
-              <Text fontSize="md" fontWeight="semibold" mb={3} color="#1e293b">
-                Economic Interpretation
-              </Text>
-              <Text color="#64748b" fontSize="sm">
-                The ADL model reveals that Thailand's tourism market exhibits significant <strong>habit persistence</strong>. 
-                This means that policy interventions (like exchange rate management or marketing campaigns) have 
-                <strong>cumulative effects</strong> that build over time. A temporary price advantage doesn't just 
-                boost arrivals in the current year—it creates a base of repeat visitors who are likely to return, 
-                amplifying the long-term benefits.
-              </Text>
-            </Box>
+
           </VStack>
         )}
 
@@ -500,7 +489,7 @@ export function AdvancedAnalysis() {
                 Model 2: Competitive Analysis Panel
               </Text>
               <Text color="#64748b" mb={4}>
-                <strong>Objective:</strong> To compare Thailand's recovery and price sensitivity against key 
+                <strong>Objective:</strong> To compare Thailand's recovery and price sensitivity against key
                 regional competitors (Vietnam, Malaysia, Indonesia).
               </Text>
             </Box>
@@ -510,7 +499,7 @@ export function AdvancedAnalysis() {
                 Methodology
               </Text>
               <Text color="#64748b" mb={4}>
-                We use a <strong>Panel Fixed Effects</strong> model covering the period <strong>2008-2024</strong> 
+                We use a <strong>Panel Fixed Effects</strong> model covering the period <strong>2008-2024</strong>
                 to compare price elasticities across destinations.
               </Text>
             </Box>
@@ -520,18 +509,18 @@ export function AdvancedAnalysis() {
                 Comparative Price Elasticity
               </Text>
               <Text color="#64748b" mb={4}>
-                We estimated the price elasticity for each country individually to see how they compare in terms 
+                We estimated the price elasticity for each country individually to see how they compare in terms
                 of price sensitivity.
               </Text>
-              
+
               <Box mb={6}>
-                <Box 
-                  borderRadius="md" 
-                  overflow="hidden" 
-                  border="1px" 
+                <Box
+                  borderRadius="md"
+                  overflow="hidden"
+                  border="1px"
                   borderColor="#e2e8f0"
                 >
-                  <img 
+                  <img
                     src={`${import.meta.env.BASE_URL}comparative_elasticity.png`}
                     alt="Comparative elasticity across countries"
                     style={{ width: '100%', display: 'block' }}
@@ -562,15 +551,15 @@ export function AdvancedAnalysis() {
               <Text color="#64748b" mb={4}>
                 Comparing 2024 arrivals to pre-pandemic (2019) levels across destinations:
               </Text>
-              
+
               <Box mb={6}>
-                <Box 
-                  borderRadius="md" 
-                  overflow="hidden" 
-                  border="1px" 
+                <Box
+                  borderRadius="md"
+                  overflow="hidden"
+                  border="1px"
                   borderColor="#e2e8f0"
                 >
-                  <img 
+                  <img
                     src={`${import.meta.env.BASE_URL}recovery_scorecard.png`}
                     alt="Recovery scorecard by country"
                     style={{ width: '100%', display: 'block' }}
@@ -600,15 +589,15 @@ export function AdvancedAnalysis() {
               </Text>
               <VStack align="stretch" gap={3}>
                 <Text color="#64748b" fontSize="sm">
-                  <strong>Competitive Positioning:</strong> Thailand and Indonesia compete directly on price, 
+                  <strong>Competitive Positioning:</strong> Thailand and Indonesia compete directly on price,
                   making exchange rate management crucial for market share.
                 </Text>
                 <Text color="#64748b" fontSize="sm">
-                  <strong>Market Differentiation:</strong> Vietnam and Malaysia appear to have successfully 
+                  <strong>Market Differentiation:</strong> Vietnam and Malaysia appear to have successfully
                   differentiated their offerings, reducing price sensitivity.
                 </Text>
                 <Text color="#64748b" fontSize="sm">
-                  <strong>Recovery Strategy:</strong> Thailand's recovery is in line with regional averages, 
+                  <strong>Recovery Strategy:</strong> Thailand's recovery is in line with regional averages,
                   but the high price elasticity suggests vulnerability to currency appreciation.
                 </Text>
               </VStack>
@@ -619,40 +608,32 @@ export function AdvancedAnalysis() {
                 Conclusion
               </Text>
               <Text color="#64748b" mb={4}>
-                This econometric analysis confirms that <strong>Thailand's tourism sector is highly sensitive 
-                to economic fundamentals</strong>.
+                This econometric analysis confirms that <strong>Thailand's tourism sector is highly sensitive
+                  to economic fundamentals</strong>.
               </Text>
-              
+
               <VStack align="stretch" gap={4}>
                 <Box>
                   <Text fontWeight="semibold" color="#1e293b" mb={2}>
                     1. Growth Engine
                   </Text>
                   <Text color="#64748b" fontSize="sm">
-                    Continued growth in China's GDP will naturally drive arrivals, but at a rate less than 1:1 
+                    Continued growth in China's GDP will naturally drive arrivals, but at a rate less than 1:1
                     (inelastic income demand).
                   </Text>
                 </Box>
-                
+
                 <Box>
                   <Text fontWeight="semibold" color="#1e293b" mb={2}>
                     2. Risk Factor
                   </Text>
                   <Text color="#64748b" fontSize="sm">
-                    The <strong>Real Exchange Rate</strong> is a critical variable. A strengthening Baht poses 
+                    The <strong>Real Exchange Rate</strong> is a critical variable. A strengthening Baht poses
                     a significant risk to competitiveness, especially against price-sensitive competitors like Indonesia.
                   </Text>
                 </Box>
-                
-                <Box>
-                  <Text fontWeight="semibold" color="#1e293b" mb={2}>
-                    3. Policy Implication
-                  </Text>
-                  <Text color="#64748b" fontSize="sm">
-                    To maintain competitiveness, Thailand must either manage exchange rate volatility or—more 
-                    sustainably—move up the value chain to reduce price sensitivity (making demand more inelastic).
-                  </Text>
-                </Box>
+
+
               </VStack>
             </Box>
           </VStack>

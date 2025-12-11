@@ -12,7 +12,7 @@ import { ModelStatistics } from '../components/ModelStatistics'
 import { MulticollinearityCheck } from '../components/MulticollinearityCheck'
 import { DiagnosticTestCard } from '../components/DiagnosticTestCard'
 
-type ModelTab = 'development' | 'specification' | 'diagnostics'
+type ModelTab = 'development' | 'diagnostics'
 
 export function Model() {
   const [activeSubTab, setActiveSubTab] = useState<ModelTab>('development')
@@ -44,25 +44,7 @@ export function Model() {
         >
           Model Development
         </Box>
-        <Box
-          px={5}
-          py={3}
-          cursor="pointer"
-          fontWeight={activeSubTab === 'specification' ? 'semibold' : 'medium'}
-          fontSize="sm"
-          color={activeSubTab === 'specification' ? '#1e293b' : '#64748b'}
-          borderBottom="3px"
-          borderColor={activeSubTab === 'specification' ? '#1e293b' : 'transparent'}
-          mb="-2px"
-          _hover={{
-            color: '#1e293b',
-            bg: '#f8fafc',
-          }}
-          transition="all 0.2s"
-          onClick={() => setActiveSubTab('specification')}
-        >
-          Final Specification
-        </Box>
+
         <Box
           px={5}
           py={3}
@@ -352,96 +334,7 @@ export function Model() {
           </VStack>
         )}
 
-        {activeSubTab === 'specification' && (
-          <VStack align="stretch" gap={6}>
-            <Box>
-              <Text fontSize="2xl" fontWeight="semibold" mb={4}>
-                Model Equation
-              </Text>
-              <Box bg="#f8fafc" p={6} borderRadius="md" border="1px" borderColor="#e2e8f0" mb={4}>
-                <Code fontSize="md" colorScheme="gray">
-                  ln(Arrivals_it) = α_i + β₁ ln(GDP_PC_t) + β₂ ln(RER_it) + β₃ (Safety_Index_it) +
-                  β₄ (Competitor_Price_it) + ε_it
-                </Code>
-              </Box>
-            </Box>
 
-            <Box>
-              <Text fontSize="2xl" fontWeight="semibold" mb={4}>
-                Variable Definitions
-              </Text>
-              <VStack align="stretch" gap={4}>
-                <Box>
-                  <Text fontWeight="semibold" mb={2}>ln(TA_it)</Text>
-                  <Text color="#64748b">
-                    Natural log of Chinese Tourist Arrivals to country i in year t. Log transformation allows
-                    interpretation of coefficients as percentage changes.
-                  </Text>
-                </Box>
-                <Box>
-                  <Text fontWeight="semibold" mb={2}>ln(GDP_PC_t)</Text>
-                  <Text color="#64748b">
-                    Real GDP Per Capita of China (captures the Income Effect). This controls for China's overall
-                    economic capacity to generate outbound tourism.
-                  </Text>
-                </Box>
-                <Box>
-                  <Text fontWeight="semibold" mb={2}>ln(RER_it)</Text>
-                  <Text color="#64748b">
-                    Real Exchange Rate between China and country i (captures the Price Effect). This measures the
-                    relative cost of travel to each destination.
-                  </Text>
-                </Box>
-                <Box>
-                  <Text fontWeight="semibold" mb={2}>Safety_Index_it</Text>
-                  <Text color="#64748b">
-                    Global Peace Index Score from Vision of Humanity (IEP). Note: This measures objective safety
-                    metrics, not perceived safety from Chinese citizens specifically.
-                  </Text>
-                </Box>
-                <Box>
-                  <Text fontWeight="semibold" mb={2}>α_i</Text>
-                  <Text color="#64748b">
-                    Country-Fixed Effects. This effectively removes all time-invariant characteristics (e.g.,
-                    "France is far away," "Thailand has beaches") from the error term, controlling for unobserved
-                    heterogeneity.
-                  </Text>
-                </Box>
-              </VStack>
-            </Box>
-
-            <Box>
-              <Text fontSize="2xl" fontWeight="semibold" mb={4}>
-                Additional Variables
-              </Text>
-              <VStack align="stretch" gap={4}>
-                <Box>
-                  <Text fontWeight="semibold" mb={2}>Visa Policy (Binary)</Text>
-                  <Text color="#64748b">
-                    1 if the destination country offers free visa to Chinese citizens for that given year, 0 if not.
-                  </Text>
-                </Box>
-                <Box>
-                  <Text fontWeight="semibold" mb={2}>Consumer Price Index (CPI)</Text>
-                  <Text color="#64748b">
-                    Controls for how expensive the country is. Base year set to 2010 = 100.
-                  </Text>
-                </Box>
-              </VStack>
-            </Box>
-
-            <Box>
-              <Text fontSize="2xl" fontWeight="semibold" mb={4}>
-                Model Variations
-              </Text>
-              <Text color="#64748b">
-                We ran two models: the first including Chinese GDP, and the second we switched it out for year fixed
-                effects. For several of the variables, we take the natural log of the value so that our results can be
-                read as percentages. This smooths out massive outliers between countries.
-              </Text>
-            </Box>
-          </VStack>
-        )}
 
 
 

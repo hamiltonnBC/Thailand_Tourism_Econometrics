@@ -5,7 +5,7 @@
  */
 
 import { useState } from 'react'
-import { Box, HStack, Text } from '@chakra-ui/react'
+import { Box, HStack, Text, VStack } from '@chakra-ui/react'
 
 type OverviewTab = 'synopsis' | 'journey' | 'literature'
 
@@ -95,7 +95,7 @@ export function Overview() {
               Using panel data analysis covering 13 destinations from 2005-2024, we employ a Fixed Effects model to
               quantify this phenomenon while controlling for China's economic slowdown and other confounding factors.
               Our gravity-style specification isolates destination-specific effects, allowing us to measure the precise
-              magnitude of Thailand's underperformance. This project is for Mahidol University's Econometrics Course.
+              magnitude of Thailand's underperformance. We ran several other models as well, which can be found throughout the tabs on the left. This project is for Mahidol University's Econometrics Course.
             </Text>
             <Text fontSize="xl" fontWeight="semibold" mb={3} mt={6}>
               Research Questions
@@ -278,6 +278,27 @@ export function Overview() {
                 Safety remains a paramount concern across all Chinese tourist demographics
               </Box>
             </Box>
+
+            <Text fontSize="xl" fontWeight="semibold" mb={3} mt={8}>
+              References
+            </Text>
+            <VStack align="stretch" gap={3} color="#64748b" fontSize="sm" mb={4}>
+              <Text>
+                Yunitaningtyas, Kristiana & Yolanda, Anne & Indahwati, Indahwati. (2019). A panel data analysis of tourism and economic development in Southeast Asian countries. <em>Journal of Physics: Conference Series</em>. 1265. 012028. 10.1088/1742-6596/1265/1/012028.
+              </Text>
+              <Text>
+                Ruan, J., Satjawathee, T., & Awirothananon, T. (2025). The Impact of Digital Technology on Tourism Economic Growth: Empirical Analysis Based on Provincial Panel Data, 2010–2022. <em>Tourism and Hospitality</em>, 6(2), 73. https://doi.org/10.3390/tourhosp6020073
+              </Text>
+              <Text>
+                Huang, L., Volo, S., & Scott, N. (2024). How tourism markets change: insights from Chinese outbound group and independent travellers. <em>Current Issues in Tourism</em>, 28(5), 709–729. https://doi.org/10.1080/13683500.2024.2376892
+              </Text>
+              <Text>
+                Tkacova, A., & Gavurova, B. (2023). Economic sentiment indicators and their prediction capabilities in business cycles of EU countries. <em>Oeconomia Copernicana</em>, 14(3), 977-1008. https://doi.org/10.24136/oc.2023.029
+              </Text>
+              <Text>
+                Clive Morley, Jaume Rosselló, Maria Santana-Gallego. (2014). Gravity models for tourism demand: theory and use. <em>Annals of Tourism Research</em>, 48, 1-10. https://doi.org/10.1016/j.annals.2014.05.008
+              </Text>
+            </VStack>
           </Box>
         )}
       </Box>
